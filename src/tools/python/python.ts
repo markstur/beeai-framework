@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { BaseToolOptions, BaseToolRunOptions, Tool, ToolInput } from "@/tools/base.js";
+import { BaseToolOptions, BaseToolRunOptions, Tool, ToolError, ToolInput } from "@/tools/base.js";
 import { createGrpcTransport } from "@connectrpc/connect-node";
 import { PromiseClient, createPromiseClient } from "@connectrpc/connect";
 import { CodeInterpreterService } from "bee-proto/code_interpreter/v1/code_interpreter_service_connect";
@@ -89,7 +89,7 @@ export class PythonTool extends Tool<PythonToolOutput, PythonToolOptions> {
     });
   }
 
-  protected readonly client: PromiseClient<typeof CodeInterpreterService>;
+  // protected readonly client: PromiseClient<typeof CodeInterpreterService>;
   protected readonly preprocess;
 
   public constructor(options: PythonToolOptions) {
@@ -112,6 +112,7 @@ export class PythonTool extends Tool<PythonToolOutput, PythonToolOptions> {
     this.register();
   }
 
+  // TODO:
   protected _createClient(): PromiseClient<typeof CodeInterpreterService> {
     return createPromiseClient(
       CodeInterpreterService,
@@ -150,16 +151,33 @@ export class PythonTool extends Tool<PythonToolOutput, PythonToolOptions> {
 
     const prefix = "/workspace/";
 
-    const result = await this.client.execute(
-      {
-        sourceCode: await getSourceCode(),
+    const httpUrl = this.options.codeInterpreter.url + "/v1/execute";
+    const response = await fetch(httpUrl, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        source_code: await getSourceCode(),
         executorId: this.options.executorId ?? "default",
         files: Object.fromEntries(
           inputFiles.map((file) => [`${prefix}${file.filename}`, file.pythonId]),
         ),
-      },
-      { signal: run.signal },
-    );
+      })
+    });
+
+    if (!response.ok) {
+      throw new ToolError("HTTP request failed!", [
+        new Error(await response.text()),
+      ]);
+    }
+
+    const result = await response.json()
+
+    // assert (
+      // "Hello World" in response_json["stdout"]
+    // ), "Hello World not found in the output"
 
     // replace absolute paths in "files" with relative paths by removing "/workspace/"
     // skip files that are not in "/workspace"
@@ -188,7 +206,8 @@ export class PythonTool extends Tool<PythonToolOutput, PythonToolOptions> {
         })
         .filter(isTruthy),
     );
-    return new PythonToolOutput(result.stdout, result.stderr, result.exitCode, filesOutput);
+
+    return new PythonToolOutput(result.stdout, result.stderr, result.exit_code, filesOutput);
   }
 
   createSnapshot() {
