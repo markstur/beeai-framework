@@ -8,18 +8,23 @@ icon: "rocket"
    <Step title="Install BeeAI framework">
 
   <CodeGroup>
+    
   ```py Python
   pip install beeai-framework
   ```
+
   ```ts TypeScript
   npm install beeai-framework
   ```
+  
   </CodeGroup>
 
    </Step>
    <Step title="Create your project file">
 
   <CodeGroup>
+
+  {/* <!-- embedme python/examples/workflows/multi_agents.py --> */}
   ```py Python
 # Make sure you have Ollama installed and the 'granite3.1-dense:8b' model downloaded.
 
@@ -86,6 +91,8 @@ async def main() -> None:
 if __name__ == "__main__":
     asyncio.run(main())
   ```
+
+  {/* <!-- embedme typescript/examples/workflows/multiAgents.py --> */}
   ```ts TypeScript
 // Ensure you have Groq set up and your .env is configured.
 
@@ -151,12 +158,15 @@ await workflow
    <Step title="Run the example">
 
   <CodeGroup>
+    
   ```py Python
   python [project_name].py
   ```
+  
   ```ts TypeScript
   npm run start [project_name].ts
   ```
+  
   </CodeGroup>
 
    </Step>
