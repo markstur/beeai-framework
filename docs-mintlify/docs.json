@@ -67,10 +67,10 @@
   },
   "footer": {
     "socials": {
-      "bluesky": "https://bsky.app/profile/beeaiagents.bsky.social",
-      "youtube": "https://www.youtube.com/@BeeAIAgents",
+      "github": "https://github.com/i-am-bee/beeai-framework",
       "discord": "https://discord.gg/NradeA6ZNF",
-      "github": "https://github.com/i-am-bee/beeai-framework"
+      "bluesky": "https://bsky.app/profile/beeaiagents.bsky.social",
+      "youtube": "https://www.youtube.com/@BeeAIAgents"
     }
   }
 }
