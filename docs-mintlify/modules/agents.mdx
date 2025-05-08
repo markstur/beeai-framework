@@ -60,10 +60,7 @@ final_answer: The current weather in Las Vegas is 20.5°C with an apparent tempe
 During execution, the agent emits partial updates as it generates each line, followed by complete updates. Updates follow a strict order: first all partial updates for "thought," then a complete "thought" update, then moving to the next component.
 </Note>
 
-For practical examples, see:
-- [simple.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/simple.py) - Basic example of a ReAct Agent using OpenMeteo and DuckDuckGo tools
-- [react.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/react.py) - More complete example using Wikipedia integration
-- [granite.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/granite.py) - Example using the Granite model
+For practical examples, check out the [Python](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents) or [Typescript](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/agents) agent examples directories.
 
 ---
 
@@ -75,14 +72,18 @@ You can customize your agent's behavior in five ways:
 
 Control how the agent runs by configuring retries, timeouts, and iteration limits.
 
-```py
-response = await agent.run(
-    prompt=prompt,
-    execution=AgentExecutionConfig(max_retries_per_step=3, total_max_retries=10, max_iterations=20),
-).observe(observer)
-```
-
-_Source: [examples/agents/react.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/react.py)_
+  <CodeGroup>
+    ```py Python
+    ## python/examples/agents/react.py
+    response = await agent.run(
+        prompt=prompt,
+        execution=AgentExecutionConfig(max_retries_per_step=3, total_max_retries=10, max_iterations=20),
+    ).observe(observer)
+    ``` 
+    ```ts TypeScript
+    // typescript/examples/agents/react.ts
+    ```
+  </CodeGroup>
 
 <Tip>
 The default is zero retries and no timeout. For complex tasks, increasing the max_iterations is recommended.
@@ -107,7 +108,7 @@ The agent uses several templates that you can override:
     ## python/examples/templates/system_prompt.py
     ```  
     ```ts TypeScript
-    ## typescript/examples/templates/system_prompt.ts
+    // typescript/examples/templates/system_prompt.ts
     ```
   </CodeGroup>
 </Expandable>
