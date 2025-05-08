@@ -13,7 +13,7 @@
 
 </div>
 
-**BeeAI Framework** is an open-source framework for building production-grade multi-agent systems. It is hosted by the Linux Foundation under open governance, ensuring transparency, community-driven development, and enterprise-grade stability. BeeAI Framework provides the flexibility and performance needed for scalable AI systems, supporting both Python and TypeScript with complete feature parity.
+**BeeAI Framework** is an open-source framework for building production-grade multi-agent systems. It is hosted by the Linux Foundation under open governance, ensuring transparency, community-driven development, and enterprise-grade stability. BeeAI Framework provides the flexibility and performance needed for scalable AI systems, supporting both **Python** and **TypeScript** with complete feature parity.
 
 > [!TIP]
 > Get started quickly with the [beeai-framework-py-starter](https://github.com/i-am-bee/beeai-framework-py-starter) template.
