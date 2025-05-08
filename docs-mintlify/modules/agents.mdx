@@ -1,6 +1,5 @@
 ---
 title: "Agents"
-description: ""
 icon: "robot"
 ---
 
@@ -16,11 +15,11 @@ AI agents built on large language models (LLMs) provide a structured approach to
 Agents control the path to solving a problem, acting on feedback to refine their plan, a capability that improves performance and helps them accomplish sophisticated tasks.
 
 <Tip>
-For a deeper understanding of AI agents, read this [research article on AI agents and LLMs](https://research.ibm.com/blog/what-are-ai-agents-llm).
+  For a deeper understanding of AI agents, read this [research article on AI agents and LLMs](https://research.ibm.com/blog/what-are-ai-agents-llm).
 </Tip>
 
 <Note>
-Location within the framework: [beeai_framework/agents](https://github.com/i-am-bee/beeai-framework/tree/python/beeai_framework/agents).
+  Location within the framework: [beeai_framework/agents](https://github.com/i-am-bee/beeai-framework/tree/python/beeai_framework/agents).
 </Note>
 
 ---
@@ -44,6 +43,7 @@ Let's see how a ReActAgent approaches a simple question:
 **Input prompt:** "What is the current weather in Las Vegas?"
 
 **First iteration:**
+
 ```
 thought: I need to retrieve the current weather in Las Vegas. I can use the OpenMeteo function to get the current weather forecast for a location.
 tool_name: OpenMeteo
@@ -51,13 +51,14 @@ tool_input: {"location": {"name": "Las Vegas"}, "start_date": "2024-10-17", "end
 ```
 
 **Second iteration:**
+
 ```
 thought: I have the current weather in Las Vegas in Celsius.
 final_answer: The current weather in Las Vegas is 20.5°C with an apparent temperature of 18.3°C.
 ```
 
 <Note>
-During execution, the agent emits partial updates as it generates each line, followed by complete updates. Updates follow a strict order: first all partial updates for "thought," then a complete "thought" update, then moving to the next component.
+  During execution, the agent emits partial updates as it generates each line, followed by complete updates. Updates follow a strict order: first all partial updates for "thought," then a complete "thought" update, then moving to the next component.
 </Note>
 
 For practical examples, check out the [Python](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents) or [Typescript](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/agents) agent examples directories.
@@ -72,21 +73,35 @@ You can customize your agent's behavior in five ways:
 
 Control how the agent runs by configuring retries, timeouts, and iteration limits.
 
-  <CodeGroup>
-    ```py Python
-    ## python/examples/agents/react.py
-    response = await agent.run(
-        prompt=prompt,
-        execution=AgentExecutionConfig(max_retries_per_step=3, total_max_retries=10, max_iterations=20),
-    ).observe(observer)
-    ``` 
-    ```ts TypeScript
-    // typescript/examples/agents/react.ts
-    ```
-  </CodeGroup>
+<CodeGroup>
+
+```py Python
+response = await agent.run(
+     prompt=prompt,
+     execution=AgentExecutionConfig(max_retries_per_step=3, total_max_retries=10, max_iterations=20),
+).on("*", process_agent_events, EmitterOptions(match_nested=False))
+```
+
+
+```ts TypeScript
+for await (const { prompt } of reader) {
+  const response = await agent
+    .run(
+      { prompt },
+      {
+        execution: {
+          maxRetriesPerStep: 3,
+          totalMaxRetries: 10,
+          maxIterations: 20,
+        },
+      },
+    )
+```
+
+</CodeGroup>
 
 <Tip>
-The default is zero retries and no timeout. For complex tasks, increasing the max_iterations is recommended.
+  The default is zero retries and no timeout. For complex tasks, increasing the max_iterations is recommended.
 </Tip>
 
 ### 2. Overriding Prompt Templates
@@ -94,6 +109,7 @@ The default is zero retries and no timeout. For complex tasks, increasing the ma
 Customize how the agent formats prompts, including the system prompt that defines its behavior.
 
 The agent uses several templates that you can override:
+
 1. **System Prompt** - Defines the agent's behavior and capabilities
 2. **User Prompt** - Formats the user's input
 3. **Tool Error** - Handles tool execution errors
@@ -102,16 +118,17 @@ The agent uses several templates that you can override:
 6. **Tool Not Found Error** - Handles references to missing tools
 7. **Invalid Schema Error** - Handles parsing errors
 
-<Expandable title="Example">
-  <CodeGroup>
-    ```py Python
-    ## python/examples/templates/system_prompt.py
-    ```  
-    ```ts TypeScript
-    // typescript/examples/templates/system_prompt.ts
-    ```
-  </CodeGroup>
-</Expandable>
+<CodeGroup>
+
+{/* <!-- embedme python/examples/templates/system_prompt.py --> */}
+```py Python
+```
+
+{/* <!-- embedme typescript/examples/templates/system_prompt.ts --> */}
+```ts TypeScript
+```
+
+</CodeGroup>
 
 ### 3. Adding Tools
 
@@ -125,16 +142,17 @@ agent = ReActAgent(
 )
 ```
 
-_Source: [examples/agents/simple.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/simple.py)_
+[_Source: examples/agents/simple.py_](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/simple.py)
 
 **Available tools include:**
+
 - Search tools (`DuckDuckGoSearchTool`)
 - Weather tools (`OpenMeteoTool`)
 - Knowledge tools (`LangChainWikipediaTool`)
 - And many more in the `beeai_framework.tools` module
 
 <Tip>
-See the [tools documentation](/python/modules/tools.mdx) for more information on available tools and creating custom tools.
+  See the [tools documentation](/python/modules/tools.mdx) for more information on available tools and creating custom tools.
 </Tip>
 
 ### 4. Configuring Memory
@@ -149,16 +167,17 @@ agent = ReActAgent(
 )
 ```
 
-_Source: [examples/agents/simple.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/simple.py)_
+[_Source: examples/agents/simple.py_](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/simple.py)
 
 **Memory types for different use cases:**
+
 - [UnconstrainedMemory](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/unconstrained_memory.py) - For unlimited storage
 - [SlidingMemory](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/sliding_memory.py) - For keeping only the most recent messages
 - [TokenMemory](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/token_memory.py) - For managing token limits
 - [SummarizeMemory](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/summarize_memory.py) - For summarizing previous conversations
 
 <Tip>
-See the [memory documentation](/python/modules/memory.mdx) for more information on memory types.
+  See the [memory documentation](/python/modules/memory.mdx) for more information on memory types.
 </Tip>
 
 ### 5. Event Observation
@@ -175,14 +194,14 @@ def on_update(emitter: Emitter) -> None:
 output: BeeRunOutput = await agent.run("What's the current weather in Las Vegas?").observe(on_update)
 ```
 
-_Source: [examples/agents/simple.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/simple.py)_
+[_Source: examples/agents/simple.py_](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/simple.py)
 
 <Tip>
-See the [emitter documentation](/python/modules/emitter.mdx) for more information on event observation.
+  See the [emitter documentation](/python/modules/emitter.mdx) for more information on event observation.
 </Tip>
 
 <Tip>
-See the [events documentation](/python/modules/events.mdx) for more information on standard emitter events.
+  See the [events documentation](/python/modules/events.mdx) for more information on standard emitter events.
 </Tip>
 
 ---
@@ -301,7 +320,6 @@ if __name__ == "__main__":
     except FrameworkError as e:
         traceback.print_exc()
         sys.exit(e.explain())
-
 ```
 
 ---
@@ -381,12 +399,12 @@ if __name__ == "__main__":
     except FrameworkError as e:
         traceback.print_exc()
         sys.exit(e.explain())
-
 ```
 
-_Source: [examples/memory/agent_memory.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/agent_memory.py)_
+[_Source: examples/memory/agent_memory.py_](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/agent_memory.py)
 
 **Memory types for different use cases:**
+
 - [UnconstrainedMemory](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/unconstrained_memory.py) - For unlimited storage
 - [SlidingMemory](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/sliding_memory.py) - For keeping only the most recent messages
 - [TokenMemory](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/token_memory.py) - For managing token limits
@@ -488,17 +506,17 @@ if __name__ == "__main__":
     except FrameworkError as e:
         traceback.print_exc()
         sys.exit(e.explain())
-
 ```
 
-_Source: [examples/workflows/multi_agents.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/workflows/multi_agents.py)_
+[_Source: examples/workflows/multi_agents.py_](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/workflows/multi_agents.py)
 
 **Example Workflow Patterns:**
+
 - [multi_agents.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/workflows/multi_agents.py) - Multiple specialized agents working together
 - [memory.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/workflows/memory.py) - Memory-aware workflow for conversation
 
 <Tip>
-See the [workflows documentation](/python/modules/workflows.mdx) for more information.
+  See the [workflows documentation](/python/modules/workflows.mdx) for more information.
 </Tip>
 
 ---
