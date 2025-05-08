@@ -1,26 +1,39 @@
 # BeeAI Framework Documention
 
-Powered by Mintlify
+## Set up a development environment
 
-### Development
+To start contributing to the BeeAI Framework Documentation, follow these steps to set up your development environment:
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the documentation changes locally. To install, use the following command
+1.  **Install Node Version Manager (NVM):** We use `.nvmrc` to specify the required Node.js version. Install [nvm](https://github.com/nvm-sh/nvm) by following the official installation instructions.
 
-```
-npm i -g mintlify
-```
+2.  **Install the Correct Node.js Version:** Use `nvm` to install and use the Node.js version specified in the `.nvmrc` file:
 
-Run the following command from the documentation directory (i.e., where docs.json is located)
-
-```
-mintlify dev
+```bash
+nvm install
+nvm use
 ```
 
-### Publishing Changes
+3. **Install [Yarn](https://yarnpkg.com/) via Corepack:** This project uses Yarn as the package manager. Ensure you have Corepack enabled and install Yarn:
 
-Install the Mintlify Github App to auto propagate changes from the repo to the deployment. Changes will be deployed to production automatically after pushing to the default branch. Find the link to install the app in org's Mintlify dashboard. 
+```bash
+corepack enable
+```
 
-#### Troubleshooting
+4.  **Install Dependencies:** Install all project dependencies by running:
 
-- Mintlify dev isn't running - Run `mintlify install` it'll re-install dependencies.
-- Page loads as a 404 - Make sure you are running in a folder with `docs.json`
+```bash
+yarn install --immutable
+yarn prepare
+```
+
+5. **Run**
+
+```bash
+yarn dev
+```
+
+6. **Embed scripts**
+
+```
+yarn snippets:embed
+```
