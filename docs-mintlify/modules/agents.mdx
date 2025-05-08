@@ -5,14 +5,14 @@ icon: "robot"
 
 ## Overview
 
-AI agents built on large language models (LLMs) provide a structured approach to solving complex problems. Unlike simple LLM interactions, agents can:
+An AI agent is a sophisticated system built on top of large language models (LLMs) that can solve complex problems through structured reasoning and autonomous actions. Unlike simple chatbots that only respond to individual prompts, agents possess several key capabilities:
 
 - 🔄 Execute multi-step reasoning processes
 - 🛠️ Utilize tools to interact with external systems
-- 📝 Remember context from previous interactions
-- 🔍 Plan and revise their approach based on feedback
+- 📝 Remember context across multiple interactions
+- 🔍 Revise their approach based on feedback
 
-Agents control the path to solving a problem, acting on feedback to refine their plan, a capability that improves performance and helps them accomplish sophisticated tasks.
+These capabilities enable agents to autonomously navigate complex problem-solving scenarios, making decisions and adjusting their strategies as needed. This makes them particularly valuable for tasks that require planning, research, data analysis, and multi-step execution.
 
 <Tip>
   For a deeper understanding of AI agents, read this [research article on AI agents and LLMs](https://research.ibm.com/blog/what-are-ai-agents-llm).
@@ -22,21 +22,15 @@ Agents control the path to solving a problem, acting on feedback to refine their
   Location within the framework: [beeai_framework/agents](https://github.com/i-am-bee/beeai-framework/tree/python/beeai_framework/agents).
 </Note>
 
----
+## Agent Types
 
-## Implementation in BeeAI Framework
+BeeAI Framework provides several agent implementations for different use cases:
 
 ### ReAct Agent
 
-BeeAI framework provides a robust implementation of the `ReAct` pattern ([Reasoning and Acting](https://arxiv.org/abs/2210.03629)), which follows this general flow:
-
-```
-Thought → Action → Observation → Thought → ...
-```
+The ReActAgent implements the ReAct ([Reasoning and Acting](https://arxiv.org/abs/2210.03629)) pattern, which structures agent behavior into a cyclical process of reasoning, action, and observation.
 
 This pattern allows agents to reason about a task, take actions using tools, observe results, and continue reasoning until reaching a conclusion.
-
-### Agent Execution Process
 
 Let's see how a ReActAgent approaches a simple question:
 
@@ -58,10 +52,44 @@ final_answer: The current weather in Las Vegas is 20.5°C with an apparent tempe
 ```
 
 <Note>
-  During execution, the agent emits partial updates as it generates each line, followed by complete updates. Updates follow a strict order: first all partial updates for "thought," then a complete "thought" update, then moving to the next component.
+During execution, the agent emits partial updates as it generates each line, followed by complete updates. Updates follow a strict order: first all partial updates for "thought," then a complete "thought" update, then moving to the next component.
 </Note>
 
-For practical examples, check out the [Python](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents) or [Typescript](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/agents) agent examples directories.
+<CodeGroup>
+
+{/* <!-- embedme python/examples/agents/react.py --> */}
+```py Python
+```
+
+{/* <!-- embedme typescript/examples/agents/react.ts --> */}
+```ts TypeScript
+```
+
+</CodeGroup>
+
+### Tool Calling Agent
+
+The ToolCallingAgent is optimized for scenarios where tool usage is the primary focus. It handles tool calls more efficiently and can execute multiple tools in parallel.
+
+<CodeGroup>
+
+{/* <!-- embedme python/examples/agents/toolCalling/agent.py --> */}
+```py Python
+```
+
+{/* <!-- embedme typescript/examples/agents/toolCalling/agent.ts --> */}
+```ts TypeScript
+```
+
+</CodeGroup>
+
+### Remote Agent
+
+The RemoteAgent allows you to connect to agent services running on remote servers, enabling distributed agent architectures.
+
+### Streamlit Agent
+
+The StreamlitAgent is designed for building interactive web applications with Streamlit integration. It can generate rich UI components dynamically.
 
 ---
 
