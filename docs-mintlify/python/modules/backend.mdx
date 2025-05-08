@@ -62,7 +62,7 @@ If you don't see your provider raise an issue [here](https://github.com/i-am-bee
 
 The `Backend` class serves as a central entry point to access models from your chosen provider.
 
-{/* embedme examples/backend/providers/watsonx.py */}
+{/* <!-- embedme python/examples/backend/providers/watsonx.py --> */}
 
 ```py
 import asyncio
@@ -84,7 +84,7 @@ llm = WatsonxChatModel(
     # settings={
     #     "project_id": "WATSONX_PROJECT_ID",
     #     "api_key": "WATSONX_API_KEY",
-    #     "api_base": "WATSONX_API_URL",
+    #     "base_url": "WATSONX_API_URL",
     # },
 )
 
@@ -95,7 +95,7 @@ async def watsonx_from_name() -> None:
         # {
         #     "project_id": "WATSONX_PROJECT_ID",
         #     "api_key": "WATSONX_API_KEY",
-        #     "api_base": "WATSONX_API_URL",
+        #     "base_url": "WATSONX_API_URL",
         # },
     )
     user_message = UserMessage("what states are part of New England?")
@@ -252,7 +252,7 @@ ollama_chat_model = OllamaChatModel("llama3.1")
 
 You can configure various parameters for your chat model:
 
-{/* embedme examples/backend/chat.py */}
+{/* <!-- embedme python/examples/backend/chat.py --> */}
 
 ```python
 import asyncio
@@ -336,7 +336,7 @@ response = await llm.create(messages=[user_message], stream=True)
 
 Generate structured data according to a schema:
 
-{/* embedme examples/backend/structured.py */}
+{/* <!-- embedme python/examples/backend/structured.py --> */}
 
 ```py
 import asyncio
@@ -393,7 +393,7 @@ _Source: /examples/backend/structured.py_
 
 Integrate external tools with your AI model:
 
-{/* embedme examples/backend/tool_calling.py */}
+{/* <!-- embedme python/examples/backend/tool_calling.py --> */}
 
 ```py
 import asyncio
@@ -413,7 +413,7 @@ from beeai_framework.backend import (
 )
 from beeai_framework.errors import FrameworkError
 from beeai_framework.tools import AnyTool, ToolOutput
-from beeai_framework.tools.search import DuckDuckGoSearchTool
+from beeai_framework.tools.search.duckduckgo import DuckDuckGoSearchTool
 from beeai_framework.tools.weather.openmeteo import OpenMeteoTool
 
 

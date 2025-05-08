@@ -61,7 +61,7 @@ Would you like to use a tool from LangChain? See the [LangChain tool example](ht
 
 The simplest way to use a tool is to instantiate it directly and call its `run()` method with appropriate input:
 
-{/* embedme examples/tools/base.py */}
+{/* <!-- embedme python/examples/tools/base.py --> */}
 
 ```py
 import asyncio
@@ -94,7 +94,7 @@ _Source: [/python/examples/tools/base.py](https://github.com/i-am-bee/beeai-fram
 
 Tools often support additional configuration options to customize their behavior:
 
-{/* embedme examples/tools/advanced.py */}
+{/* <!-- embedme python/examples/tools/advanced.py --> */}
 ```py
 import asyncio
 import sys
@@ -134,7 +134,7 @@ COMING SOON: Caching to improve performance and reduce API calls
 
 The true power of tools emerges when integrating them with agents. Tools extend the agent's capabilities, allowing it to perform actions beyond text generation:
 
-{/* embedme examples/tools/agent.py */}
+{/* <!-- embedme python/examples/tools/agent.py --> */}
 
 ```py
 from beeai_framework.adapters.ollama import OllamaChatModel
@@ -152,7 +152,7 @@ _Source: [/python/examples/tools/agent.py](https://github.com/i-am-bee/beeai-fra
 
 For simpler tools, you can use the `tool` decorator to quickly create a tool from a function:
 
-{/* embedme examples/tools/decorator.py */}
+{/* <!-- embedme python/examples/tools/decorator.py --> */}
 
 ```py
 import asyncio
@@ -232,7 +232,7 @@ Use the DuckDuckGo search tool to retrieve real-time search results from across 
 
 <details>
 <Summary>🌟 CLICK HERE to expand the DuckDuckGo Search Tool example</Summary>
-{/* embedme examples/tools/duckduckgo.py */}
+{/* <!-- embedme python/examples/tools/duckduckgo.py --> */}
 
 ```py
 import asyncio
@@ -243,7 +243,7 @@ from beeai_framework.agents.react import ReActAgent
 from beeai_framework.backend import ChatModel
 from beeai_framework.errors import FrameworkError
 from beeai_framework.memory import UnconstrainedMemory
-from beeai_framework.tools.search import DuckDuckGoSearchTool
+from beeai_framework.tools.search.duckduckgo import DuckDuckGoSearchTool
 
 
 async def main() -> None:
@@ -273,7 +273,7 @@ Use the OpenMeteo tool to retrieve real-time weather forecasts including detaile
 
 <details>
 <Summary>🌟 CLICK HERE to expand the OpenMeteo Weather Tool example</Summary>
-{/* embedme examples/tools/openmeteo.py */}
+{/* <!-- embedme python/examples/tools/openmeteo.py --> */}
 
 ```py
 import asyncio
@@ -314,7 +314,7 @@ Use the Wikipedia tool to retrieve detailed information from Wikipedia.org on a 
 
 <details>
 <Summary>🌟 CLICK HERE to expand the Wikipedia tool example</Summary>
-{/* embedme examples/tools/wikipedia.py */}
+{/* <!-- embedme python/examples/tools/wikipedia.py --> */}
 
 ```py
 import asyncio
@@ -322,7 +322,7 @@ import sys
 import traceback
 
 from beeai_framework.errors import FrameworkError
-from beeai_framework.tools.search import (
+from beeai_framework.tools.search.wikipedia import (
     WikipediaTool,
     WikipediaToolInput,
 )
@@ -357,7 +357,7 @@ Check out the [MCP Slack integration tutorial](/python/tutorials.mdx#slack-integ
 
 <details>
 <Summary>🌟 CLICK HERE to expand the MCP tool example</Summary>
-{/* embedme examples/tools/mcp_tool_creation.py */}
+{/* <!-- embedme python/examples/tools/mcp_tool_creation.py --> */}
 
 ```py
 import asyncio
@@ -428,7 +428,7 @@ Key components:
 
 <details>
 <Summary>🌟 CLICK HERE to expand the Python tool example</Summary>
-{/* embedme examples/tools/python_tool.py */}
+{/* <!-- embedme python/examples/tools/python_tool.py --> */}
 
 ```py
 import asyncio
@@ -482,7 +482,7 @@ if __name__ == "__main__":
 ```
 </details>
 
-_Source: [examples/tools/python_tool.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/tools/python_tool.py)_
+_Source: [python/examples/tools/python_tool.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/tools/python_tool.py)_
 
 ### Sandbox tool
 
@@ -493,7 +493,7 @@ This tool requires [beeai-code-interpreter](https://github.com/i-am-bee/bee-code
 </Note>
 <details>
 <Summary>🌟 CLICK HERE to expand the Sandbox tool example</Summary>
-{/* embedme examples/tools/custom/sandbox.py */}
+{/* <!-- embedme python/examples/tools/custom/sandbox.py --> */}
 
 ```py
 import asyncio
@@ -556,7 +556,7 @@ if __name__ == "__main__":
 ```
 </details>
 
-_Source: [examples/tools/custom/sandbox.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/tools/custom/sandbox.py)_
+_Source: [python/examples/tools/custom/sandbox.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/tools/custom/sandbox.py)_
 
 <Tip>
 Environmental variables can be overridden (or defined) in the following ways:
@@ -588,7 +588,7 @@ Here's an example of a simple custom tool that provides riddles:
 
 <details>
 <Summary>🌟 CLICK HERE to expand the basic custom tool example</Summary>
-{/* embedme examples/tools/custom/base.py */}
+{/* <!-- embedme python/examples/tools/custom/base.py --> */}
 
 ```py
 import asyncio
@@ -671,7 +671,7 @@ For more complex scenarios, you can implement tools with robust input validation
 
 <details>
 <Summary>🌟 CLICK HERE to expand the advanced custom tool example</Summary>
-{/* embedme examples/tools/custom/openlibrary.py */}
+{/* <!-- embedme python/examples/tools/custom/openlibrary.py --> */}
 
 ```py
 import asyncio
@@ -684,7 +684,7 @@ from pydantic import BaseModel, Field
 from beeai_framework.context import RunContext
 from beeai_framework.emitter import Emitter
 from beeai_framework.errors import FrameworkError
-from beeai_framework.tools import JSONToolOutput, Tool, ToolInputValidationError, ToolRunOptions
+from beeai_framework.tools import JSONToolOutput, Tool, ToolError, ToolInputValidationError, ToolRunOptions
 
 
 class OpenLibraryToolInput(BaseModel):
@@ -699,7 +699,11 @@ class OpenLibraryToolResult(BaseModel):
     bib_key: str
 
 
-class OpenLibraryTool(Tool[OpenLibraryToolInput, ToolRunOptions, JSONToolOutput]):
+class OpenLibraryToolOutput(JSONToolOutput[OpenLibraryToolResult]):
+    pass
+
+
+class OpenLibraryTool(Tool[OpenLibraryToolInput, ToolRunOptions, OpenLibraryToolOutput]):
     name = "OpenLibrary"
     description = """Provides access to a library of books with information about book titles,
         authors, contributors, publication dates, publisher and isbn."""
@@ -716,7 +720,7 @@ class OpenLibraryTool(Tool[OpenLibraryToolInput, ToolRunOptions, JSONToolOutput]
 
     async def _run(
         self, tool_input: OpenLibraryToolInput, options: ToolRunOptions | None, context: RunContext
-    ) -> JSONToolOutput:
+    ) -> OpenLibraryToolOutput:
         key = ""
         value = ""
         input_vars = vars(tool_input)
@@ -728,7 +732,6 @@ class OpenLibraryTool(Tool[OpenLibraryToolInput, ToolRunOptions, JSONToolOutput]
         else:
             raise ToolInputValidationError("All input values in OpenLibraryToolInput were empty.") from None
 
-        json_output = {}
         async with httpx.AsyncClient() as client:
             response = await client.get(
                 f"https://openlibrary.org/api/books?bibkeys={key}:{value}&jsmcd=data&format=json",
@@ -736,15 +739,11 @@ class OpenLibraryTool(Tool[OpenLibraryToolInput, ToolRunOptions, JSONToolOutput]
             )
             response.raise_for_status()
 
-            json_output = response.json()[f"{key}:{value}"]
+            result = response.json().get(f"{key}:{value}")
+            if not result:
+                raise ToolError(f"No book found with {key}={value}.")
 
-        return JSONToolOutput(
-            result={
-                "preview_url": json_output.get("preview_url", ""),
-                "info_url": json_output.get("info_url", ""),
-                "bib_key": json_output.get("bib_key", ""),
-            }
-        )
+            return OpenLibraryToolOutput(OpenLibraryToolResult.model_validate(result))
 
 
 async def main() -> None:

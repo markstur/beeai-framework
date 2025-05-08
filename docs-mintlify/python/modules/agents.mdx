@@ -97,7 +97,7 @@ response = await agent.run(
 ).observe(observer)
 ```
 
-_Source: [examples/agents/react.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/react.py)_
+_Source: [python/examples/agents/react.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/react.py)_
 
 <Tip>
 The default is zero retries and no timeout. For complex tasks, increasing the max_iterations is recommended.
@@ -106,7 +106,7 @@ The default is zero retries and no timeout. For complex tasks, increasing the ma
 
 Customize how the agent formats prompts, including the system prompt that defines its behavior.
 
-{/* embedme examples/templates/system_prompt.py */}
+{/* <!-- embedme python/examples/templates/system_prompt.py --> */}
 
 ```py
 import sys
@@ -147,7 +147,7 @@ if __name__ == "__main__":
 
 ```
 
-_Source: [examples/templates/system_prompt.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/templates/system_prompt.py)_
+_Source: [python/examples/templates/system_prompt.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/templates/system_prompt.py)_
 
 The agent uses several templates that you can override:
 1. **System Prompt** - Defines the agent's behavior and capabilities
@@ -170,7 +170,7 @@ agent = ReActAgent(
 )
 ```
 
-_Source: [examples/agents/simple.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/simple.py)_
+_Source: [python/examples/agents/simple.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/simple.py)_
 
 **Available tools include:**
 - Search tools (`DuckDuckGoSearchTool`)
@@ -194,7 +194,7 @@ agent = ReActAgent(
 )
 ```
 
-_Source: [examples/agents/simple.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/simple.py)_
+_Source: [python/examples/agents/simple.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/simple.py)_
 
 **Memory types for different use cases:**
 - [UnconstrainedMemory](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/unconstrained_memory.py) - For unlimited storage
@@ -219,7 +219,7 @@ def on_update(emitter: Emitter) -> None:
 output: BeeRunOutput = await agent.run("What's the current weather in Las Vegas?").observe(on_update)
 ```
 
-_Source: [examples/agents/simple.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/simple.py)_
+_Source: [python/examples/agents/simple.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/simple.py)_
 
 <Tip>
 See the [emitter documentation](/python/modules/emitter.mdx) for more information on event observation.
@@ -233,7 +233,7 @@ See the [events documentation](/python/modules/events.mdx) for more information 
 
 To create your own agent, you must implement the agent's base class (`BaseAgent`).
 
-{/* embedme examples/agents/custom_agent.py */}
+{/* <!-- embedme python/examples/agents/custom_agent.py --> */}
 
 ```py
 import asyncio
@@ -352,7 +352,7 @@ if __name__ == "__main__":
 
 Agents can be configured to use memory to maintain conversation context and state.
 
-{/* embedme examples/memory/agent_memory.py */}
+{/* <!-- embedme python/examples/memory/agent_memory.py --> */}
 
 ```py
 import asyncio
@@ -426,7 +426,7 @@ if __name__ == "__main__":
 
 ```
 
-_Source: [examples/memory/agent_memory.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/agent_memory.py)_
+_Source: [python/examples/memory/agent_memory.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/agent_memory.py)_
 
 **Memory types for different use cases:**
 - [UnconstrainedMemory](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/unconstrained_memory.py) - For unlimited storage
@@ -440,7 +440,7 @@ _Source: [examples/memory/agent_memory.py](https://github.com/i-am-bee/beeai-fra
 
 For complex applications, you can create multi-agent workflows where specialized agents collaborate.
 
-{/* embedme examples/workflows/multi_agents.py */}
+{/* <!-- embedme python/examples/workflows/multi_agents.py --> */}
 
 ```py
 import asyncio
@@ -450,7 +450,7 @@ import traceback
 from beeai_framework.backend import ChatModel
 from beeai_framework.emitter import EmitterOptions
 from beeai_framework.errors import FrameworkError
-from beeai_framework.tools.search import WikipediaTool
+from beeai_framework.tools.search.wikipedia import WikipediaTool
 from beeai_framework.tools.weather import OpenMeteoTool
 from beeai_framework.workflows.agent import AgentWorkflow, AgentWorkflowInput
 from examples.helpers.io import ConsoleReader
@@ -506,18 +506,17 @@ async def main() -> None:
                 lambda event: isinstance(event.creator, ChatModel) and event.name == "success",
                 # log data to the console
                 lambda data, event: reader.write(
-                    "Updated message content: "
-                    + "".join(str([message.content[0] for message in data.value.messages]))
-                    + "\n",
-                    data,
+                    "->Got response from the LLM",
+                    "  \n->".join([str(message.content[0].model_dump()) for message in data.value.messages]),
                 ),
                 EmitterOptions(match_nested=True),
             )
             .on(
                 "success",
                 lambda data, event: reader.write(
-                    f"->Step '{data.step}' has been completed with the following outcome:\n",
-                    data.state.final_answer,
+                    f"->Step '{data.step}' has been completed with the following outcome."
+                    f"\n\n{data.state.final_answer}\n\n",
+                    data.model_dump(exclude={"data"}),
                 ),
             )
         )
@@ -533,7 +532,7 @@ if __name__ == "__main__":
 
 ```
 
-_Source: [examples/workflows/multi_agents.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/workflows/multi_agents.py)_
+_Source: [python/examples/workflows/multi_agents.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/workflows/multi_agents.py)_
 
 **Example Workflow Patterns:**
 - [multi_agents.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/workflows/multi_agents.py) - Multiple specialized agents working together

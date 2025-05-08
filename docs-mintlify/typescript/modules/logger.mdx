@@ -10,7 +10,7 @@ In the BeeAI Framework, the [Logger](https://github.com/i-am-bee/beeai-framework
 
 ## Basic Usage
 
-{/* embedme examples/logger/base.ts */}
+{/* <!-- embedme typescript/examples/logger/base.ts --> */}
 
 ```ts
 import { Logger, LoggerLevel } from "beeai-framework/logger/logger";
@@ -33,13 +33,13 @@ logger.error("Error!");
 logger.fatal("Fatal!");
 ```
 
-_Source: [examples/logger/base.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/logger/base.ts)_
+_Source: [typescript/examples/logger/base.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/logger/base.ts)_
 
 ## Usage with Agents
 
 The [Logger](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/src/logger/logger.ts) seamlessly integrates with agents in the framework. Below is an example that demonstrates how logging can be used in conjunction with agents and event emitters.
 
-{/* embedme examples/logger/agent.ts */}
+{/* <!-- embedme typescript/examples/logger/agent.ts --> */}
 
 ```ts
 import { ReActAgent } from "beeai-framework/agents/react/agent";
@@ -73,13 +73,13 @@ const response = await agent.run({ prompt: "Hello!" });
 logger.info(response.result.text);
 ```
 
-_Source: [examples/logger/agent.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/logger/agent.ts)_
+_Source: [typescript/examples/logger/agent.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/logger/agent.ts)_
 
 ## Custom pino instance integration
 
 If you need to integrate your own `pino` instance with the BeeAI Framework Logger, you can do so easily. Below is an example that demonstrates how to create a pino logger and use it with the framework’s [Logger](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/src/logger/logger.ts).
 
-{/* embedme examples/logger/pino.ts */}
+{/* <!-- embedme typescript/examples/logger/pino.ts --> */}
 
 ```ts
 import { Logger } from "beeai-framework/logger/logger";
@@ -100,4 +100,4 @@ const frameworkLogger = new Logger(
 );
 ```
 
-_Source: [examples/logger/pino.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/logger/pino.ts)_
+_Source: [typescript/examples/logger/pino.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/logger/pino.ts)_

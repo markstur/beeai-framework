@@ -7,7 +7,7 @@ Location within the framework `beeai-framework/serializer`.
 Serialization is a process of converting complex data structures or objects into a format that can be easily stored, transmitted, and reconstructed later.
 Serialization is a difficult task, and JavaScript does not provide a magic tool to serialize and deserialize an arbitrary input. That is why we made such one.
 
-{/* embedme examples/serialization/base.ts */}
+{/* <!-- embedme typescript/examples/serialization/base.ts --> */}
 
 ```ts
 import { Serializer } from "beeai-framework/serializer/serializer";
@@ -20,7 +20,7 @@ console.info(deserialized instanceof Date); // true
 console.info(original.toISOString() === deserialized.toISOString()); // true
 ```
 
-_Source: [examples/serialization/base.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/base.ts)_
+_Source: [typescript/examples/serialization/base.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/base.ts)_
 
 <Note>
 Serializer knows how to serialize/deserialize the most well-known JavaScript data structures. Continue reading to see how to register your own.
@@ -38,7 +38,7 @@ Most parts of the framework implement the internal [`Serializable`](https://gith
 
 See the direct usage on the following memory example.
 
-{/* embedme examples/serialization/memory.ts */}
+{/* <!-- embedme typescript/examples/serialization/memory.ts --> */}
 
 ```ts
 import { TokenMemory } from "beeai-framework/memory/tokenMemory";
@@ -53,14 +53,14 @@ const deserialized = await TokenMemory.fromSerialized(serialized);
 await deserialized.add(new AssistantMessage("Bee"));
 ```
 
-_Source: [examples/serialization/memory.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/serialization/memory.ts)_
+_Source: [typescript/examples/serialization/memory.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/serialization/memory.ts)_
 
 ### Serializing unknowns
 
 If you want to serialize a class that the `Serializer` does not know, it throws the `SerializerError` error.
 However, you can tell the `Serializer` how to work with your class by registering it as a serializable.
 
-{/* embedme examples/serialization/customExternal.ts */}
+{/* <!-- embedme typescript/examples/serialization/customExternal.ts --> */}
 
 ```ts
 import { Serializer } from "beeai-framework/serializer/serializer";
@@ -90,11 +90,11 @@ console.info(instance);
 console.info(deserialized);
 ```
 
-_Source: [examples/serialization/customExternal.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/serialization/customExternal.ts)_
+_Source: [typescript/examples/serialization/customExternal.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/serialization/customExternal.ts)_
 
 or you can extend the `Serializable` class.
 
-{/* embedme examples/serialization/customInternal.ts */}
+{/* <!-- embedme typescript/examples/serialization/customInternal.ts --> */}
 
 ```ts
 import { Serializable } from "beeai-framework/internals/serializable";
@@ -128,7 +128,7 @@ console.info(instance);
 console.info(deserialized);
 ```
 
-_Source: [examples/serialization/customInternal.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/serialization/customInternal.ts)_
+_Source: [typescript/examples/serialization/customInternal.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/serialization/customInternal.ts)_
 
 <Tip>
 Most framework components are `Serializable`.
@@ -136,7 +136,7 @@ Most framework components are `Serializable`.
 
 ### Context matters
 
-{/* embedme examples/serialization/context.ts */}
+{/* <!-- embedme typescript/examples/serialization/context.ts --> */}
 
 ```ts
 import { UnconstrainedMemory } from "beeai-framework/memory/unconstrainedMemory";
@@ -153,7 +153,7 @@ const memory = await UnconstrainedMemory.fromSerialized(serialized, {
 console.info(memory.messages);
 ```
 
-_Source: [examples/serialization/context.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/serialization/context.ts)_
+_Source: [typescript/examples/serialization/context.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/serialization/context.ts)_
 
 <Important>
 Ensuring that all classes are registered in advance can be annoying, but there's a good reason for that.

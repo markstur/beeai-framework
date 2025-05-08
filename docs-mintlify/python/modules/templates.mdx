@@ -43,7 +43,7 @@ Location within the framework: [beeai_framework/template](https://github.com/i-a
 
 Create templates with basic variable substitution and type validation.
 
-{/* embedme examples/templates/basic_template.py */}
+{/* <!-- embedme python/examples/templates/basic_template.py --> */}
 
 ```py
 import sys
@@ -83,13 +83,13 @@ if __name__ == "__main__":
 
 This example creates a simple template that formats a user message with a label and input text. The Pydantic model ensures type safety for the template variables.
 
-_Source: [examples/templates/basic_template.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/templates/basic_template.py)_
+_Source: [python/examples/templates/basic_template.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/templates/basic_template.py)_
 
 ### Template functions
 
 Add dynamic content to templates using custom functions.
 
-{/* embedme examples/templates/functions.py */}
+{/* <!-- embedme python/examples/templates/functions.py --> */}
 
 ```py
 import sys
@@ -153,13 +153,13 @@ This example demonstrates how to add custom functions to templates:
 * The `format_meta` function returns the date and author in a readable string
 * Functions can be called directly from the template using Mustache-style syntax
 
-_Source: [examples/templates/functions.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/templates/functions.py)_
+_Source: [python/examples/templates/functions.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/templates/functions.py)_
 
 ### Working with objects
 
 Handle complex nested data structures in templates with proper type validation.
 
-{/* embedme examples/templates/objects.py */}
+{/* <!-- embedme python/examples/templates/objects.py --> */}
 
 ```py
 import sys
@@ -203,13 +203,13 @@ if __name__ == "__main__":
 
 This example shows how to work with nested objects in templates. The Mustache syntax allows for iterating through the responses array and accessing properties of each object.
 
-_Source: [examples/templates/objects.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/templates/objects.py)_
+_Source: [python/examples/templates/objects.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/templates/objects.py)_
 
 ### Working with arrays
 
 Process collections of data within templates for dynamic list generation.
 
-{/* embedme examples/templates/arrays.py */}
+{/* <!-- embedme python/examples/templates/arrays.py --> */}
 
 ```py
 import sys
@@ -248,7 +248,7 @@ if __name__ == "__main__":
 
 This example demonstrates how to iterate over arrays in templates using Mustache's section syntax.
 
-_Source: [examples/templates/arrays.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/templates/arrays.py)_
+_Source: [python/examples/templates/arrays.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/templates/arrays.py)_
 
 ### Template forking
 
@@ -259,7 +259,7 @@ Template forking is useful for:
 * Adding new fields or functionality to existing templates
 * Specializing generic templates for specific use cases
 
-{/* embedme examples/templates/forking.py */}
+{/* <!-- embedme python/examples/templates/forking.py --> */}
 
 ```py
 import sys
@@ -308,7 +308,7 @@ if __name__ == "__main__":
 
 This example shows how to create a new template based on an existing one.
 
-_Source: [examples/templates/forking.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/templates/forking.py)_
+_Source: [python/examples/templates/forking.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/templates/forking.py)_
 
 ### Default values
 
@@ -320,7 +320,7 @@ Provide default values for template variables that can be overridden at runtime.
 
 The framework's agents use specialized templates to structure their behavior. You can customize these templates to alter how agents operate:
 
-{/* embedme examples/templates/system_prompt.py */}
+{/* <!-- embedme python/examples/templates/system_prompt.py --> */}
 
 ```py
 import sys

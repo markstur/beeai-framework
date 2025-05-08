@@ -65,7 +65,7 @@ The framework doesn't have any specialized tools for using Slack API. However, i
 
 Now, copy and paste the following code into `slack_agent.py` module. Then, follow along with the comments for an explanation.
 
-{/* embedme examples/tools/mcp_slack_agent.py */}
+{/* <!-- embedme python/examples/tools/mcp_slack_agent.py --> */}
 
 ```python
 import asyncio
@@ -79,11 +79,11 @@ from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
 from beeai_framework.agents import AgentExecutionConfig
-from beeai_framework.agents.react import ReActAgent
+from beeai_framework.agents.tool_calling import ToolCallingAgent
 from beeai_framework.backend import ChatModel, ChatModelParameters
 from beeai_framework.emitter import EventMeta
 from beeai_framework.errors import FrameworkError
-from beeai_framework.memory import TokenMemory
+from beeai_framework.memory import UnconstrainedMemory
 from beeai_framework.tools.mcp import MCPTool
 from beeai_framework.tools.weather import OpenMeteoTool
 
@@ -102,17 +102,15 @@ server_params = StdioServerParameters(
 )
 
 
-async def slack_tool() -> MCPTool:
-    async with stdio_client(server_params) as (read, write), ClientSession(read, write) as session:
-        await session.initialize()
-        # Discover Slack tools via MCP client
-        slacktools = await MCPTool.from_client(session)
-        filter_tool = filter(lambda tool: tool.name == "slack_post_message", slacktools)
-        slack = list(filter_tool)
-        return slack[0]
+async def slack_tool(session: ClientSession) -> MCPTool:
+    # Discover Slack tools via MCP client
+    slacktools = await MCPTool.from_client(session)
+    filter_tool = filter(lambda tool: tool.name == "slack_post_message", slacktools)
+    slack = list(filter_tool)
+    return slack[0]
 
 
-async def create_agent() -> ReActAgent:
+async def create_agent(session: ClientSession) -> ToolCallingAgent:
     """Create and configure the agent with tools and LLM"""
 
     # Other models to try:
@@ -120,24 +118,23 @@ async def create_agent() -> ReActAgent:
     # "deepseek-r1"
     # ensure the model is pulled before running
     llm = ChatModel.from_name(
-        "ollama:granite3.1-dense:8b",
+        "ollama:llama3.1",
         ChatModelParameters(temperature=0),
     )
 
     # Configure tools
-    slack = await slack_tool()
+    slack = await slack_tool(session)
     weather = OpenMeteoTool()
 
     # Create agent with memory and tools and custom system prompt template
-    agent = ReActAgent(
+    agent = ToolCallingAgent(
         llm=llm,
         tools=[slack, weather],
-        memory=TokenMemory(llm),
+        memory=UnconstrainedMemory(),
         templates={
             "system": lambda template: template.update(
                 defaults={
-                    "instructions": """
-You are a helpful assistant. When prompted to post to Slack, send messages to the #bee-playground channel."""
+                    "instructions": """IMPORTANT: When the user mentions Slack, you must interact with the Slack tool before sending the final answer.""",  # noqa: E501
                 }
             )
         },
@@ -154,16 +151,19 @@ def print_events(data: Any, event: EventMeta) -> None:
 async def main() -> None:
     """Main application loop"""
 
-    # Create agent
-    agent = await create_agent()
+    async with stdio_client(server_params) as (read, write), ClientSession(read, write) as session:
+        await session.initialize()
 
-    # Run agent with the prompt
-    response = await agent.run(
-        prompt="Post to Slack the current temperature in Boston.",
-        execution=AgentExecutionConfig(max_retries_per_step=3, total_max_retries=10, max_iterations=20),
-    ).on("*", print_events)
+        # Create agent
+        agent = await create_agent(session)
 
-    print("Agent 🤖 : ", response.result.text)
+        # Run agent with the prompt
+        response = await agent.run(
+            prompt="Post the current temperature in Prague to the '#bee-playground-xxx' Slack channel.",
+            execution=AgentExecutionConfig(max_retries_per_step=3, total_max_retries=10, max_iterations=20),
+        ).on("*", print_events)
+
+        print("Agent 🤖 : ", response.result.text)
 
 
 if __name__ == "__main__":
@@ -175,7 +175,7 @@ if __name__ == "__main__":
 
 ```
 
-_Source: [examples/tools/mcp_slack_agent.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/tools/mcp_slack_agent.py)_
+_Source: [python/examples/tools/mcp_slack_agent.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/tools/mcp_slack_agent.py)_
 
 ### Running the Slack agent
 
@@ -224,47 +224,31 @@ The `RemoteAgent` class allows you to connect to any agent hosted on the BeeAI p
 
 Here's a simple example that uses the built-in `chat` agent:
 
-{/* embedme examples/agents/experimental/remote.py */}
+{/* <!-- embedme python/examples/agents/experimental/remote.py --> */}
 
 ```py
 import asyncio
-import json
 import sys
 import traceback
 
 from beeai_framework.agents.experimental.remote import RemoteAgent
 from beeai_framework.errors import FrameworkError
+from beeai_framework.memory.unconstrained_memory import UnconstrainedMemory
 from examples.helpers.io import ConsoleReader
 
 
 async def main() -> None:
     reader = ConsoleReader()
 
-    agent = RemoteAgent(agent_name="chat", url="http://127.0.0.1:8333/mcp/sse")
+    agent = RemoteAgent(agent_name="chat", url="http://127.0.0.1:8333/api/v1/acp/", memory=UnconstrainedMemory())
     for prompt in reader:
         # Run the agent and observe events
-        response = (
-            await agent.run(
-                {
-                    "messages": [{"role": "user", "content": prompt}],
-                    "config": {"tools": ["weather", "search", "wikipedia"]},
-                }
-            )
-            .on(
-                "update",
-                lambda data, event: (
-                    reader.write("Agent 🤖 (debug) : ", data.value["logs"][0]["message"])
-                    if "logs" in data.value
-                    else None
-                ),
-            )
-            .on(
-                "error",  # Log errors
-                lambda data, event: reader.write("Agent 🤖 : ", data.error.explain()),
-            )
+        response = await agent.run(prompt).on(
+            "update",
+            lambda data, event: (reader.write("Agent 🤖 (debug) : ", data)),
         )
 
-        reader.write("Agent 🤖 : ", json.loads(response.result.text)["messages"][0]["content"])
+        reader.write("Agent 🤖 : ", response.result.text)
 
 
 if __name__ == "__main__":
@@ -294,7 +278,7 @@ In this example, the `gpt-researcher` agent researches a topic, and the `podcast
 
 You can adjust or expand this pattern to orchestrate more complex multi agent workflows.
 
-{/* embedme examples/workflows/remote.py */}
+{/* <!-- embedme python/examples/workflows/remote.py --> */}
 
 ```py
 import asyncio
@@ -305,6 +289,7 @@ from pydantic import BaseModel
 
 from beeai_framework.agents.experimental.remote import RemoteAgent
 from beeai_framework.errors import FrameworkError
+from beeai_framework.memory.unconstrained_memory import UnconstrainedMemory
 from beeai_framework.workflows import Workflow
 from examples.helpers.io import ConsoleReader
 
@@ -318,34 +303,24 @@ async def main() -> None:
         output: str | None = None
 
     async def research(state: State) -> None:
-        agent = RemoteAgent(agent_name="gpt-researcher", url="http://127.0.0.1:8333/mcp/sse")
+        agent = RemoteAgent(
+            agent_name="gpt-researcher", url="http://127.0.0.1:8333/api/v1/acp", memory=UnconstrainedMemory()
+        )
         # Run the agent and observe events
-        response = (
-            await agent.run({"text": state.topic})
-            .on(
-                "update",
-                lambda data, _: (reader.write("Agent 🤖 (debug) : ", data.value)),
-            )
-            .on(
-                "error",  # Log errors
-                lambda data, _: reader.write("Agent 🤖 : ", data.error.explain()),
-            )
+        response = await agent.run(state.topic).on(
+            "update",
+            lambda data, _: (reader.write("Agent 🤖 (debug) : ", data)),
         )
         state.research = response.result.text
 
     async def podcast(state: State) -> None:
-        agent = RemoteAgent(agent_name="podcast-creator", url="http://127.0.0.1:8333/mcp/sse")
+        agent = RemoteAgent(
+            agent_name="podcast-creator", url="http://127.0.0.1:8333/api/v1/acp", memory=UnconstrainedMemory()
+        )
         # Run the agent and observe events
-        response = (
-            await agent.run({"text": state.research})
-            .on(
-                "update",
-                lambda data, _: (reader.write("Agent 🤖 (debug) : ", data.value)),
-            )
-            .on(
-                "error",  # Log errors
-                lambda data, _: reader.write("Agent 🤖 : ", data.error.explain()),
-            )
+        response = await agent.run(state.research or "").on(
+            "update",
+            lambda data, _: (reader.write("Agent 🤖 (debug) : ", data)),
         )
         state.output = response.result.text
 
@@ -372,4 +347,4 @@ if __name__ == "__main__":
 
 ```
 
-_Source: examples/workflows/remote.py_
+_Source: python/examples/workflows/remote.py_

@@ -40,7 +40,7 @@ Would you like to use a tool from LangChain? See the [example](https://github.co
 
 ### Basic
 
-{/* embedme examples/tools/base.ts */}
+{/* <!-- embedme typescript/examples/tools/base.ts --> */}
 
 ```ts
 import { OpenMeteoTool } from "beeai-framework/tools/weather/openMeteo";
@@ -54,11 +54,11 @@ const result = await tool.run({
 console.log(result.getTextContent());
 ```
 
-_Source: [examples/tools/base.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/base.ts)_
+_Source: [typescript/examples/tools/base.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/base.ts)_
 
 ### Advanced
 
-{/* embedme examples/tools/advanced.ts */}
+{/* <!-- embedme typescript/examples/tools/advanced.ts --> */}
 
 ```ts
 import { OpenMeteoTool } from "beeai-framework/tools/weather/openMeteo";
@@ -87,7 +87,7 @@ console.log(result.result); // prints raw data
 console.log(result.getTextContent()); // prints data as text
 ```
 
-_Source: [examples/tools/advanced.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/advanced.ts)_
+_Source: [typescript/examples/tools/advanced.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/advanced.ts)_
 
 <Tip>
 To learn more about caching, refer to the [Cache documentation page](./cache.md).
@@ -95,7 +95,7 @@ To learn more about caching, refer to the [Cache documentation page](./cache.md)
 
 ### Usage with agents
 
-{/* embedme examples/tools/agent.ts */}
+{/* <!-- embedme typescript/examples/tools/agent.ts --> */}
 
 ```ts
 import { ArXivTool } from "beeai-framework/tools/arxiv";
@@ -110,7 +110,7 @@ const agent = new ReActAgent({
 });
 ```
 
-_Source: [examples/tools/agent.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/agent.ts)_
+_Source: [typescript/examples/tools/agent.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/agent.ts)_
 
 ## Writing a new tool
 
@@ -126,7 +126,7 @@ The recommended and most sustainable way to create a tool is by implementing the
 
 #### Basic
 
-{/* embedme examples/tools/custom/base.ts */}
+{/* <!-- embedme typescript/examples/tools/custom/base.ts --> */}
 
 ```ts
 import {
@@ -186,7 +186,7 @@ export class RiddleTool extends Tool<StringToolOutput> {
 }
 ```
 
-_Source: [examples/tools/custom/base.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/custom/base.ts)_
+_Source: [typescript/examples/tools/custom/base.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/custom/base.ts)_
 
 <Tip>
 `inputSchema` can be asynchronous.
@@ -200,7 +200,7 @@ If you want to return an array or a plain object, use `JSONToolOutput` or implem
 
 If your tool is more complex, you may want to use the full power of the tool abstraction, as the following example shows.
 
-{/* embedme examples/tools/custom/openLibrary.ts */}
+{/* <!-- embedme typescript/examples/tools/custom/openLibrary.ts --> */}
 
 ```ts
 import {
@@ -306,7 +306,7 @@ export class OpenLibraryTool extends Tool<OpenLibraryToolOutput, ToolOptions, To
 }
 ```
 
-_Source: [examples/tools/custom/openLibrary.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/custom/openLibrary.ts)_
+_Source: [typescript/examples/tools/custom/openLibrary.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/custom/openLibrary.ts)_
 
 #### Implementation Notes
 
@@ -384,7 +384,7 @@ _Source: [examples/tools/custom/openLibrary.ts](https://github.com/i-am-bee/beea
 
 The `DynamicTool` allows you to create a tool without extending the base tool class.
 
-{/* embedme examples/tools/custom/dynamic.ts */}
+{/* <!-- embedme typescript/examples/tools/custom/dynamic.ts --> */}
 
 ```ts
 import { DynamicTool, StringToolOutput } from "beeai-framework/tools/base";
@@ -407,7 +407,7 @@ const tool = new DynamicTool({
 });
 ```
 
-_Source: [examples/tools/custom/dynamic.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/custom/dynamic.ts)_
+_Source: [typescript/examples/tools/custom/dynamic.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/custom/dynamic.ts)_
 
 The `name` of the tool is required and must only contain characters between
 a-z, A-Z, 0-9, or one of - or \_.
@@ -417,7 +417,7 @@ The `inputSchema` and `description` are also both required.
 
 If you want to use the Python function, use the [`CustomTool`](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/src/tools/custom.ts).
 
-{/* embedme examples/tools/custom/python.ts */}
+{/* <!-- embedme typescript/examples/tools/custom/python.ts --> */}
 
 ```ts
 import "dotenv/config";
@@ -446,17 +446,18 @@ def get_riddle() -> Optional[Dict[str, str]]:
       Returns None if the request fails.
   """
   url = os.environ.get('API_URL')
-
+  
   try:
       response = requests.get(url)
-      response.raise_for_status()
-      return response.json()
+      response.raise_for_status() 
+      return response.json() 
   except Exception as e:
       return None`,
 );
+
 ```
 
-_Source: [examples/tools/custom/python.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/custom/python.ts)_
+_Source: [typescript/examples/tools/custom/python.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/custom/python.ts)_
 
 <Tip>
 Environmental variables can be overridden (or defined) in the following ways:
@@ -474,7 +475,7 @@ Custom tools are executed within the code interpreter, but they cannot access an
 
 The `MCPTool` allows you to instantiate tools given a connection to [MCP server](https://modelcontextprotocol.io/examples) with tools capability.
 
-{/* embedme examples/tools/mcp.ts */}
+{/* <!-- embedme typescript/examples/tools/mcp.ts --> */}
 
 ```ts
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
@@ -523,7 +524,7 @@ try {
 }
 ```
 
-_Source: [examples/tools/mcp.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/mcp.ts)_
+_Source: [typescript/examples/tools/mcp.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/mcp.ts)_
 
 ## General Tips
 

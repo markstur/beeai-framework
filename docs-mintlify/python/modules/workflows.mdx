@@ -62,7 +62,7 @@ Transitions determine the flow of execution between steps. Each step returns eit
 
 The example below demonstrates a minimal workflow that processes steps in sequence. This pattern is useful for straightforward, linear processes where each step builds on the previous one.
 
-{/* embedme examples/workflows/simple.py */}
+{/* <!-- embedme python/examples/workflows/simple.py --> */}
 
 ```py
 import asyncio
@@ -97,13 +97,13 @@ if __name__ == "__main__":
 
 ```
 
-_Source: [examples/workflows/simple.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/workflows/simple.py)_
+_Source: [python/examples/workflows/simple.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/workflows/simple.py)_
 
 ### Multi-Step Workflow
 
 This advanced example showcases a workflow that implements multiplication through repeated addition—demonstrating control flow, state manipulation, nesting, and conditional logic.
 
-{/* embedme examples/workflows/nesting.py */}
+{/* <!-- embedme python/examples/workflows/nesting.py --> */}
 
 ```py
 import asyncio
@@ -188,7 +188,7 @@ This workflow demonstrates several powerful concepts:
 
 Workflow nesting allows complex behaviors to be encapsulated as reusable components, enabling hierarchical composition of workflows. This promotes modularity, reusability, and better organization of complex agent logic.
 
-{/* embedme examples/workflows/nesting.py */}
+{/* <!-- embedme python/examples/workflows/nesting.py --> */}
 
 ```py
 import asyncio
@@ -262,7 +262,7 @@ _Source: [examples/workflows/nesting.py](https://github.com/i-am-bee/beeai-frame
 
 The multi-agent workflow pattern enables the orchestration of specialized agents that collaborate to solve complex problems. Each agent focuses on a specific domain or capability, with results combined by a coordinator agent.
 
-{/* embedme examples/workflows/multi_agents.py */}
+{/* <!-- embedme python/examples/workflows/multi_agents.py --> */}
 
 ```py
 import asyncio
@@ -272,7 +272,7 @@ import traceback
 from beeai_framework.backend import ChatModel
 from beeai_framework.emitter import EmitterOptions
 from beeai_framework.errors import FrameworkError
-from beeai_framework.tools.search import WikipediaTool
+from beeai_framework.tools.search.wikipedia import WikipediaTool
 from beeai_framework.tools.weather import OpenMeteoTool
 from beeai_framework.workflows.agent import AgentWorkflow, AgentWorkflowInput
 from examples.helpers.io import ConsoleReader
@@ -328,18 +328,17 @@ async def main() -> None:
                 lambda event: isinstance(event.creator, ChatModel) and event.name == "success",
                 # log data to the console
                 lambda data, event: reader.write(
-                    "Updated message content: "
-                    + "".join(str([message.content[0] for message in data.value.messages]))
-                    + "\n",
-                    data,
+                    "->Got response from the LLM",
+                    "  \n->".join([str(message.content[0].model_dump()) for message in data.value.messages]),
                 ),
                 EmitterOptions(match_nested=True),
             )
             .on(
                 "success",
                 lambda data, event: reader.write(
-                    f"->Step '{data.step}' has been completed with the following outcome:\n",
-                    data.state.final_answer,
+                    f"->Step '{data.step}' has been completed with the following outcome."
+                    f"\n\n{data.state.final_answer}\n\n",
+                    data.model_dump(exclude={"data"}),
                 ),
             )
         )
@@ -372,7 +371,7 @@ See the [events documentation](/python/modules/events.mdx) for more information 
 
 Integrating memory into workflows allows agents to maintain context across interactions, enabling conversational interfaces and stateful processing. This example demonstrates a simple conversational echo workflow with persistent memory.
 
-{/* embedme examples/workflows/memory.py */}
+{/* <!-- embedme python/examples/workflows/memory.py --> */}
 
 ```py
 import asyncio
