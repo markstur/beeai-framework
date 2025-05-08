@@ -20,15 +20,13 @@
 
 ## Key Features
 
-| **Feature**               | **Description**                              |
-| :------------------------ | :---------------------------------------------- |
-| 🌍 **Dual Language Support** | Complete feature parity between Python and TypeScript implementations |
-| 🔄 **Workflow Composition**  | Complex multi-agent workflow management with state handling |
-| 🔌 **Provider Agnostic**     | Supports 10+ LLM providers including Ollama, Groq, OpenAI, Watsonx.ai, and more |
-| 🧠 **Advanced Memory Support** | Four memory strategies optimized for different use cases, with support for custom memory |
-| 🛠️ **Seamless Integration**  | Support for integrating with LangChain tools or using the Model Context Protocol plus custom tool development |
-| ⚡ **Production Optimization** | Built-in caching, memory optimization, and resource management |
-| 📡 **Full Observability**      | Real-time monitoring, OpenTelemetry integration, and detailed tracing |
+- 🌍 **Dual Language Support**: Complete feature parity between Python and TypeScript implementations
+- 🔄 **Workflow Composition**: Complex multi-agent workflow management with state handling
+- 🔌 **Provider Agnostic**: Supports 10+ LLM providers including Ollama, Groq, OpenAI, Watsonx.ai, and more
+- 🧠 **Advanced Memory Support**: Four memory strategies optimized for different use cases, with support for custom memory
+- 🛠️ **Seamless Integration**: Support for integrating with LangChain tools, using the MCP, and custom tool development
+- ⚡ **Production Optimization**: Built-in caching, memory optimization, and resource management
+- 📡 **Full Observability**: Real-time monitoring, OpenTelemetry integration, and detailed tracing
 
 ## Quickstart
 
