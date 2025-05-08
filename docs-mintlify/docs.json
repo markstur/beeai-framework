@@ -39,12 +39,6 @@
           "guides/slack-integration",
           "guides/beeai-platform-integration"
         ]
-      },
-      {
-        "group": "Resources",
-        "pages": [
-          "contribute"
-        ]
       }
     ]
   },

@@ -31,14 +31,13 @@ AI agents built on large language models (LLMs) provide a structured approach to
 
 Agents control the path to solving a problem, acting on feedback to refine their plan, a capability that improves performance and helps them accomplish sophisticated tasks.
 
-> [!TIP]
->
-> For a deeper understanding of AI agents, read this [research article on AI agents and LLMs](https://research.ibm.com/blog/what-are-ai-agents-llm).
+<Tip>
+For a deeper understanding of AI agents, read this [research article on AI agents and LLMs](https://research.ibm.com/blog/what-are-ai-agents-llm).
+</Tip>
 
-> [!NOTE]
->
-> Location within the framework: [beeai_framework/agents](https://github.com/i-am-bee/beeai-framework/tree/python/beeai_framework/agents).
-
+<Note>
+Location within the framework: [beeai_framework/agents](https://github.com/i-am-bee/beeai-framework/tree/python/beeai_framework/agents).
+</Note>
 ---
 
 ## Implementation in BeeAI Framework
@@ -72,8 +71,9 @@ thought: I have the current weather in Las Vegas in Celsius.
 final_answer: The current weather in Las Vegas is 20.5°C with an apparent temperature of 18.3°C.
 ```
 
-> [!NOTE]
-> During execution, the agent emits partial updates as it generates each line, followed by complete updates. Updates follow a strict order: first all partial updates for "thought," then a complete "thought" update, then moving to the next component.
+<Note>
+During execution, the agent emits partial updates as it generates each line, followed by complete updates. Updates follow a strict order: first all partial updates for "thought," then a complete "thought" update, then moving to the next component.
+</Note>
 
 For practical examples, see:
 - [simple.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/simple.py) - Basic example of a ReAct Agent using OpenMeteo and DuckDuckGo tools
@@ -99,9 +99,9 @@ response = await agent.run(
 
 _Source: [examples/agents/react.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/react.py)_
 
-> [!TIP]
-> The default is zero retries and no timeout. For complex tasks, increasing the max_iterations is recommended.
-
+<Tip>
+The default is zero retries and no timeout. For complex tasks, increasing the max_iterations is recommended.
+</Tip>
 ### 2. Overriding Prompt Templates
 
 Customize how the agent formats prompts, including the system prompt that defines its behavior.
@@ -178,8 +178,9 @@ _Source: [examples/agents/simple.py](https://github.com/i-am-bee/beeai-framework
 - Knowledge tools (`LangChainWikipediaTool`)
 - And many more in the `beeai_framework.tools` module
 
-> [!TIP]
-> See the [tools documentation](/python/modules/tools.mdx) for more information on available tools and creating custom tools.
+<Tip>
+See the [tools documentation](/python/modules/tools.mdx) for more information on available tools and creating custom tools.
+</Tip>
 
 ### 4. Configuring Memory
 
@@ -201,9 +202,9 @@ _Source: [examples/agents/simple.py](https://github.com/i-am-bee/beeai-framework
 - [TokenMemory](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/token_memory.py) - For managing token limits
 - [SummarizeMemory](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/summarize_memory.py) - For summarizing previous conversations
 
-> [!TIP]
-> See the [memory documentation](/python/modules/memory.mdx) for more information on memory types.
-
+<Tip>
+See the [memory documentation](/python/modules/memory.mdx) for more information on memory types.
+</Tip>
 ### 5. Event Observation
 
 Monitor the agent's execution by observing events it emits. This allows you to track its reasoning process, handle errors, or implement custom logging.
@@ -220,12 +221,12 @@ output: BeeRunOutput = await agent.run("What's the current weather in Las Vegas?
 
 _Source: [examples/agents/simple.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/simple.py)_
 
-> [!TIP]
-> See the [emitter documentation](/python/modules/emitter.mdx) for more information on event observation.
-
-> [!TIP]
-> See the [events documentation](/python/modules/events.mdx) for more information on standard emitter events.
-
+<Tip>
+See the [emitter documentation](/python/modules/emitter.mdx) for more information on event observation.
+</Tip>
+<Tip>
+See the [events documentation](/python/modules/events.mdx) for more information on standard emitter events.
+</Tip>
 ---
 
 ## Creating Your Own Agent
@@ -538,8 +539,9 @@ _Source: [examples/workflows/multi_agents.py](https://github.com/i-am-bee/beeai-
 - [multi_agents.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/workflows/multi_agents.py) - Multiple specialized agents working together
 - [memory.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/workflows/memory.py) - Memory-aware workflow for conversation
 
-> [!TIP]
-> See the [workflows documentation](/python/modules/workflows.mdx) for more information.
+<Tip>
+See the [workflows documentation](/python/modules/workflows.mdx) for more information.
+</Tip>
 
 ---
 

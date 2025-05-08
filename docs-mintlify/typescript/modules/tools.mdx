@@ -1,8 +1,8 @@
 # Tools
 
-> [!TIP]
->
-> Location within the framework `beeai-framework/tools`.
+<Tip>
+Location within the framework `beeai-framework/tools`.
+</Tip>
 
 Tools in the context of an agent refer to additional functionalities or capabilities integrated with the agent to perform specific tasks beyond text processing.
 
@@ -32,9 +32,9 @@ These tools extend the agent's abilities, allowing it to interact with external 
 
 All examples can be found [here](https://github.com/i-am-bee/beeai-framework/tree/main/typescript/examples/tools).
 
-> [!TIP]
->
-> Would you like to use a tool from LangChain? See the [example](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/langchain.ts).
+<Tip>
+Would you like to use a tool from LangChain? See the [example](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/langchain.ts).
+</Tip>
 
 ## Usage
 
@@ -89,9 +89,9 @@ console.log(result.getTextContent()); // prints data as text
 
 _Source: [examples/tools/advanced.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/advanced.ts)_
 
-> [!TIP]
->
-> To learn more about caching, refer to the [Cache documentation page](./cache.md).
+<Tip>
+To learn more about caching, refer to the [Cache documentation page](./cache.md).
+</Tip>
 
 ### Usage with agents
 
@@ -188,13 +188,13 @@ export class RiddleTool extends Tool<StringToolOutput> {
 
 _Source: [examples/tools/custom/base.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/custom/base.ts)_
 
-> [!TIP]
->
-> `inputSchema` can be asynchronous.
+<Tip>
+`inputSchema` can be asynchronous.
+</Tip>
 
-> [!TIP]
->
-> If you want to return an array or a plain object, use `JSONToolOutput` or implement your own.
+<Tip>
+If you want to return an array or a plain object, use `JSONToolOutput` or implement your own.
+</Tip>
 
 #### Advanced
 
@@ -446,11 +446,11 @@ def get_riddle() -> Optional[Dict[str, str]]:
       Returns None if the request fails.
   """
   url = os.environ.get('API_URL')
-  
+
   try:
       response = requests.get(url)
-      response.raise_for_status() 
-      return response.json() 
+      response.raise_for_status()
+      return response.json()
   except Exception as e:
       return None`,
 );
@@ -458,18 +458,17 @@ def get_riddle() -> Optional[Dict[str, str]]:
 
 _Source: [examples/tools/custom/python.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/custom/python.ts)_
 
-> [!TIP]
->
-> Environmental variables can be overridden (or defined) in the following ways:
->
-> 1. During the creation of a `CustomTool`, either via the constructor or the factory function (`CustomTool.fromSourceCode`).
-> 2. By passing them directly as part of the options when invoking: `myTool.run({ ... }, { env: { MY_ENV: 'MY_VALUE' } })`.
-> 3. Dynamically during execution via [`Emitter`](/typescript/modules/emitter.mdx): `myTool.emitter.on("start", ({ options }) => { options.env.MY_ENV = 'MY_VALUE'; })`.
+<Tip>
+Environmental variables can be overridden (or defined) in the following ways:
 
-> [!IMPORTANT]
->
-> Custom tools are executed within the code interpreter, but they cannot access any files.
-> Only `PythonTool` does.
+1. During the creation of a `CustomTool`, either via the constructor or the factory function (`CustomTool.fromSourceCode`).
+2. By passing them directly as part of the options when invoking: `myTool.run({ ... }, { env: { MY_ENV: 'MY_VALUE' } })`.
+3. Dynamically during execution via [`Emitter`](/typescript/modules/emitter.mdx): `myTool.emitter.on("start", ({ options }) => { options.env.MY_ENV = 'MY_VALUE'; })`.
+</Tip>
+
+<Important>
+Custom tools are executed within the code interpreter, but they cannot access any files. Only `PythonTool` does.
+</Important>
 
 ### Using the `MCPTool` class
 

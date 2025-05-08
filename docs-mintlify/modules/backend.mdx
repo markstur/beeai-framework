@@ -15,11 +15,11 @@ Backend is an umbrella module that encapsulates a unified way to work with the f
 
 BeeAI framework's backend is designed with a provider-based architecture, allowing you to switch between different AI service providers while maintaining a consistent API.
 
-> [!NOTE]
->
-> Location within the framework: [beeai_framework/backend](https://github.com/i-am-bee/beeai-framework/tree/python/beeai_framework/backend).
+<Note>
+Location within the framework: [beeai_framework/backend](https://github.com/i-am-bee/beeai-framework/tree/python/beeai_framework/backend).
+</Note>
 
---- 
+---
 
 ## Supported providers
 
@@ -37,9 +37,9 @@ The following table depicts supported providers. Each provider requires specific
 | `Anthropic`      |  ✅  |         |  | ANTHROPIC_CHAT_MODEL<br/>ANTHROPIC_API_KEY<br/>ANTHROPIC_API_HEADERS |
 | `xAI`           |  ✅  |         | | XAI_CHAT_MODEL<br/>XAI_API_KEY |
 
-> [!TIP]
->
-> If you don't see your provider raise an issue [here](https://github.com/i-am-bee/beeai-framework/discussions). Meanwhile, you can use [Ollama adapter](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/backend/providers/ollama.py).
+<Tip>
+If you don't see your provider raise an issue [here](https://github.com/i-am-bee/beeai-framework/discussions). Meanwhile, you can use [Ollama adapter](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/backend/providers/ollama.py).
+</Tip>
 
 ---
 
@@ -207,8 +207,9 @@ _Source: [examples/backend/providers/watsonx.py](https://github.com/i-am-bee/bee
 
 All providers examples can be found in [examples/backend/providers](https://github.com/i-am-bee/beeai-framework/tree/main/python/examples/backend/providers).
 
-> [!TIP]
-> See the [events documentation](/python/modules/events.mdx) for more information on standard emitter events.
+<Tip>
+See the [events documentation](/python/modules/events.mdx) for more information on standard emitter events.
+</Tip>
 
 ---
 
@@ -299,9 +300,9 @@ response = await ollama_chat_model.create(
 print(response.get_text_content())
 ```
 
-> [!NOTE]
->
-> Execution parameters (those passed to `model.create({...})`) are superior to ones defined via `config`.
+<Note>
+Execution parameters (those passed to `model.create({...})`) are superior to ones defined via `config`.
+</Note>
 
 ### Streaming responses
 
@@ -490,7 +491,7 @@ Coming soon
 
 ## Advanced usage
 
-If your preferred provider isn't directly supported, you can use the LangChain adapter as a bridge. 
+If your preferred provider isn't directly supported, you can use the LangChain adapter as a bridge.
 
 This allows you to leverage any provider that has LangChain compatibility.
 

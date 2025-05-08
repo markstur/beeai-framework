@@ -1,10 +1,10 @@
 # Backend
 
-> [!TIP]
->
-> Location for concrete implementations within the framework `beeai-framework/adapters/provider/backend`.
->
-> Location for base abstraction within the framework `beeai-framework/backend`.
+<Tip>
+Location for concrete implementations within the framework `beeai-framework/adapters/provider/backend`.
+
+Location for base abstraction within the framework `beeai-framework/backend`.
+</Tip>
 
 The backend module is an umbrella module that encapsulates a unified way to work with the following functionalities:
 
@@ -28,9 +28,9 @@ The following table depicts supported providers.
 | `Azure OpenAI`   |  ✅  |    ✅     | `@ai-sdk/azure`          | AZURE_OPENAI_CHAT_MODEL<br/>AZURE_OPENAI_EMBEDDING_MODEL<br/>AZURE_OPENAI_API_KEY<br/>AZURE_OPENAI_API_ENDPOINT<br/>AZURE_OPENAI_API_RESOURCE<br/>AZURE_OPENAI_API_VERSION |
 | `Anthropic`      |  ✅  |    ✅     | `@ai-sdk/anthropic`      | ANTHROPIC_CHAT_MODEL<br/>ANTHROPIC_EMBEDDING_MODEL<br/>ANTHROPIC_API_KEY<br/>ANTHROPIC_API_BASE_URL<br/>ANTHROPIC_API_HEADERS                                             |
 
-> [!TIP]
->
-> If you don't see your provider raise an issue [here](https://github.com/i-am-bee/beeai-framework/discussions). Meanwhile, you can use [LangChain adapter](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/backend/providers/langchain.ts).
+<Tip>
+If you don't see your provider raise an issue [here](https://github.com/i-am-bee/beeai-framework/discussions). Meanwhile, you can use [LangChain adapter](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/backend/providers/langchain.ts).
+</Tip>
 
 ### Initialization
 
@@ -135,9 +135,9 @@ const response = await model.create({
 console.log(response.getTextContent());
 ```
 
-> [!NOTE]
->
-> Execution parameters (those passed to `model.create({...})`) are superior to ones defined via `config`.
+<Note>
+Execution parameters (those passed to `model.create({...})`) are superior to ones defined via `config`.
+</Note>
 
 ### Streaming responses
 

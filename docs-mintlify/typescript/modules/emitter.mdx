@@ -28,9 +28,9 @@ await root.emit("end", { id: 123 });
 
 _Source: [examples/emitter/base.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/emitter/base.ts)_
 
-> [!NOTE]
->
-> You can create your own emitter by initiating the `Emitter` class, but typically it's better to use or fork the root one (as can be seen in the following examples).
+<Note>
+You can create your own emitter by initiating the `Emitter` class, but typically it's better to use or fork the root one (as can be seen in the following examples).
+</Note>
 
 ### Advanced
 
@@ -70,10 +70,10 @@ await emitter.emit("update", { id: 123, data: "Hello Bee!" });
 
 _Source: [examples/emitter/advanced.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/emitter/advanced.ts)_
 
-> [!NOTE]
->
-> Because we created the `Emitter` instance directly emitted events will not be propagated to the `root` which may or may not be desired.
-> The `piping` concept is explained later on.
+<Note>
+Because we created the `Emitter` instance directly emitted events will not be propagated to the `root` which may or may not be desired.
+The `piping` concept is explained later on.
+</Note>
 
 ### Event Matching
 
@@ -189,14 +189,14 @@ await agent
 
 _Source: [examples/emitter/agentMatchers.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/emitter/agentMatchers.ts)_
 
-> [!IMPORTANT]
->
-> The `observe` method is also supported on [`Tools`](./tools.md) and [`Backend`](./backend.md).
+<Important>
+The `observe` method is also supported on [`Tools`](./tools.md) and [`Backend`](./backend.md).
+</Important>
 
-> [!TIP]
->
-> The more complex agentic example can be found [here](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/agents/react.ts).
+<Tip>
+The more complex agentic example can be found [here](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/agents/react.ts).
+</Tip>
 
-> [!TIP]
->
-> To verify if a given class instance has one, check for the presence of the `emitter` property.
+<Tip>
+To verify if a given class instance has one, check for the presence of the `emitter` property.
+</Tip>

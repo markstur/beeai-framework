@@ -1,8 +1,8 @@
 # Serialization
 
-> [!TIP]
->
-> Location within the framework `beeai-framework/serializer`.
+<Tip>
+Location within the framework `beeai-framework/serializer`.
+</Tip>
 
 Serialization is a process of converting complex data structures or objects into a format that can be easily stored, transmitted, and reconstructed later.
 Serialization is a difficult task, and JavaScript does not provide a magic tool to serialize and deserialize an arbitrary input. That is why we made such one.
@@ -22,9 +22,9 @@ console.info(original.toISOString() === deserialized.toISOString()); // true
 
 _Source: [examples/serialization/base.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/base.ts)_
 
-> [!NOTE]
->
-> Serializer knows how to serialize/deserialize the most well-known JavaScript data structures. Continue reading to see how to register your own.
+<Note>
+Serializer knows how to serialize/deserialize the most well-known JavaScript data structures. Continue reading to see how to register your own.
+</Note>
 
 ## Being Serializable
 
@@ -130,9 +130,9 @@ console.info(deserialized);
 
 _Source: [examples/serialization/customInternal.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/serialization/customInternal.ts)_
 
-> [!TIP]
->
-> Most framework components are `Serializable`.
+<Tip>
+Most framework components are `Serializable`.
+</Tip>
 
 ### Context matters
 
@@ -155,7 +155,7 @@ console.info(memory.messages);
 
 _Source: [examples/serialization/context.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/serialization/context.ts)_
 
-> [!IMPORTANT]
->
-> Ensuring that all classes are registered in advance can be annoying, but there's a good reason for that.
-> If we imported all the classes for you, that would significantly increase your application's size and bootstrapping time + you would have to install all peer dependencies that you may not even need.
+<Important>
+Ensuring that all classes are registered in advance can be annoying, but there's a good reason for that.
+If we imported all the classes for you, that would significantly increase your application's size and bootstrapping time + you would have to install all peer dependencies that you may not even need.
+</Important>

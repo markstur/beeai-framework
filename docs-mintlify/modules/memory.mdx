@@ -17,9 +17,9 @@ BeeAI framework provides several memory implementations:
 | [**TokenMemory**](#tokenmemory) | Manages token usage to stay within model context limits |
 | [**SummarizeMemory**](#summarizememory) | Maintains a single summarization of the conversation |
 
-> [!NOTE]
->
-> Location within the framework: [beeai_framework/memory](https://github.com/i-am-bee/beeai-framework/tree/python/beeai_framework/memory).
+<Note>
+Location within the framework: [beeai_framework/memory](https://github.com/i-am-bee/beeai-framework/tree/python/beeai_framework/memory).
+</Note>
 
 ---
 
@@ -136,9 +136,9 @@ if __name__ == "__main__":
 
 _Source: [/python/examples/memory/llm_memory.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/llm_memory.py)_
 
-> [!TIP]
->
-> Memory for non-chat LLMs works exactly the same way.
+<Tip>
+Memory for non-chat LLMs works exactly the same way.
+</Tip>
 
 ### Usage with agents
 
@@ -218,13 +218,13 @@ if __name__ == "__main__":
 
 _Source: [/python/examples/memory/agent_memory.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/agent_memory.py)_
 
-> [!TIP]
->
-> If your memory already contains the user message, run the agent with `prompt: null`.
+<Tip>
+If your memory already contains the user message, run the agent with `prompt: null`.
+</Tip>
 
-> [!NOTE]
->
-> ReAct Agent internally uses `TokenMemory` to store intermediate steps for a given run.
+<Note>
+ReAct Agent internally uses `TokenMemory` to store intermediate steps for a given run.
+</Note>
 
 ---
 
@@ -496,9 +496,9 @@ class MyMemory(BaseMemory):
 
 _Source: [/python/examples/memory/custom.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/custom.py)_
 
-> [!TIP]
->
-> The simplest implementation is `UnconstrainedMemory`.
+<Tip>
+The simplest implementation is `UnconstrainedMemory`.
+</Tip>
 
 ---
 

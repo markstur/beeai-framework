@@ -1,8 +1,8 @@
 # Cache
 
-> [!TIP]
->
-> Location within the framework `beeai-framework/cache`.
+<Tip>
+Location within the framework `beeai-framework/cache`.
+</Tip>
 
 Caching is a process used to temporarily store copies of data or computations in a cache (a storage location) to facilitate faster access upon future requests. The primary purpose of caching is to improve the efficiency and performance of systems by reducing the need to repeatedly fetch or compute the same data from a slower or more resource-intensive source.
 
@@ -94,9 +94,9 @@ const response = await ddg.run({
 
 _Source: [examples/cache/toolCache.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/toolCache.ts)_
 
-> [!IMPORTANT]
->
-> Cache key is created by serializing function parameters (the order of keys in the object does not matter).
+<Important>
+Cache key is created by serializing function parameters (the order of keys in the object does not matter).
+</Important>
 
 ### Usage with LLMs
 
@@ -194,13 +194,13 @@ await cache.set("abc", { firstName: "John", lastName: "Doe" });
 
 _Source: [examples/cache/fileCache.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/fileCache.ts)_
 
-> [!NOTE]
->
-> Provided location (`fullPath`) doesn't have to exist. It gets automatically created when needed.
+<Note>
+Provided location (`fullPath`) doesn't have to exist. It gets automatically created when needed.
+</Note>
 
-> [!NOTE]
->
-> Every modification to the cache (adding, deleting, clearing) immediately updates the target file.
+<Note>
+Every modification to the cache (adding, deleting, clearing) immediately updates the target file.
+</Note>
 
 #### Using a custom provider
 
@@ -284,14 +284,14 @@ console.info(a === service.id); // false
 
 _Source: [examples/cache/decoratorCacheComplex.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/decoratorCacheComplex.ts)_
 
-> [!NOTE]
->
-> Default `cacheKey` function is `ObjectHashKeyFn`
+<Note>
+Default `cacheKey` function is `ObjectHashKeyFn`
+</Note>
 
-> [!CAUTION]
->
-> Calling an annotated method with the `@Cache` decorator with different parameters (despite the fact you are not using them) yields in cache bypass (different arguments = different cache key) generated.
-> Be aware of that. If you want your method always to return the same response, use `SingletonCacheKeyFn`.
+<Caution>
+Calling an annotated method with the `@Cache` decorator with different parameters (despite the fact you are not using them) yields in cache bypass (different arguments = different cache key) generated.
+Be aware of that. If you want your method always to return the same response, use `SingletonCacheKeyFn`.
+</Caution>
 
 ### CacheFn
 
@@ -322,9 +322,9 @@ console.info(token === (await getSecret())); // false
 
 _Source: [examples/cache/cacheFn.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/cacheFn.ts)_
 
-> [!NOTE]
->
-> Internally, the function is wrapped as a class; therefore, the same rules apply here as if it were a method annotated with the `@Cache` decorator.
+<Note>
+Internally, the function is wrapped as a class; therefore, the same rules apply here as if it were a method annotated with the `@Cache` decorator.
+</Note>
 
 ## Creating a custom cache provider
 

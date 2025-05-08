@@ -16,7 +16,7 @@ Welcome to BeeAI framework tutorials! This guide will help you build powerful AI
     - [Implementing the Remote Agent](#implementing-the-remote-agent)
     - [Running the Remote Agent](#running-the-remote-agent)
     - [Advanced Orchestration](#advanced-orchestration)
-      
+
 ---
 
 ## Slack integration
@@ -27,7 +27,7 @@ This tutorial guides you through creating an AI agent that can post messages to 
 
 - **[Python](https://www.python.org/)**: Version 3.11 or higher
 - **[Ollama](https://ollama.com/)**: Installed with the `granite3.1-dense:8b` model pulled
-- **BeeAI framework** installed with `pip install beeai-framework` 
+- **BeeAI framework** installed with `pip install beeai-framework`
 - Project setup:
     - Create project directory: `mkdir beeai-slack-agent && cd beeai-slack-agent`
     - Set up Python virtual environment: `python -m venv venv && source venv/bin/activate`
@@ -191,11 +191,13 @@ You will observe the agent:
 - Use the OpenMeteo tool to get the current temperature
 - Use the `slack_post_message` tool to post to the #bee-playground Slack channel
 
-> [!TIP]
-> As you might have noticed, we made some restrictions to make the agent work with smaller models so that it can be executed locally. With larger LLMs, we could further simplify the code, use more tools, and create simpler prompts.
+<Tip>
+As you might have noticed, we made some restrictions to make the agent work with smaller models so that it can be executed locally. With larger LLMs, we could further simplify the code, use more tools, and create simpler prompts.
+</Tip>
 
-> [!TIP]
-> This tutorial can be easily generalized to any MCP server with tools capability. Just plug it into Bee and execute.
+<Tip>
+This tutorial can be easily generalized to any MCP server with tools capability. Just plug it into Bee and execute.
+</Tip>
 
 ---
 
@@ -203,9 +205,9 @@ You will observe the agent:
 
 [BeeAI platform](https://beeai.dev/) is an open platform to help you discover, run, and compose AI agents from any framework. This tutorial demonstrates how to integrate BeeAI platform agents with the BeeAI Framework using the `RemoteAgent` class.
 
-> [!NOTE]
->
-> BeeAI platform is an open agent platform, while the BeeAI framework is an SDK for developing agents in Python or TypeScript. 
+<Note>
+BeeAI platform is an open agent platform, while the BeeAI framework is an SDK for developing agents in Python or TypeScript.
+</Note>
 
 ### Remote agent prerequisites
 
@@ -288,7 +290,7 @@ python my_agents/remote_agent.py
 
 You can compose multiple BeeAI platform agents into advanced workflows using the BeeAI framework's workflow capabilities. This example demonstrates a research and content creation pipeline:
 
-In this example, the `gpt-researcher` agent researches a topic, and the `podcast-creator` takes the research report and produces a podcast transcript. 
+In this example, the `gpt-researcher` agent researches a topic, and the `podcast-creator` takes the research report and produces a podcast transcript.
 
 You can adjust or expand this pattern to orchestrate more complex multi agent workflows.
 

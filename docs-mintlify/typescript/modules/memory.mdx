@@ -1,8 +1,8 @@
 # Memory
 
-> [!TIP]
->
-> Location within the framework `beeai-framework/memory`.
+<Tip>
+Location within the framework `beeai-framework/memory`.
+</Tip>
 
 Memory in the context of an agent refers to the system's capability to store, recall, and utilize information from past interactions. This enables the agent to maintain context over time, improve its responses based on previous exchanges, and provide a more personalized experience.
 
@@ -63,9 +63,9 @@ for (const message of memory) {
 
 _Source: [examples/memory/llmMemory.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/memory/llmMemory.ts)_
 
-> [!TIP]
->
-> Memory for non-chat LLMs works exactly the same way.
+<Tip>
+Memory for non-chat LLMs works exactly the same way.
+</Tip>
 
 ### Usage with agents
 
@@ -94,17 +94,17 @@ console.info(`Agent: ${agentMessage.text}`); // Agent: Hello! It's nice to chat 
 
 _Source: [examples/memory/agentMemory.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/memory/agentMemory.ts)_
 
-> [!TIP]
->
-> If your memory already contains the user message, run the agent with `prompt: null`.
+<Tip>
+If your memory already contains the user message, run the agent with `prompt: null`.
+</Tip>
 
-> [!NOTE]
->
-> ReAct Agent internally uses `TokenMemory` to store intermediate steps for a given run.
+<Note>
+ReAct Agent internally uses `TokenMemory` to store intermediate steps for a given run.
+</Note>
 
-> [!NOTE]
->
-> Agent typically works with a memory similar to what was just shown.
+<Note>
+Agent typically works with a memory similar to what was just shown.
+</Note>
 
 ## Memory types
 

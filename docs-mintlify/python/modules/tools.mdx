@@ -30,9 +30,9 @@
 
 Tools extend agent capabilities beyond text processing, enabling interaction with external systems and data sources. They act as specialized modules that extend the agent's abilities, allowing it to interact with external systems, access information, and execute actions in response to user queries.
 
-> [!NOTE]
->
-> Location within the framework: [beeai_framework/tools](https://github.com/i-am-bee/beeai-framework/tree/python/beeai_framework/tools).
+<Note>
+Location within the framework: [beeai_framework/tools](https://github.com/i-am-bee/beeai-framework/tree/python/beeai_framework/tools).
+</Note>
 
 ## Built-in tools
 
@@ -41,19 +41,19 @@ Ready-to-use tools that provide immediate functionality for common agent tasks:
 | Tool             | Description                                                                                        |
 |------------------|----------------------------------------------------------------------------------------------------|
 | `DuckDuckGoTool` | Search for data on DuckDuckGo                                                                      |
-| `OpenMeteoTool`  | Retrieve weather information for specific locations and dates                                      | 
-| `WikipediaTool`  | Search for data on Wikipedia                                                                       | 
-| `MCPTool`        | Discover and use tools exposed by arbitrary [MCP Server](https://modelcontextprotocol.io/examples) | 
-| `PythonTool`     | Run arbitrary Python code in a sandboxed environment                                               |  
-| `SandboxTool`    | Run custom Python functions in a sandboxed environment                                             |        
+| `OpenMeteoTool`  | Retrieve weather information for specific locations and dates                                      |
+| `WikipediaTool`  | Search for data on Wikipedia                                                                       |
+| `MCPTool`        | Discover and use tools exposed by arbitrary [MCP Server](https://modelcontextprotocol.io/examples) |
+| `PythonTool`     | Run arbitrary Python code in a sandboxed environment                                               |
+| `SandboxTool`    | Run custom Python functions in a sandboxed environment                                             |
 
 ➕ [Request additional built-in tools](https://github.com/i-am-bee/beeai-framework/discussions)
 
 For detailed usage examples of each built-in tool with complete implementation code, see the [tools examples directory](https://github.com/i-am-bee/beeai-framework/tree/main/python/examples/tools).
 
-> [!TIP]
->
-> Would you like to use a tool from LangChain? See the [LangChain tool example](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/tools/langchain.py).
+<Tip>
+Would you like to use a tool from LangChain? See the [LangChain tool example](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/tools/langchain.py).
+</Tip>
 
 ## Usage
 
@@ -126,9 +126,9 @@ if __name__ == "__main__":
 
 _Source: [/python/examples/tools/advanced.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/tools/advanced.py)_
 
-> [!NOTE]
->
-> COMING SOON: Caching to improve performance and reduce API calls
+<Note>
+COMING SOON: Caching to improve performance and reduce API calls
+</Note>
 
 ### Using tools with agents
 
@@ -230,7 +230,7 @@ _Source: [/python/examples/tools/decorator.py](https://github.com/i-am-bee/beeai
 
 Use the DuckDuckGo search tool to retrieve real-time search results from across the internet, including news, current events, or content from specific websites or domains.
 
-<details> 
+<details>
 <Summary>🌟 CLICK HERE to expand the DuckDuckGo Search Tool example</Summary>
 {/* embedme examples/tools/duckduckgo.py */}
 
@@ -271,7 +271,7 @@ _Source: [/python/examples/tools/duckduckgo.py](https://github.com/i-am-bee/beea
 
 Use the OpenMeteo tool to retrieve real-time weather forecasts including detailed information on temperature, wind speed, and precipitation. Access forecasts predicting weather up to 16 days in the future and archived forecasts for weather up to 30 days in the past. Ideal for obtaining up-to-date weather predictions and recent historical weather trends.
 
-<details> 
+<details>
 <Summary>🌟 CLICK HERE to expand the OpenMeteo Weather Tool example</Summary>
 {/* embedme examples/tools/openmeteo.py */}
 
@@ -312,7 +312,7 @@ _Source: [/python/examples/tools/openmeteo.py](https://github.com/i-am-bee/beeai
 
 Use the Wikipedia tool to retrieve detailed information from Wikipedia.org on a wide range of topics, including famous individuals, locations, organizations, and historical events. Ideal for obtaining comprehensive overviews or specific details on well-documented subjects. May not be suitable for lesser-known or more recent topics. The information is subject to community edits which can be inaccurate.
 
-<details> 
+<details>
 <Summary>🌟 CLICK HERE to expand the Wikipedia tool example</Summary>
 {/* embedme examples/tools/wikipedia.py */}
 
@@ -351,10 +351,11 @@ _Source: [/python/examples/tools/wikipedia.py](https://github.com/i-am-bee/beeai
 
 Leverage the Model Context Protocol (MCP) to define, initialize, and utilize tools on compatible MCP servers. These servers expose executable functionalities, enabling AI models to perform tasks such as computations, API calls, or system operations.
 
-> [!TIP]
-> Check out the [MCP Slack integration tutorial](/python/tutorials.mdx#slack-integration)
+<Tip>
+Check out the [MCP Slack integration tutorial](/python/tutorials.mdx#slack-integration)
+</Tip>
 
-<details> 
+<details>
 <Summary>🌟 CLICK HERE to expand the MCP tool example</Summary>
 {/* embedme examples/tools/mcp_tool_creation.py */}
 
@@ -413,9 +414,9 @@ This enables agents to:
 - Generate visualizations and reports
 - And more
 
-> [!NOTE]
-> This tool requires [beeai-code-interpreter](https://github.com/i-am-bee/bee-code-interpreter) to use. 
-> Get started quickly with [beeai-framework-py-starter](https://github.com/i-am-bee/beeai-framework-py-starter).
+<Note>
+This tool requires [beeai-code-interpreter](https://github.com/i-am-bee/bee-code-interpreter) to use. Get started quickly with [beeai-framework-py-starter](https://github.com/i-am-bee/beeai-framework-py-starter).
+</Note>
 
 Key components:
 - `LocalPythonStorage` – Handles where Python code is stored and run.
@@ -425,7 +426,7 @@ Key components:
   - `code_interpreter_url` – The web address where the code gets executed (default: `http://127.0.0.1:50081`).
   - `storage` – Controls where the code is stored. By default, it saves files locally using `LocalPythonStorage`. You can set up a different storage option, like cloud storage, if needed.
 
-<details> 
+<details>
 <Summary>🌟 CLICK HERE to expand the Python tool example</Summary>
 {/* embedme examples/tools/python_tool.py */}
 
@@ -479,7 +480,7 @@ if __name__ == "__main__":
         sys.exit(e.explain())
 
 ```
-</details> 
+</details>
 
 _Source: [examples/tools/python_tool.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/tools/python_tool.py)_
 
@@ -487,11 +488,10 @@ _Source: [examples/tools/python_tool.py](https://github.com/i-am-bee/beeai-frame
 
 The Sandbox tool provides a way to define and run custom Python functions in a secure, sandboxed environment. It's ideal when you need to encapsulate specific functionality that can be called by the agent.
 
-> [!NOTE]
-> This tool requires [beeai-code-interpreter](https://github.com/i-am-bee/bee-code-interpreter) to use. 
-> Get started quickly with [beeai-framework-py-starter](https://github.com/i-am-bee/beeai-framework-py-starter).
-
-<details> 
+<Note>
+This tool requires [beeai-code-interpreter](https://github.com/i-am-bee/bee-code-interpreter) to use. Get started quickly with [beeai-framework-py-starter](https://github.com/i-am-bee/beeai-framework-py-starter).
+</Note>
+<details>
 <Summary>🌟 CLICK HERE to expand the Sandbox tool example</Summary>
 {/* embedme examples/tools/custom/sandbox.py */}
 
@@ -554,39 +554,39 @@ if __name__ == "__main__":
         sys.exit(e.explain())
 
 ```
-</details> 
+</details>
 
 _Source: [examples/tools/custom/sandbox.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/tools/custom/sandbox.py)_
 
-> [!TIP]
->
-> Environmental variables can be overridden (or defined) in the following ways:
->
-> 1. During the creation of a `SandboxTool`, either via the constructor or the factory function (`SandboxTool.from_source_code`).
-> 2. By passing them directly as part of the options when invoking: `my_tool.run(..., env={ "MY_ENV": "MY_VALUE" })`.
+<Tip>
+Environmental variables can be overridden (or defined) in the following ways:
 
-> [!IMPORTANT]
->
-> Sandbox tools are executed within [beeai-code-interpreter](https://github.com/i-am-bee/bee-code-interpreter), but they cannot access any files.
-> Only `PythonTool` can access files.
+1. During the creation of a `SandboxTool`, either via the constructor or the factory function (`SandboxTool.from_source_code`).
+2. By passing them directly as part of the options when invoking: `my_tool.run(..., env={ "MY_ENV": "MY_VALUE" })`.
+</Tip>
+
+<Important>
+Sandbox tools are executed within [beeai-code-interpreter](https://github.com/i-am-bee/bee-code-interpreter), but they cannot access any files.
+Only `PythonTool` can access files.
+</Important>
 
 ---
 
 ## Creating custom tools
 
-Custom tools allow you to build your own specialized tools to extend agent capabilities. 
+Custom tools allow you to build your own specialized tools to extend agent capabilities.
 
 To create a new tool, implement the base `Tool` class. The framework provides flexible options for tool creation, from simple to complex implementations.
 
-> [!NOTE]
->
-> Initiate the [`Tool`](https://github.com/i-am-bee/beeai-framework/blob/main/python/beeai_framework/tools/tool.py) by passing your own handler (function) with the `name`, `description` and `input schema`.
+<Note>
+Initiate the [`Tool`](https://github.com/i-am-bee/beeai-framework/blob/main/python/beeai_framework/tools/tool.py) by passing your own handler (function) with the `name`, `description` and `input schema`.
+</Note>
 
 ### Basic custom tool
 
 Here's an example of a simple custom tool that provides riddles:
 
-<details> 
+<details>
 <Summary>🌟 CLICK HERE to expand the basic custom tool example</Summary>
 {/* embedme examples/tools/custom/base.py */}
 
@@ -654,23 +654,22 @@ if __name__ == "__main__":
         sys.exit(e.explain())
 
 ```
-</details> 
-  
+</details>
+
 _Source: [/python/examples/tools/custom/base.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/tools/custom/base.py)_
 
-> [!TIP]
->
-> The input schema (`inputSchema`) processing can be asynchronous when needed for more complex validation or preprocessing.
+<Tip>
+The input schema (`inputSchema`) processing can be asynchronous when needed for more complex validation or preprocessing.
+</Tip>
 
-> [!TIP]
->
-> For structured data responses, use `JSONToolOutput` or implement your own custom output type.
-
+<Tip>
+For structured data responses, use `JSONToolOutput` or implement your own custom output type.
+</Tip>
 ### Advanced custom tool
 
 For more complex scenarios, you can implement tools with robust input validation, error handling, and structured outputs:
 
-<details> 
+<details>
 <Summary>🌟 CLICK HERE to expand the advanced custom tool example</Summary>
 {/* embedme examples/tools/custom/openlibrary.py */}
 
@@ -762,8 +761,8 @@ if __name__ == "__main__":
         sys.exit(e.explain())
 
 ```
-</details> 
-  
+</details>
+
 _Source: [/python/examples/tools/custom/openlibrary.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/tools/custom/openlibrary.py)_
 
 ### Implementation guidelines
