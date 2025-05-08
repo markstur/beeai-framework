@@ -87,9 +87,33 @@ The ToolCallingAgent is optimized for scenarios where tool usage is the primary 
 
 The RemoteAgent allows you to connect to agent services running on remote servers, enabling distributed agent architectures.
 
+<CodeGroup>
+
+{/* <!-- embedme python/examples/agents/experimental/remote.py --> */}
+```py Python
+```
+
+{/* <!-- embedme typescript/examples/agents/experimental/remote.ts --> */}
+```ts TypeScript
+```
+
+</CodeGroup>
+
 ### Streamlit Agent
 
 The StreamlitAgent is designed for building interactive web applications with Streamlit integration. It can generate rich UI components dynamically.
+
+<CodeGroup>
+
+{/* <!-- embedme python/examples/agents/experimental/streamlit.py --> */}
+```py Python
+```
+
+{/* <!-- embedme typescript/examples/agents/experimental/streamlit.ts --> */}
+```ts TypeScript
+```
+
+</CodeGroup>
 
 ---
 
@@ -234,13 +258,14 @@ output: BeeRunOutput = await agent.run("What's the current weather in Las Vegas?
 
 ---
 
-## Creating Your Own Agent
+## Creating Custom Agents
 
-To create your own agent, you must implement the agent's base class (`BaseAgent`).
+For advanced use cases, you can create your own agent implementation by extending the `BaseAgent` class.
 
-{/* embedme examples/agents/custom_agent.py */}
+<CodeGroup>
 
-```py
+{/* <!-- embedme python/examples/agents/custom_agent.py --> */}
+```py Python
 import asyncio
 import sys
 import traceback
@@ -350,7 +375,11 @@ if __name__ == "__main__":
         sys.exit(e.explain())
 ```
 
----
+{/* <!-- embedme typescript/examples/agents/custom_agent.ts --> */}
+```ts TypeScript
+```
+
+</CodeGroup>
 
 ## Agent with Memory
 
