@@ -179,7 +179,6 @@ response = await agent.run(
 ).on("*", process_agent_events, EmitterOptions(match_nested=False))
 ```
 
-
 ```ts TypeScript
 for await (const { prompt } of reader) {
   const response = await agent
@@ -231,7 +230,9 @@ The agent uses several templates that you can override:
 
 Enhance your agent's capabilities by providing it with tools to interact with external systems.
 
-```py
+<CodeGroup>
+
+```py Python
 agent = ReActAgent(
     llm=llm,
     tools=[DuckDuckGoSearchTool(), OpenMeteoTool()],
@@ -239,7 +240,15 @@ agent = ReActAgent(
 )
 ```
 
-[_Source: examples/agents/simple.py_](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/simple.py)
+```ts TypeScript
+const agent = new ReActAgent({
+  llm,
+  memory: new TokenMemory(),
+  tools: [new DuckDuckGoSearchTool(), new OpenMeteoTool()],
+});
+```
+
+</CodeGroup>
 
 **Available tools include:**
 
@@ -248,15 +257,19 @@ agent = ReActAgent(
 - Knowledge tools (`LangChainWikipediaTool`)
 - And many more in the `beeai_framework.tools` module
 
-<Tip>
-  See the [tools documentation](/python/modules/tools.mdx) for more information on available tools and creating custom tools.
-</Tip>
-
 ### 4. Configuring Memory
 
 Memory allows your agent to maintain context across multiple interactions.
 
-```python
+Several memory types are available for different use cases:
+- UnconstrainedMemory - For unlimited storage
+- SlidingMemory - For keeping only the most recent messages
+- TokenMemory - For managing token limits
+- SummarizeMemory - For summarizing previous conversations
+
+<CodeGroup>
+
+```py Python
 agent = ReActAgent(
     llm=llm,
     tools=[DuckDuckGoSearchTool(), OpenMeteoTool()],
@@ -264,24 +277,103 @@ agent = ReActAgent(
 )
 ```
 
-[_Source: examples/agents/simple.py_](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/simple.py)
+```ts TypeScript
+const agent = new ReActAgent({
+  llm,
+  memory: new TokenMemory(),
+  tools: [new DuckDuckGoSearchTool(), new OpenMeteoTool()],
+});
+```
 
-**Memory types for different use cases:**
+</CodeGroup>
 
-- [UnconstrainedMemory](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/unconstrained_memory.py) - For unlimited storage
-- [SlidingMemory](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/sliding_memory.py) - For keeping only the most recent messages
-- [TokenMemory](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/token_memory.py) - For managing token limits
-- [SummarizeMemory](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/summarize_memory.py) - For summarizing previous conversations
+<CodeGroup>
 
-<Tip>
-  See the [memory documentation](/python/modules/memory.mdx) for more information on memory types.
-</Tip>
+{/* <!-- embedme python/examples/memory/agent_memory.py --> */}
+```py Python [expandable]
+import asyncio
+import sys
+import traceback
+
+from beeai_framework.agents import AgentExecutionConfig
+from beeai_framework.agents.react import ReActAgent
+from beeai_framework.backend import AssistantMessage, ChatModel, UserMessage
+from beeai_framework.errors import FrameworkError
+from beeai_framework.memory import UnconstrainedMemory
+
+# Initialize the memory and LLM
+memory = UnconstrainedMemory()
+
+
+def create_agent() -> ReActAgent:
+    llm = ChatModel.from_name("ollama:granite3.1-dense:8b")
+
+    # Initialize the agent
+    agent = ReActAgent(llm=llm, memory=memory, tools=[])
+
+    return agent
+
+
+async def main() -> None:
+    # Create user message
+    user_input = "Hello world!"
+    user_message = UserMessage(user_input)
+
+    # Await adding user message to memory
+    await memory.add(user_message)
+    print("Added user message to memory")
+
+    # Create agent
+    agent = create_agent()
+
+    response = await agent.run(
+        prompt=user_input,
+        execution=AgentExecutionConfig(max_retries_per_step=3, total_max_retries=10, max_iterations=20),
+    )
+    print(f"Received response: {response}")
+
+    # Create and store assistant's response
+    assistant_message = AssistantMessage(response.result.text)
+
+    # Await adding assistant message to memory
+    await memory.add(assistant_message)
+    print("Added assistant message to memory")
+
+    # Print results
+    print(f"\nMessages in memory: {len(agent.memory.messages)}")
+
+    if len(agent.memory.messages) >= 1:
+        user_msg = agent.memory.messages[0]
+        print(f"User: {user_msg.text}")
+
+    if len(agent.memory.messages) >= 2:
+        agent_msg = agent.memory.messages[1]
+        print(f"Agent: {agent_msg.text}")
+    else:
+        print("No agent message found in memory")
+
+
+if __name__ == "__main__":
+    try:
+        asyncio.run(main())
+    except FrameworkError as e:
+        traceback.print_exc()
+        sys.exit(e.explain())
+```
+
+{/* <!-- embedme typescript/examples/memory/agentMemory.ts --> */}
+```ts TypeScript [expandable]
+```
+
+</CodeGroup>
 
 ### 5. Event Observation
 
 Monitor the agent's execution by observing events it emits. This allows you to track its reasoning process, handle errors, or implement custom logging.
 
-```py
+<CodeGroup>
+
+```py Python
 def update_callback(data: Any, event: EventMeta) -> None:
     print(f"Agent({data.update.key}) 🤖 : ", data.update.parsed_value)
 
@@ -291,19 +383,19 @@ def on_update(emitter: Emitter) -> None:
 output: BeeRunOutput = await agent.run("What's the current weather in Las Vegas?").observe(on_update)
 ```
 
-[_Source: examples/agents/simple.py_](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/agents/simple.py)
+```ts TypeScript
+const response = await agent
+  .run({ prompt: "What's the current weather in Las Vegas?" })
+  .observe((emitter) => {
+    emitter.on("update", async ({ data, update, meta }) => {
+      console.log(`Agent (${update.key}) 🤖 : `, update.value);
+    });
+  });
+```
 
-<Tip>
-  See the [emitter documentation](/python/modules/emitter.mdx) for more information on event observation.
-</Tip>
+</CodeGroup>
 
-<Tip>
-  See the [events documentation](/python/modules/events.mdx) for more information on standard emitter events.
-</Tip>
-
----
-
-## Creating Custom Agents
+## Custom Agents
 
 For advanced use cases, you can create your own agent implementation by extending the `BaseAgent` class.
 
@@ -426,96 +518,6 @@ if __name__ == "__main__":
 
 </CodeGroup>
 
-## Agent with Memory
-
-Agents can be configured to use memory to maintain conversation context and state.
-
-<CodeGroup>
-
-{/* <!-- embedme python/examples/memory/agent_memory.py --> */}
-```py Python [expandable]
-import asyncio
-import sys
-import traceback
-
-from beeai_framework.agents import AgentExecutionConfig
-from beeai_framework.agents.react import ReActAgent
-from beeai_framework.backend import AssistantMessage, ChatModel, UserMessage
-from beeai_framework.errors import FrameworkError
-from beeai_framework.memory import UnconstrainedMemory
-
-# Initialize the memory and LLM
-memory = UnconstrainedMemory()
-
-
-def create_agent() -> ReActAgent:
-    llm = ChatModel.from_name("ollama:granite3.1-dense:8b")
-
-    # Initialize the agent
-    agent = ReActAgent(llm=llm, memory=memory, tools=[])
-
-    return agent
-
-
-async def main() -> None:
-    # Create user message
-    user_input = "Hello world!"
-    user_message = UserMessage(user_input)
-
-    # Await adding user message to memory
-    await memory.add(user_message)
-    print("Added user message to memory")
-
-    # Create agent
-    agent = create_agent()
-
-    response = await agent.run(
-        prompt=user_input,
-        execution=AgentExecutionConfig(max_retries_per_step=3, total_max_retries=10, max_iterations=20),
-    )
-    print(f"Received response: {response}")
-
-    # Create and store assistant's response
-    assistant_message = AssistantMessage(response.result.text)
-
-    # Await adding assistant message to memory
-    await memory.add(assistant_message)
-    print("Added assistant message to memory")
-
-    # Print results
-    print(f"\nMessages in memory: {len(agent.memory.messages)}")
-
-    if len(agent.memory.messages) >= 1:
-        user_msg = agent.memory.messages[0]
-        print(f"User: {user_msg.text}")
-
-    if len(agent.memory.messages) >= 2:
-        agent_msg = agent.memory.messages[1]
-        print(f"Agent: {agent_msg.text}")
-    else:
-        print("No agent message found in memory")
-
-
-if __name__ == "__main__":
-    try:
-        asyncio.run(main())
-    except FrameworkError as e:
-        traceback.print_exc()
-        sys.exit(e.explain())
-```
-
-{/* <!-- embedme typescript/examples/memory/agentMemory.ts --> */}
-```ts TypeScript [expandable]
-```
-
-</CodeGroup>
-
-You may choose the appropriate memory strategy based on your use case:
-- UnconstrainedMemory: Unlimited message storage
-- SlidingMemory: Fixed-size message window
-- TokenMemory: Token-count based memory management
-- SummarizeMemory: Summarizes conversation history
-
 ## Agent Workflows
 
 For complex applications, you can create multi-agent workflows where specialized agents collaborate.
@@ -625,7 +627,7 @@ if __name__ == "__main__":
   <Card title="Python" icon="python" href="https://github.com/i-am-bee/beeai-framework/tree/main/python/examples/agents">
     Explore reference agent implementations in Python
   </Card>
-  <Card title="Typescript" icon="typescript" href="https://github.com/i-am-bee/beeai-framework/tree/main/typescript/examples/agents">
+  <Card title="TypeScript" icon="typescript" href="https://github.com/i-am-bee/beeai-framework/tree/main/typescript/examples/agents">
     Explore reference agent implementations in TypeScript
   </Card>
 </CardGroup>
