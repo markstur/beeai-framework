@@ -85,9 +85,9 @@ The ToolCallingAgent is optimized for scenarios where tool usage is the primary 
 
 ### Remote Agent
 
-The RemoteAgent is a client that lets your application communicate with AI agents running on remote servers over HTTP or WebSocket. Instead of running all your agent logic locally, RemoteAgent lets you offload computation to a dedicated service, making it ideal for production-scale, distributed systems.
+The RemoteAgent facilitates communication with remote agents through API endpoints. It allows you to send prompts to agents, receive responses, and manage the agent’s state via an asynchronous interface. This enables integration with external agents hosted on remote servers, eliminating the need to host or run agents locally.
 
-Think of it as a remote control for an AI agent that's deployed somewhere else - whether that's your own cloud service, a Docker container, or a third-party provider like OpenAI or Claude.
+RemoteAgent can be utilized to build multi-agent systems by interacting with multiple agents via different API endpoints. You can integrate several agents into a single application, each exposing its functionality through its respective remote API.
 
 <CodeGroup>
 
