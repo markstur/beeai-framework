@@ -84,9 +84,17 @@ The ToolCallingAgent is optimized for scenarios where tool usage is the primary 
 
 ### Remote Agent
 
-The RemoteAgent is a client-side abstraction for communicating with remote agents over API endpoints. It provides an asynchronous interface for sending prompts, receiving responses, and managing agent state. This allows agents to run on remote servers, containers, or cloud environments, rather than locally.
+The RemoteAgent is a powerful client-side abstraction designed to facilitate communication with agents running on remote servers, containers, or cloud environments. It provides an asynchronous interface for sending prompts, receiving responses, and managing agent state.
 
-RemoteAgent is useful for building multi-agent systems by interacting with multiple agents through different API URLs. Each agent can handle a distinct task, and you can coordinate them within a single application. This makes it easy to compose modular, distributed agent systems, regardless of the framework or runtime each agent is built on.
+Use RemoteAgent with the framework’s workflow component to build multi-agent systems that:
+- Connect to multiple agents, each hosted at a different API URL
+- Coordinate all agents within a single application
+- Add or remove agents easily, thanks to a modular design
+- Work across different technologies, even if agents are built with different frameworks or run in different environments
+
+<Tip>
+Before running a RemoteAgent, ensure the agent server is running at the specified URL.
+</Tip>
 
 <CodeGroup>
 
