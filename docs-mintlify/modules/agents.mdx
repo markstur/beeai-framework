@@ -5,7 +5,7 @@ icon: "robot"
 
 ## Overview
 
-An AI agent is a sophisticated system built on top of large language models (LLMs) that can solve complex problems through structured reasoning and autonomous actions. Unlike simple chatbots that only respond to individual prompts, agents possess several key capabilities:
+An AI agent is a sophisticated system built on top of large language models (LLMs) that can solve complex problems through structured reasoning and autonomous actions. Unlike simple chatbots that only respond to individual prompts, agents are able to:
 
 - 🔄 Execute multi-step reasoning processes
 - 🛠️ Utilize tools to interact with external systems
@@ -100,24 +100,6 @@ RemoteAgent is useful for building multi-agent systems by interacting with multi
 ```
 
 </CodeGroup>
-
-### Streamlit Agent
-
-The StreamlitAgent is designed for building interactive web applications with Streamlit integration. It can generate rich UI components dynamically.
-
-<CodeGroup>
-
-{/* <!-- embedme python/examples/agents/experimental/streamlit.py --> */}
-```py Python
-```
-
-{/* <!-- embedme typescript/examples/agents/experimental/streamlit.ts --> */}
-```ts TypeScript
-```
-
-</CodeGroup>
-
----
 
 ## Customizing Agent Behavior
 
@@ -387,9 +369,8 @@ if __name__ == "__main__":
 
 Agents can be configured to use memory to maintain conversation context and state.
 
-{/* embedme examples/memory/agent_memory.py */}
-
-```py
+{/* <!-- embedme python/examples/memory/agent_memory.py --> */}
+```py Python
 import asyncio
 import sys
 import traceback
@@ -460,24 +441,24 @@ if __name__ == "__main__":
         sys.exit(e.explain())
 ```
 
-[_Source: examples/memory/agent_memory.py_](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/agent_memory.py)
+{/* <!-- embedme typescript/examples/memory/agentMemory.ts --> */}
+```ts TypeScript
+```
 
-**Memory types for different use cases:**
+</CodeGroup>
 
-- [UnconstrainedMemory](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/unconstrained_memory.py) - For unlimited storage
-- [SlidingMemory](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/sliding_memory.py) - For keeping only the most recent messages
-- [TokenMemory](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/token_memory.py) - For managing token limits
-- [SummarizeMemory](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/memory/summarize_memory.py) - For summarizing previous conversations
-
----
+You may choose the appropriate memory strategy based on your use case:
+- UnconstrainedMemory: Unlimited message storage
+- SlidingMemory: Fixed-size message window
+- TokenMemory: Token-count based memory management
+- SummarizeMemory: Summarizes conversation history
 
 ## Agent Workflows
 
 For complex applications, you can create multi-agent workflows where specialized agents collaborate.
 
-{/* embedme examples/workflows/multi_agents.py */}
-
-```py
+{/* <!-- embedme python/examples/workflows/multi_agents.py --> */}
+```py Python
 import asyncio
 import sys
 import traceback
@@ -567,19 +548,19 @@ if __name__ == "__main__":
         sys.exit(e.explain())
 ```
 
-[_Source: examples/workflows/multi_agents.py_](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/workflows/multi_agents.py)
+{/* <!-- embedme typescript/examples/workflows/multiAgents.ts --> */}
+```ts TypeScript
+```
 
-**Example Workflow Patterns:**
-
-- [multi_agents.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/workflows/multi_agents.py) - Multiple specialized agents working together
-- [memory.py](https://github.com/i-am-bee/beeai-framework/blob/main/python/examples/workflows/memory.py) - Memory-aware workflow for conversation
-
-<Tip>
-  See the [workflows documentation](/python/modules/workflows.mdx) for more information.
-</Tip>
-
----
+</CodeGroup>
 
 ## Examples
 
-- All agent examples can be found in [here](https://github.com/i-am-bee/beeai-framework/tree/main/python/examples/agents).
+<CardGroup cols={2}>
+  <Card title="Python" icon="python" href="https://github.com/i-am-bee/beeai-framework/tree/main/python/examples/agents">
+    Explore reference agent implementations in Python
+  </Card>
+  <Card title="Typescript" icon="typescript" href="https://github.com/i-am-bee/beeai-framework/tree/main/typescript/examples/agents">
+    Explore reference agent implementations in TypeScript
+  </Card>
+</CardGroup>
