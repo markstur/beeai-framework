@@ -8,7 +8,7 @@ icon: "file-lines"
 
 Templates are predefined structures used to create consistent outputs. In the context of AI applications, prompt templates provide structured guidance for language models to generate targeted responses. They include placeholders that can be filled with specific information at runtime.
 
-The Framework implements this functionality through the `PromptTemplate` class, which uses Mustache-style syntax (via the `chevron` library) for variable substitution. The implementation adds type safety and validation using Pydantic schemas.
+The Framework implements this functionality through the `PromptTemplate` class, which uses Mustache-style syntax (via the `chevron` library) for variable substitution. The implementation adds type safety and validation using Pydantic or Zod schemas.
 
 At its core, the `PromptTemplate` class:
 * Validates input data against a Pydantic model schema
@@ -23,7 +23,7 @@ Prompt Templates are fundamental building blocks in the framework and are extens
 
 <Note>
 Explore the implementation in [Python](https://github.com/i-am-bee/beeai-framework/tree/main/python/beeai_framework/template.py) or
-[TypeScript](https://github.com/i-am-bee/beeai-framework/tree/main/typescript/src/template.py).
+[TypeScript](https://github.com/i-am-bee/beeai-framework/tree/main/typescript/src/template.ts).
 </Note>
 
 ## Basic usage
@@ -71,12 +71,27 @@ if __name__ == "__main__":
 
 ```
 
+{/* <!-- embedme typescript/examples/templates/primitives.ts --> */}
 ```ts TypeScript [expandable]
-Coming soon
+import { PromptTemplate } from "beeai-framework/template";
+import { z } from "zod";
+
+const greetTemplate = new PromptTemplate({
+  template: `Hello {{name}}`,
+  schema: z.object({
+    name: z.string(),
+  }),
+});
+
+const output = greetTemplate.render({
+  name: "Alex",
+});
+console.log(output); // Hello Alex!
+
 ```
 </CodeGroup>
 
-This example creates a simple template that formats a user message with a label and input text. The Pydantic model ensures type safety for the template variables.
+This example creates a simple template that formats a user message with a label and input text. The Pydantic model or Zod schema ensures type safety for the template variables.
 
 ### Template functions
 
@@ -312,39 +327,22 @@ if __name__ == "__main__":
 
 ```
 
-{/* <!-- embedme python/examples/templates/arrays.py --> */}
+{/* <!-- embedme typescript/examples/templates/arrays.ts --> */}
 ```ts TypeScript [expandable]
-import sys
-import traceback
+import { PromptTemplate } from "beeai-framework/template";
+import { z } from "zod";
 
-from pydantic import BaseModel, Field
+const template = new PromptTemplate({
+  schema: z.object({
+    colors: z.array(z.string()).min(1),
+  }),
+  template: `Colors: {{#trim}}{{#colors}}{{.}},{{/colors}}{{/trim}}`,
+});
 
-from beeai_framework.errors import FrameworkError
-from beeai_framework.template import PromptTemplate, PromptTemplateInput
-
-
-def main() -> None:
-    class ColorsObject(BaseModel):
-        colors: list[str] = Field(..., min_length=1)
-
-    template: PromptTemplate[ColorsObject] = PromptTemplate(
-        PromptTemplateInput(
-            schema=ColorsObject,
-            template="""Colors: {{#colors}}{{.}}, {{/colors}}""",
-        )
-    )
-
-    # Colors: Green, Yellow,
-    output = template.render(colors=["Green", "Yellow"])
-    print(output)
-
-
-if __name__ == "__main__":
-    try:
-        main()
-    except FrameworkError as e:
-        traceback.print_exc()
-        sys.exit(e.explain())
+const output = template.render({
+  colors: ["Green", "Yellow"],
+});
+console.log(output); // Colors: Green,Yellow
 
 ```
 </CodeGroup>

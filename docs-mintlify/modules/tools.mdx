@@ -295,9 +295,42 @@ if __name__ == "__main__":
 
 ```
 
-{/* <!-- todo typescript/examples/tools/duckduckgo.ts --> */}
+{/* <!-- embedme typescript/examples/tools/custom/extending.ts --> */}
 ```ts TypeScript [expandable]
-Example coming soon
+import { z } from "zod";
+import {
+  DuckDuckGoSearchTool,
+  DuckDuckGoSearchToolSearchType as SafeSearchType,
+} from "beeai-framework/tools/search/duckDuckGoSearch";
+
+const searchTool = new DuckDuckGoSearchTool();
+
+const customSearchTool = searchTool.extend(
+  z.object({
+    query: z.string(),
+    safeSearch: z.boolean().default(true),
+  }),
+  (input, options) => {
+    if (!options.search) {
+      options.search = {};
+    }
+    options.search.safeSearch = input.safeSearch ? SafeSearchType.STRICT : SafeSearchType.OFF;
+
+    return { query: input.query };
+  },
+);
+
+const response = await customSearchTool.run(
+  {
+    query: "News in the world!",
+    safeSearch: true,
+  },
+  {
+    signal: AbortSignal.timeout(10_000),
+  },
+);
+console.info(response);
+
 ```
 
 </CodeGroup>
@@ -338,12 +371,20 @@ if __name__ == "__main__":
         sys.exit(e.explain())
 
 ```
-{/* <!-- todo typescript/examples/tools/openmeteo.ts --> */}
+{/* <!-- embedme typescript/examples/tools/base.ts --> */}
 ```ts TypeScript [expandable]
-Example coming soon
+import { OpenMeteoTool } from "beeai-framework/tools/weather/openMeteo";
+
+const tool = new OpenMeteoTool();
+const result = await tool.run({
+  location: { name: "New York" },
+  start_date: "2024-10-10",
+  end_date: "2024-10-10",
+});
+console.log(result.getTextContent());
+
 ```
 </CodeGroup>
-
 
 ### Wikipedia tool
 
@@ -379,9 +420,51 @@ if __name__ == "__main__":
 
 ```
 
-{/* <!-- todo typescript/examples/tools/wikipedia.ts --> */}
+{/* <!-- embedme typescript/examples/tools/custom/piping.ts --> */}
 ```ts TypeScript [expandable]
-Example coming soon
+import { WikipediaTool } from "beeai-framework/tools/search/wikipedia";
+import { SimilarityTool } from "beeai-framework/tools/similarity";
+import { splitString } from "beeai-framework/internals/helpers/string";
+import { z } from "zod";
+
+const wikipedia = new WikipediaTool();
+const similarity = new SimilarityTool({
+  maxResults: 5,
+  provider: async (input) =>
+    input.documents.map((document) => ({
+      score: document.text
+        .toLowerCase()
+        .split(" ")
+        .reduce((acc, word) => acc + (input.query.toLowerCase().includes(word) ? 1 : 0), 0),
+    })),
+});
+
+const wikipediaWithSimilarity = wikipedia
+  .extend(
+    z.object({
+      page: z.string().describe("Wikipedia page"),
+      query: z.string().describe("Search query"),
+    }),
+    (newInput) => ({ query: newInput.page }),
+  )
+  .pipe(similarity, (input, output) => ({
+    query: input.query,
+    documents: output.results.flatMap((document) =>
+      Array.from(splitString(document.fields.markdown ?? "", { size: 1000, overlap: 50 })).map(
+        (chunk) => ({
+          text: chunk,
+          source: document,
+        }),
+      ),
+    ),
+  }));
+
+const response = await wikipediaWithSimilarity.run({
+  page: "JavaScript",
+  query: "engine",
+});
+console.info(response);
+
 ```
 </CodeGroup>
 
@@ -437,9 +520,53 @@ agent = ReActAgent(llm=OllamaChatModel("llama3.1"), tools=[asyncio.run(slack_too
 
 ```
 
-{/* <!-- todo typescript/examples/tools/mcp_tool_creation.ts --> */}
+{/* <!-- embedme typescript/examples/tools/mcp.ts --> */}
 ```ts TypeScript [expandable]
-Example coming soon
+import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+import { MCPTool } from "beeai-framework/tools/mcp";
+import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+import { ReActAgent } from "beeai-framework/agents/react/agent";
+import { UnconstrainedMemory } from "beeai-framework/memory/unconstrainedMemory";
+import { OllamaChatModel } from "beeai-framework/adapters/ollama/backend/chat";
+
+// Create MCP Client
+const client = new Client(
+  {
+    name: "test-client",
+    version: "1.0.0",
+  },
+  {
+    capabilities: {},
+  },
+);
+
+// Connect the client to any MCP server with tools capablity
+await client.connect(
+  new StdioClientTransport({
+    command: "npx",
+    args: ["-y", "@modelcontextprotocol/server-everything"],
+  }),
+);
+
+try {
+  // Server usually supports several tools, use the factory for automatic discovery
+  const tools = await MCPTool.fromClient(client);
+  const agent = new ReActAgent({
+    llm: new OllamaChatModel("llama3.1"),
+    memory: new UnconstrainedMemory(),
+    tools,
+  });
+  // @modelcontextprotocol/server-everything contains "add" tool
+  await agent.run({ prompt: "Find out how much is 4 + 7" }).observe((emitter) => {
+    emitter.on("update", async ({ data, update, meta }) => {
+      console.log(`Agent (${update.key}) 🤖 : `, update.value);
+    });
+  });
+} finally {
+  // Close the MCP connection
+  await client.close();
+}
+
 ```
 
 </CodeGroup>
@@ -457,7 +584,8 @@ This enables agents to:
 
 <Note>
 This tool requires [beeai-code-interpreter](https://github.com/i-am-bee/bee-code-interpreter) to use.
-Get started quickly with [beeai-framework-py-starter](https://github.com/i-am-bee/beeai-framework-py-starter).
+Get started quickly with the BeeAI Framework starter template for [Python](https://github.com/i-am-bee/beeai-framework-py-starter)
+or [TypeScript](https://github.com/i-am-bee/beeai-framework-py-starter).
 </Note>
 
 Key components:
@@ -522,9 +650,43 @@ if __name__ == "__main__":
 
 ```
 
-{/* <!-- todo typescript/examples/tools/python_tool.ts --> */}
+{/* <!-- embedme typescript/examples/tools/custom/python.ts --> */}
 ```ts TypeScript [expandable]
-Example coming soon
+import "dotenv/config";
+import { CustomTool } from "beeai-framework/tools/custom";
+
+const customTool = await CustomTool.fromSourceCode(
+  {
+    // Ensure the env exists
+    url: process.env.CODE_INTERPRETER_URL!,
+    env: { API_URL: "https://riddles-api.vercel.app/random" },
+  },
+  `import requests
+import os
+from typing import Optional, Union, Dict
+
+def get_riddle() -> Optional[Dict[str, str]]:
+  """
+  Fetches a random riddle from the Riddles API.
+
+  This function retrieves a random riddle and its answer. It does not accept any input parameters.
+
+  Returns:
+      Optional[Dict[str, str]]: A dictionary containing:
+          - 'riddle' (str): The riddle question.
+          - 'answer' (str): The answer to the riddle.
+      Returns None if the request fails.
+  """
+  url = os.environ.get('API_URL')
+  
+  try:
+      response = requests.get(url)
+      response.raise_for_status() 
+      return response.json() 
+  except Exception as e:
+      return None`,
+);
+
 ```
 
 </CodeGroup>
@@ -601,9 +763,43 @@ if __name__ == "__main__":
 
 ```
 
-{/* <!-- todo typescript/examples/tools/custom/python.ts --> */}
+{/* <!-- embedme typescript/examples/tools/custom/python.ts --> */}
 ```ts TypeScript [expandable]
-Example coming soon
+import "dotenv/config";
+import { CustomTool } from "beeai-framework/tools/custom";
+
+const customTool = await CustomTool.fromSourceCode(
+  {
+    // Ensure the env exists
+    url: process.env.CODE_INTERPRETER_URL!,
+    env: { API_URL: "https://riddles-api.vercel.app/random" },
+  },
+  `import requests
+import os
+from typing import Optional, Union, Dict
+
+def get_riddle() -> Optional[Dict[str, str]]:
+  """
+  Fetches a random riddle from the Riddles API.
+
+  This function retrieves a random riddle and its answer. It does not accept any input parameters.
+
+  Returns:
+      Optional[Dict[str, str]]: A dictionary containing:
+          - 'riddle' (str): The riddle question.
+          - 'answer' (str): The answer to the riddle.
+      Returns None if the request fails.
+  """
+  url = os.environ.get('API_URL')
+  
+  try:
+      response = requests.get(url)
+      response.raise_for_status() 
+      return response.json() 
+  except Exception as e:
+      return None`,
+);
+
 ```
 </CodeGroup>
 

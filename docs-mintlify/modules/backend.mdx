@@ -375,27 +375,32 @@ The `ChatModel` class represents a Chat Large Language Model and provides method
 **Method 1: Using the generic factory method**
 
 <CodeGroup>
-```py Python [expandable]
+```py Python
 from beeai_framework.backend.chat import ChatModel
 
 ollama_chat_model = ChatModel.from_name("ollama:llama3.1")
 ```
 
-```ts TypeScript [expandable]
-Coming soon
+```ts TypeScript
+import { ChatModel } from "beeai-framework/backend/chat";
+
+const chatModel = await ChatModel.fromName("ollama:granite3.2:8b");
 ```
 </CodeGroup>
 
 **Method 2: Creating a specific provider model directly**
 
 <CodeGroup>
-```py Python [expandable]
+```py Python
 from beeai_framework.adapters.ollama.backend.chat import OllamaChatModel
 
 ollama_chat_model = OllamaChatModel("llama3.1")
 ```
-```ts Typescript [expandable]
-Coming soon
+
+```ts Typescript
+import { OllamaChatModel } from "beeai-framework/adapters/ollama/backend/chat";
+
+const chatModel = new OllamaChatModel("llama3.1");
 ```
 </CodeGroup>
 
@@ -477,7 +482,7 @@ The most basic usage is to generate text responses:
 
 <CodeGroup>
 
-```py Python [expandable]
+```py Python
 from beeai_framework.adapters.ollama.backend.chat import OllamaChatModel
 from beeai_framework.backend.message import UserMessage
 
@@ -489,8 +494,17 @@ response = await ollama_chat_model.create(
 print(response.get_text_content())
 ```
 
-```ts TypeScript [expandable]
-Coming soon
+```ts TypeScript
+import { UserMessage } from "beeai-framework/backend/message";
+import { OllamaChatModel } from "beeai-framework/adapters/ollama/backend/chat";
+
+const llm = new OllamaChatModel("llama3.1");
+
+const response = await llm.create({
+  messages: [new UserMessage("what states are part of New England?")],
+});
+
+console.log(response.getTextContent());
 ```
 </CodeGroup>
 
@@ -504,18 +518,48 @@ Execution parameters (those passed to `model.create({...})`) are superior to one
 For applications requiring real-time responses:
 
 <CodeGroup>
-```py Python [expandable]
+```py Python
 from beeai_framework.adapters.ollama.backend.chat import OllamaChatModel
 from beeai_framework.backend.message import UserMessage
 
 llm = OllamaChatModel("llama3.1")
-user_message = UserMessage("How many islands make up the country of Cape Verde?")
+const response = await llm.create({
+  messages: [new UserMessage("How many islands make up the country of Cape Verde?")],
+});
 response = await llm.create(messages=[user_message], stream=True)
 ```
 
+{/* <!-- embedme typescript/examples/backend/chatStream.ts --> */}
 ```ts TypeScript [expandable]
-Coming soon
+import "dotenv/config.js";
+import { createConsoleReader } from "examples/helpers/io.js";
+import { UserMessage } from "beeai-framework/backend/message";
+import { OllamaChatModel } from "beeai-framework/adapters/ollama/backend/chat";
+
+const llm = new OllamaChatModel("llama3.1");
+
+const reader = createConsoleReader();
+
+for await (const { prompt } of reader) {
+  const response = await llm
+    .create({
+      messages: [new UserMessage(prompt)],
+    })
+    .observe((emitter) =>
+      emitter.match("*", (data, event) => {
+        reader.write(`LLM 🤖 (event: ${event.name})`, JSON.stringify(data));
+
+        // if you want to close the stream prematurely, just uncomment the following line
+        // callbacks.abort()
+      }),
+    );
+
+  reader.write(`LLM 🤖 (txt) : `, response.getTextContent());
+  reader.write(`LLM 🤖 (raw) : `, JSON.stringify(response.messages));
+}
+
 ```
+
 </CodeGroup>
 
 ### Structured generation
@@ -683,8 +727,63 @@ if __name__ == "__main__":
 
 ```
 
+{/* <!-- embedme typescript/examples/backend/toolCalling.ts --> */}
 ```ts TypeScript [expandable]
-Coming soon
+import "dotenv/config";
+import {
+  ChatModel,
+  Message,
+  SystemMessage,
+  ToolMessage,
+  UserMessage,
+} from "beeai-framework/backend/core";
+import { DuckDuckGoSearchTool } from "beeai-framework/tools/search/duckDuckGoSearch";
+import { OpenMeteoTool } from "beeai-framework/tools/weather/openMeteo";
+import { AnyTool, ToolOutput } from "beeai-framework/tools/base";
+
+const model = await ChatModel.fromName("ollama:llama3.1");
+const tools: AnyTool[] = [new DuckDuckGoSearchTool(), new OpenMeteoTool()];
+const messages: Message[] = [
+  new SystemMessage("You are a helpful assistant. Use tools to provide a correct answer."),
+  new UserMessage("What's the fastest marathon time?"),
+];
+
+while (true) {
+  const response = await model.create({
+    messages,
+    tools,
+  });
+  messages.push(...response.messages);
+
+  const toolCalls = response.getToolCalls();
+  const toolResults = await Promise.all(
+    toolCalls.map(async ({ args, toolName, toolCallId }) => {
+      console.log(`-> running '${toolName}' tool with ${JSON.stringify(args)}`);
+      const tool = tools.find((tool) => tool.name === toolName)!;
+      const response: ToolOutput = await tool.run(args as any);
+      const result = response.getTextContent();
+      console.log(
+        `<- got response from '${toolName}'`,
+        result.replaceAll(/\s+/g, " ").substring(0, 90).concat(" (truncated)"),
+      );
+      return new ToolMessage({
+        type: "tool-result",
+        result,
+        isError: false,
+        toolName,
+        toolCallId,
+      });
+    }),
+  );
+  messages.push(...toolResults);
+
+  const answer = response.getTextContent();
+  if (answer) {
+    console.info(`Agent: ${answer}`);
+    break;
+  }
+}
+
 ```
 
 </CodeGroup>
@@ -727,11 +826,128 @@ If your preferred provider isn't directly supported, you can use the LangChain a
 
 This allows you to leverage any provider that has LangChain compatibility.
 
-```txt
-Coming soon
+<CodeGroup>
+
+```py Python [expandable]
+Example coming soon
 ```
 
-_Source: /examples/backend/providers/langchain.py_
+{/* <!-- embedme typescript/examples/backend/providers/langchain.ts --> */}
+```ts TypeScript [expandable]
+// NOTE: ensure you have installed following packages
+// - @langchain/core
+// - @langchain/cohere (or any other provider related package that you would like to use)
+// List of available providers: https://js.langchain.com/v0.2/docs/integrations/chat/
+
+import { LangChainChatModel } from "beeai-framework/adapters/langchain/backend/chat";
+// @ts-expect-error package not installed
+import { ChatCohere } from "@langchain/cohere";
+import "dotenv/config.js";
+import { ToolMessage, UserMessage } from "beeai-framework/backend/message";
+import { z } from "zod";
+import { ChatModelError } from "beeai-framework/backend/errors";
+import { OpenMeteoTool } from "beeai-framework/tools/weather/openMeteo";
+
+const llm = new LangChainChatModel(
+  new ChatCohere({
+    model: "command-r-plus",
+    temperature: 0,
+  }),
+);
+
+async function langchainSync() {
+  const response = await llm.create({
+    messages: [new UserMessage("what is the capital of Massachusetts?")],
+  });
+  console.info(response.getTextContent());
+}
+
+async function langchainStream() {
+  const response = await llm.create({
+    messages: [new UserMessage("How many islands make up the country of Cape Verde?")],
+    stream: true,
+  });
+  console.info(response.getTextContent());
+}
+
+async function langchainAbort() {
+  try {
+    const response = await llm.create({
+      messages: [new UserMessage("What is the smallest of the Cape Verde islands?")],
+      stream: true,
+      abortSignal: AbortSignal.timeout(1 * 1000),
+    });
+    console.info(response.getTextContent());
+  } catch (err) {
+    if (err instanceof ChatModelError) {
+      console.error("Aborted", { err });
+    }
+  }
+}
+
+async function langchainStructure() {
+  const response = await llm.createStructure({
+    schema: z.object({
+      answer: z.string({ description: "your final answer" }),
+    }),
+    messages: [new UserMessage("How many islands make up the country of Cape Verde?")],
+  });
+  console.info(response.object);
+}
+
+async function langchainToolCalling() {
+  const userMessage = new UserMessage("What is the weather in Boston?");
+  const weatherTool = new OpenMeteoTool({ retryOptions: { maxRetries: 3 } });
+  const response = await llm.create({ messages: [userMessage], tools: [weatherTool] });
+  const toolCallMsg = response.getToolCalls()[0];
+  console.debug(JSON.stringify(toolCallMsg));
+  const toolResponse = await weatherTool.run(toolCallMsg.args as any);
+  const toolResponseMsg = new ToolMessage({
+    type: "tool-result",
+    result: toolResponse.getTextContent(),
+    toolName: toolCallMsg.toolName,
+    toolCallId: toolCallMsg.toolCallId,
+  });
+  console.info(toolResponseMsg.toPlain());
+  const finalResponse = await llm.create({
+    messages: [userMessage, ...response.messages, toolResponseMsg],
+    tools: [],
+  });
+  console.info(finalResponse.getTextContent());
+}
+
+async function langchainDebug() {
+  // Log every request
+  llm.emitter.match("*", (value, event) =>
+    console.debug(
+      `Time: ${event.createdAt.toISOString()}`,
+      `Event: ${event.name}`,
+      `Data: ${JSON.stringify(value)}`,
+    ),
+  );
+
+  const response = await llm.create({
+    messages: [new UserMessage("Hello world!")],
+  });
+  console.info(response.messages[0].toPlain());
+}
+
+console.info(" langchainSync".padStart(25, "*"));
+await langchainSync();
+console.info(" langchainStream".padStart(25, "*"));
+await langchainStream();
+console.info(" langchainAbort".padStart(25, "*"));
+await langchainAbort();
+console.info(" langchainStructure".padStart(25, "*"));
+await langchainStructure();
+console.info(" langchainToolCalling".padStart(25, "*"));
+await langchainToolCalling();
+console.info(" langchainDebug".padStart(25, "*"));
+await langchainDebug();
+
+```
+
+</CodeGroup>
 
 ---
 
