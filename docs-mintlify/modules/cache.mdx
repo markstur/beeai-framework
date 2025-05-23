@@ -410,11 +410,27 @@ console.log(await cache.size()); // 3
 
 Persists cache data to disk, allowing data to survive if application restarts.
 
-```text
-Coming soon
+<CodeGroup>
+
+{/* <!-- comingsoon python/examples/cache/file_cache.py --> */}
+```py Python [expandable]
+Example coming soon
 ```
 
-_Source: examples/cache/fileCache.py_
+{/* <!-- embedme typescript/examples/cache/fileCache.ts --> */}
+```ts TypeScript [expandable]
+import { FileCache } from "beeai-framework/cache/fileCache";
+import * as os from "node:os";
+
+const cache = new FileCache({
+  fullPath: `${os.tmpdir()}/bee_file_cache_${Date.now()}.json`,
+});
+console.log(`Saving cache to "${cache.source}"`);
+await cache.set("abc", { firstName: "John", lastName: "Doe" });
+
+```
+
+</CodeGroup>
 
 #### With custom provider
 
@@ -423,8 +439,31 @@ You can customize how the FileCache stores data:
 ```text
 Coming soon
 ```
+<CodeGroup>
 
-_Source: examples/cache/fileCacheCustomProvider.py_
+{/* <!-- comingsoon python/examples/cache/file_cache_custom_provider.py --> */}
+```py Python [expandable]
+Example coming soon
+```
+
+{/* <!-- embedme typescript/examples/cache/fileCacheCustomProvider.ts --> */}
+```ts TypeScript [expandable]
+import { FileCache } from "beeai-framework/cache/fileCache";
+import { UnconstrainedCache } from "beeai-framework/cache/unconstrainedCache";
+import os from "node:os";
+
+const memoryCache = new UnconstrainedCache<number>();
+await memoryCache.set("a", 1);
+
+const fileCache = await FileCache.fromProvider(memoryCache, {
+  fullPath: `${os.tmpdir()}/bee_file_cache.json`,
+});
+console.log(`Saving cache to "${fileCache.source}"`);
+console.log(await fileCache.get("a")); // 1
+
+```
+
+</CodeGroup>
 
 ### NullCache
 
@@ -440,29 +479,107 @@ The reason for implementing is to enable [Null object pattern](https://en.wikipe
 
 The framework provides a convenient decorator for automatically caching function results:
 
-```text
-Coming soon
+<CodeGroup>
+
+{/* <!-- comingsoon python/examples/cache/decorator_cache.py --> */}
+```py Python [expandable]
+Example coming soon
 ```
 
-_Source: examples/cache/decoratorCache.py_
+{/* <!-- embedme typescript/examples/cache/decoratorCache.ts --> */}
+```ts TypeScript [expandable]
+import { Cache } from "beeai-framework/cache/decoratorCache";
+
+class Generator {
+  @Cache()
+  get(seed: number) {
+    return (Math.random() * 1000) / Math.max(seed, 1);
+  }
+}
+
+const generator = new Generator();
+const a = generator.get(5);
+const b = generator.get(5);
+console.info(a === b); // true
+console.info(a === generator.get(6)); // false
+
+```
+
+</CodeGroup>
 
 For more complex caching logic, you can customize the key generation:
 
-```text
-Coming soon
+<CodeGroup>
+
+{/* <!-- comingsoon python/examples/cache/decorator_cache_complex.py --> */}
+```py Python [expandable]
+Example coming soon
 ```
 
-_Source: /examples/cache/decoratorCacheComplex.py_
+{/* <!-- embedme typescript/examples/cache/decoratorCacheComplex.ts --> */}
+```ts TypeScript [expandable]
+import { Cache, SingletonCacheKeyFn } from "beeai-framework/cache/decoratorCache";
+
+class MyService {
+  @Cache({
+    cacheKey: SingletonCacheKeyFn,
+    ttl: 3600,
+    enumerable: true,
+    enabled: true,
+  })
+  get id() {
+    return Math.floor(Math.random() * 1000);
+  }
+
+  reset() {
+    Cache.getInstance(this, "id").clear();
+  }
+}
+
+const service = new MyService();
+const a = service.id;
+console.info(a === service.id); // true
+service.reset();
+console.info(a === service.id); // false
+
+```
+
+</CodeGroup>
 
 ### CacheFn helper
 
 For more dynamic caching needs, the `CacheFn` helper provides a functional approach:
 
-```text
-Coming soon
+<CodeGroup>
+
+{/* <!-- comingsoon python/examples/cache/cache_fn.py --> */}
+```py Python [expandable]
+Example coming soon
 ```
 
-_Source: /examples/cache/cacheFn.py_
+{/* <!-- embedme typescript/examples/cache/cacheFn.ts --> */}
+```ts TypeScript [expandable]
+import { CacheFn } from "beeai-framework/cache/decoratorCache";
+import { setTimeout } from "node:timers/promises";
+
+const getSecret = CacheFn.create(
+  async () => {
+    // instead of mocking response you would do a real fetch request
+    const response = await Promise.resolve({ secret: Math.random(), expiresIn: 100 });
+    getSecret.updateTTL(response.expiresIn);
+    return response.secret;
+  },
+  {}, // options object
+);
+
+const token = await getSecret();
+console.info(token === (await getSecret())); // true
+await setTimeout(150);
+console.info(token === (await getSecret())); // false
+
+```
+
+</CodeGroup>
 
 ---
 
@@ -501,33 +618,44 @@ class CustomCache(BaseCache[T]):
         raise NotImplementedError("CustomCache 'clear' not yet implemented")
 
 ```
-{/* <!-- embedme python/examples/cache/custom.py --> */}
+{/* <!-- embedme typescript/examples/cache/custom.ts --> */}
 ```ts TypeScript [expandable]
-from typing import TypeVar
+import { BaseCache } from "beeai-framework/cache/base";
+import { NotImplementedError } from "beeai-framework/errors";
 
-from beeai_framework.cache import BaseCache
+export class CustomCache<T> extends BaseCache<T> {
+  size(): Promise<number> {
+    throw new NotImplementedError();
+  }
 
-T = TypeVar("T")
+  set(key: string, value: T): Promise<void> {
+    throw new NotImplementedError();
+  }
 
+  get(key: string): Promise<T | undefined> {
+    throw new NotImplementedError();
+  }
 
-class CustomCache(BaseCache[T]):
-    async def size(self) -> int:
-        raise NotImplementedError("CustomCache 'size' not yet implemented")
+  has(key: string): Promise<boolean> {
+    throw new NotImplementedError();
+  }
 
-    async def set(self, _key: str, _value: T) -> None:
-        raise NotImplementedError("CustomCache 'set' not yet implemented")
+  delete(key: string): Promise<boolean> {
+    throw new NotImplementedError();
+  }
 
-    async def get(self, key: str) -> T | None:
-        raise NotImplementedError("CustomCache 'get' not yet implemented")
+  clear(): Promise<void> {
+    throw new NotImplementedError();
+  }
 
-    async def has(self, key: str) -> bool:
-        raise NotImplementedError("CustomCache 'has' not yet implemented")
+  createSnapshot() {
+    throw new NotImplementedError();
+  }
 
-    async def delete(self, key: str) -> bool:
-        raise NotImplementedError("CustomCache 'delete' not yet implemented")
-
-    async def clear(self) -> None:
-        raise NotImplementedError("CustomCache 'clear' not yet implemented")
+  loadSnapshot(snapshot: ReturnType<typeof this.createSnapshot>): void {
+    throw new NotImplementedError();
+  }
+}
 
 ```
 </CodeGroup>
@@ -538,9 +666,9 @@ class CustomCache(BaseCache[T]):
 
 <CardGroup cols={2}>
   <Card title="Python" icon="python" href="https://github.com/i-am-bee/beeai-framework/tree/main/python/examples/cache">
-    COMING SOON: Explore reference cache implementations in Python
+    Explore reference cache implementations in Python
   </Card>
   <Card title="TypeScript" icon="js" href="https://github.com/i-am-bee/beeai-framework/tree/main/typescript/examples/cache">
-    COMING SOON: Explore reference cache implementations in TypeScript
+    Explore reference cache implementations in TypeScript
   </Card>
 </CardGroup>

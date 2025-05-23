@@ -5,6 +5,28 @@ icon: "rocket"
 ---
 
 <Steps>
+   <Step title="Clone a starter repo">
+
+  Get started quickly with the a BeeAI Framework starter template.
+  for [Python](https://github.com/i-am-bee/beeai-framework-py-starter) or [Typescript](https://github.com/i-am-bee/beeai-framework-ts-starter).
+
+  <CodeGroup>
+  ```shell Python
+  git clone https://github.com/i-am-bee/beeai-framework-py-starter.git
+  cd beeai-framework-py-starter
+  ```
+
+  ```shell TypeScript
+  git clone https://github.com/i-am-bee/beeai-framework-ts-starter.git
+  cd beeai-framework-ts-starter
+  nvm install && nvm use
+  npm ci
+  ```
+
+  </CodeGroup>
+
+  </Step>
+
    <Step title="Install BeeAI framework">
 
   <CodeGroup>
@@ -21,6 +43,8 @@ icon: "rocket"
 
    </Step>
    <Step title="Create your project file">
+
+   Copy the following code into a file named quickstart.py for Python or quickstart.ts for TypeScript.
 
   <CodeGroup>
 
@@ -187,11 +211,11 @@ icon: "rocket"
   <CodeGroup>
     
   ```py Python
-  python [project_name].py
+  python quickstart.py
   ```
   
   ```ts TypeScript
-  npm run start [project_name].ts
+  npm exec tsx quickstart.ts
   ```
   
   </CodeGroup>
