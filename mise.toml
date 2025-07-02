@@ -29,5 +29,5 @@ depends = ["common:fix:*"]
 
 [tasks."common:fix:license"]
 dir = "{{config_root}}"
-run = "addlicense -l apache -s=only -c '© BeeAI a Series of LF Projects, LLC' $(fd '\\.(py|[jt]sx?|html|s?css)$' docs* examples python scripts typescript)"
+run = "addlicense -l apache -s=only -c '© BeeAI a Series of LF Projects, LLC' $(fd '\\.(py|[jt]sx?|html|s?css)$' docs* python typescript)"
 
