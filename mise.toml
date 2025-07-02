@@ -1,6 +1,7 @@
 [tools]
 python = "3.11"
-"ubi:B1NARY-GR0UP/nwa" = "latest"
+fd = "latest"
+"ubi:google/addlicense" = "latest"
 
 ## grouped tasks
 
@@ -17,27 +18,16 @@ depends = ["*:fix"]
 [tasks."common:check"]
 depends = ["common:check:*"]
 
-[tasks."common:check:nwa"]
+[tasks."common:check:license"]
 dir = "{{config_root}}"
-run = """
-PY_TARGETS=$(find python -type f -name "*.py")
-SH_TARGETS=$(find . -type d -name node_modules -prune -false -o -name "*.sh")
-JS_TARGETS=$(find typescript -type d -name node_modules -prune -false -o \\( -name "*.js" -o -name "*.ts" \\))
-nwa check -i Apache-2.0 -c "© BeeAI a Series of LF Projects, LLC" $SH_TARGETS || true
-nwa check -i Apache-2.0 -c "© BeeAI a Series of LF Projects, LLC" $PY_TARGETS || true
-nwa check -i Apache-2.0 -c "© BeeAI a Series of LF Projects, LLC" $JS_TARGETS || true
-"""
+run = "addlicense -check -l apache -s=only -c '© BeeAI a Series of LF Projects, LLC' $(fd '\\.(py|[jt]sx?|html|s?css)$' docs* python typescript)"
 
 ### fix
 
 [tasks."common:fix"]
 depends = ["common:fix:*"]
 
-[tasks."common:fix:nwa"]
+[tasks."common:fix:license"]
 dir = "{{config_root}}"
-run = [
-    'find python -type f \( -name "*.py" -o -name "*.sh" \) -exec nwa update -i Apache-2.0 -c "© BeeAI a Series of LF Projects, LLC" {} \;',
-    'find python -type f \( -name "*.py" -o -name "*.sh" \) -exec nwa add    -i Apache-2.0 -c "© BeeAI a Series of LF Projects, LLC" {} \;',
-    'find typescript -type d -name node_modules -prune -false -o \( -name "*.js" -o -name "*.ts" -o -name "*.sh" \) -exec nwa update -i Apache-2.0 -c "© BeeAI a Series of LF Projects, LLC" {} \;',
-    'find typescript -type d -name node_modules -prune -false -o \( -name "*.js" -o -name "*.ts" -o -name "*.sh" \) -exec nwa add    -i Apache-2.0 -c "© BeeAI a Series of LF Projects, LLC" {} \;'
-]
+run = "addlicense -l apache -s=only -c '© BeeAI a Series of LF Projects, LLC' $(fd '\\.(py|[jt]sx?|html|s?css)$' docs* examples python scripts typescript)"
+
