@@ -1,0 +1,39 @@
+[tools]
+python = "3.11"
+"ubi:B1NARY-GR0UP/nwa" = "latest"
+
+## grouped tasks
+
+[tasks."check"]
+depends = ["*:check"]
+
+[tasks."fix"]
+depends = ["*:fix"]
+
+## common tasks
+
+### check
+
+[tasks."common:check"]
+depends = ["common:check:*"]
+
+[tasks."common:check:nwa"]
+dir = "{{config_root}}"
+run = [
+    'find python -type f \( -name "*.py" -o -name "*.sh" \) -exec nwa check -i Apache-2.0 -c "© BeeAI a Series of LF Projects, LLC" {} \;',
+    'find typescript -type d -name node_modules -prune -false -o \( -name "*.js" -o -name "*.ts" -o -name "*.sh" \) -exec nwa check -i Apache-2.0 -c "© BeeAI a Series of LF Projects, LLC" {} \;'
+]
+
+### fix
+
+[tasks."common:fix"]
+depends = ["common:fix:*"]
+
+[tasks."common:fix:nwa"]
+dir = "{{config_root}}"
+run = [
+    'find python -type f \( -name "*.py" -o -name "*.sh" \) -exec nwa update -i Apache-2.0 -c "© BeeAI a Series of LF Projects, LLC" {} \;',
+    'find python -type f \( -name "*.py" -o -name "*.sh" \) -exec nwa add    -i Apache-2.0 -c "© BeeAI a Series of LF Projects, LLC" {} \;',
+    'find typescript -type d -name node_modules -prune -false -o \( -name "*.js" -o -name "*.ts" -o -name "*.sh" \) -exec nwa update -i Apache-2.0 -c "© BeeAI a Series of LF Projects, LLC" {} \;',
+    'find typescript -type d -name node_modules -prune -false -o \( -name "*.js" -o -name "*.ts" -o -name "*.sh" \) -exec nwa add    -i Apache-2.0 -c "© BeeAI a Series of LF Projects, LLC" {} \;'
+]
