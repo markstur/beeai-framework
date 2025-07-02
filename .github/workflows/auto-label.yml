@@ -9,6 +9,7 @@ jobs:
       contents: read
       pull-requests: write
     runs-on: ubuntu-latest
+    if: github.repository == 'i-am-bee/beeai-framework'
     steps:
     - uses: actions/labeler@v5
       with:
