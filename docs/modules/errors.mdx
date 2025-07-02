@@ -32,6 +32,9 @@ This structure ensures that users can trace the complete error history while cle
 
 {/* <!-- embedme python/examples/errors/base.py --> */}
 ```py Python [expandable]
+# Copyright 2025 © BeeAI a Series of LF Projects, LLC
+# SPDX-License-Identifier: Apache-2.0
+
 from beeai_framework.errors import FrameworkError
 
 # Create the main FrameworkError instance
@@ -66,6 +69,11 @@ print(str(error))  # Human-readable format (for debug)
 
 {/* <!-- embedme typescript/examples/errors/base.ts --> */}
 ```ts TypeScript [expandable]
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { FrameworkError } from "beeai-framework/errors";
 
 const error = new FrameworkError(
@@ -131,6 +139,9 @@ The definitions for these classes are typically local to the module where they a
 
 {/* <!-- embedme python/examples/errors/tool.py --> */}
 ```py Python [expandable]
+# Copyright 2025 © BeeAI a Series of LF Projects, LLC
+# SPDX-License-Identifier: Apache-2.0
+
 import asyncio
 
 from beeai_framework.tools import ToolError, tool
@@ -160,6 +171,11 @@ if __name__ == "__main__":
 
 {/* <!-- embedme typescript/examples/errors/tool.ts --> */}
 ```ts TypeScript [expandable]
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { DynamicTool, ToolError } from "beeai-framework/tools/base";
 import { FrameworkError } from "beeai-framework/errors";
 import { z } from "zod";

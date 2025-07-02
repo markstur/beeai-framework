@@ -80,6 +80,9 @@ The simplest way to use caching is to wrap a function that produces deterministi
 {/* <!-- embedme python/examples/cache/unconstrained_cache_function.py --> */}
 
 ```python
+# Copyright 2025 © BeeAI a Series of LF Projects, LLC
+# SPDX-License-Identifier: Apache-2.0
+
 import asyncio
 import sys
 import traceback
@@ -130,6 +133,9 @@ BeeAI framework's caching system seamlessly integrates with tools:
 {/* <!-- embedme python/examples/cache/tool_cache.py --> */}
 
 ```python
+# Copyright 2025 © BeeAI a Series of LF Projects, LLC
+# SPDX-License-Identifier: Apache-2.0
+
 import asyncio
 import sys
 import traceback
@@ -175,6 +181,9 @@ You can also cache LLM responses to save on API costs:
 {/* <!-- embedme python/examples/cache/llm_cache.py --> */}
 
 ```python
+# Copyright 2025 © BeeAI a Series of LF Projects, LLC
+# SPDX-License-Identifier: Apache-2.0
+
 import asyncio
 import sys
 import traceback
@@ -221,6 +230,9 @@ The simplest cache type with no constraints on size or entry lifetime. Good for 
 {/* <!-- embedme python/examples/cache/unconstrained_cache.py --> */}
 
 ```python
+# Copyright 2025 © BeeAI a Series of LF Projects, LLC
+# SPDX-License-Identifier: Apache-2.0
+
 import asyncio
 import sys
 import traceback
@@ -274,6 +286,9 @@ Maintains a maximum number of entries, removing the oldest entries when the limi
 {/* <!-- embedme python/examples/cache/sliding_cache.py --> */}
 
 ```python
+# Copyright 2025 © BeeAI a Series of LF Projects, LLC
+# SPDX-License-Identifier: Apache-2.0
+
 import asyncio
 import sys
 import traceback
@@ -376,6 +391,9 @@ You can create your own cache implementation by extending the `BaseCache` class:
 {/* <!-- embedme python/examples/cache/custom.py --> */}
 
 ```python
+# Copyright 2025 © BeeAI a Series of LF Projects, LLC
+# SPDX-License-Identifier: Apache-2.0
+
 from typing import TypeVar
 
 from beeai_framework.cache import BaseCache

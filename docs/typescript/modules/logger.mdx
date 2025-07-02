@@ -13,6 +13,11 @@ In the BeeAI Framework, the [Logger](https://github.com/i-am-bee/beeai-framework
 {/* <!-- embedme typescript/examples/logger/base.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Logger, LoggerLevel } from "beeai-framework/logger/logger";
 
 // Configure logger defaults
@@ -31,6 +36,7 @@ logger.info("Info!");
 logger.warn("Warning!");
 logger.error("Error!");
 logger.fatal("Fatal!");
+
 ```
 
 _Source: [typescript/examples/logger/base.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/logger/base.ts)_
@@ -42,6 +48,11 @@ The [Logger](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/sr
 {/* <!-- embedme typescript/examples/logger/agent.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { ReActAgent } from "beeai-framework/agents/react/agent";
 import { UnconstrainedMemory } from "beeai-framework/memory/unconstrainedMemory";
 import { Logger } from "beeai-framework/logger/logger";
@@ -71,6 +82,7 @@ const agent = new ReActAgent({
 
 const response = await agent.run({ prompt: "Hello!" });
 logger.info(response.result.text);
+
 ```
 
 _Source: [typescript/examples/logger/agent.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/logger/agent.ts)_
@@ -82,6 +94,11 @@ If you need to integrate your own `pino` instance with the BeeAI Framework Logge
 {/* <!-- embedme typescript/examples/logger/pino.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Logger } from "beeai-framework/logger/logger";
 import { pino } from "pino";
 
@@ -98,6 +115,7 @@ const frameworkLogger = new Logger(
   },
   customLogger, // Pass the custom pino instance
 );
+
 ```
 
 _Source: [typescript/examples/logger/pino.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/logger/pino.ts)_

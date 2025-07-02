@@ -23,6 +23,11 @@ This structure ensures that users can trace the complete error history while cle
 {/* <!-- embedme typescript/examples/errors/base.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { FrameworkError } from "beeai-framework/errors";
 
 const error = new FrameworkError(
@@ -45,6 +50,7 @@ console.log("Context", error.context); // Context in which the error occurred
 console.log(error.explain()); // Human-readable format without stack traces (ideal for LLMs)
 console.log(error.dump()); // Full error dump, including sub-errors
 console.log(error.getCause()); // Retrieve the initial cause of the error
+
 ```
 
 _Source: [typescript/examples/errors/base.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/errors/base.ts)_
@@ -72,6 +78,11 @@ When a tool encounters an error, it throws a `ToolError`, which extends `Framewo
 {/* <!-- embedme typescript/examples/errors/tool.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { DynamicTool, ToolError } from "beeai-framework/tools/base";
 import { FrameworkError } from "beeai-framework/errors";
 import { z } from "zod";
@@ -96,6 +107,7 @@ try {
   console.log("===EXPLAIN===");
   console.log(err.explain());
 }
+
 ```
 
 _Source: [typescript/examples/errors/tool.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/errors/tool.ts)_
