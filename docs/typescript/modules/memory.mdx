@@ -13,6 +13,11 @@ Memory in the context of an agent refers to the system's capability to store, re
 {/* <!-- embedme typescript/examples/memory/base.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { UnconstrainedMemory } from "beeai-framework/memory/unconstrainedMemory";
 import { AssistantMessage, SystemMessage, UserMessage } from "beeai-framework/backend/message";
 
@@ -28,6 +33,7 @@ console.info(memory.isEmpty()); // false
 console.info(memory.messages); // prints all saved messages
 console.info(memory.asReadOnly()); // returns a NEW read only instance
 memory.reset(); // removes all messages
+
 ```
 
 _Source: [typescript/examples/memory/base.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/memory/base.ts)_
@@ -37,6 +43,11 @@ _Source: [typescript/examples/memory/base.ts](https://github.com/i-am-bee/beeai-
 {/* <!-- embedme typescript/examples/memory/llmMemory.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { UnconstrainedMemory } from "beeai-framework/memory/unconstrainedMemory";
 import { Message } from "beeai-framework/backend/message";
 import { OllamaChatModel } from "beeai-framework/adapters/ollama/backend/chat";
@@ -59,6 +70,7 @@ console.log(`Conversation history`);
 for (const message of memory) {
   console.log(`${message.role}: ${message.text}`);
 }
+
 ```
 
 _Source: [typescript/examples/memory/llmMemory.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/memory/llmMemory.ts)_
@@ -72,6 +84,11 @@ Memory for non-chat LLMs works exactly the same way.
 {/* <!-- embedme typescript/examples/memory/agentMemory.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { UnconstrainedMemory } from "beeai-framework/memory/unconstrainedMemory";
 import { ReActAgent } from "beeai-framework/agents/react/agent";
 import { OllamaChatModel } from "beeai-framework/adapters/ollama/backend/chat";
@@ -90,6 +107,7 @@ console.info(`User: ${userMessage.text}`); // User: Hello world!
 
 const agentMessage = agent.memory.messages[1];
 console.info(`Agent: ${agentMessage.text}`); // Agent: Hello! It's nice to chat with you.
+
 ```
 
 _Source: [typescript/examples/memory/agentMemory.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/memory/agentMemory.ts)_
@@ -117,6 +135,11 @@ Unlimited in size.
 {/* <!-- embedme typescript/examples/memory/unconstrainedMemory.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { UnconstrainedMemory } from "beeai-framework/memory/unconstrainedMemory";
 import { Message } from "beeai-framework/backend/message";
 
@@ -131,6 +154,7 @@ await memory.add(
 console.info(memory.isEmpty()); // false
 console.log(memory.messages.length); // 1
 console.log(memory.messages);
+
 ```
 
 _Source: [typescript/examples/memory/unconstrainedMemory.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/memory/unconstrainedMemory.ts)_
@@ -142,6 +166,11 @@ Keeps last `k` entries in the memory. The oldest ones are deleted (unless specif
 {/* <!-- embedme typescript/examples/memory/slidingMemory.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { SlidingMemory } from "beeai-framework/memory/slidingMemory";
 import { Message } from "beeai-framework/backend/message";
 
@@ -163,6 +192,7 @@ await memory.add(Message.of({ role: "assistant", text: "French" })); // removes 
 console.info(memory.isEmpty()); // false
 console.log(memory.messages.length); // 3
 console.log(memory.messages);
+
 ```
 
 _Source: [typescript/examples/memory/slidingMemory.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/memory/slidingMemory.ts)_
@@ -175,6 +205,11 @@ If overflow occurs, the oldest message will be removed.
 {/* <!-- embedme typescript/examples/memory/tokenMemory.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { TokenMemory } from "beeai-framework/memory/tokenMemory";
 import { Message } from "beeai-framework/backend/message";
 
@@ -198,6 +233,7 @@ console.info(memory.isDirty); // is the consumed token count estimated or retrie
 console.log(memory.tokensUsed); // number of used tokens
 console.log(memory.stats()); // prints statistics
 await memory.sync(); // calculates real token usage for all messages marked as "dirty"
+
 ```
 
 _Source: [typescript/examples/memory/tokenMemory.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/memory/tokenMemory.ts)_
@@ -209,6 +245,11 @@ Only a single summarization of the conversation is preserved. Summarization is u
 {/* <!-- embedme typescript/examples/memory/summarizeMemory.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Message } from "beeai-framework/backend/message";
 import { SummarizeMemory } from "beeai-framework/memory/summarizeMemory";
 import { OllamaChatModel } from "beeai-framework/adapters/ollama/backend/chat";
@@ -227,6 +268,7 @@ await memory.addMany([
 console.info(memory.isEmpty()); // false
 console.log(memory.messages.length); // 1
 console.log(memory.messages[0].text); // The capital city of France is Paris, ...
+
 ```
 
 _Source: [typescript/examples/memory/summarizeMemory.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/memory/summarizeMemory.ts)_
@@ -238,6 +280,11 @@ To create your memory implementation, you must implement the `BaseMemory` class.
 {/* <!-- embedme typescript/examples/memory/custom.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { BaseMemory } from "beeai-framework/memory/base";
 import { Message } from "beeai-framework/backend/message";
 import { NotImplementedError } from "beeai-framework/errors";
@@ -267,6 +314,7 @@ export class MyMemory extends BaseMemory {
     throw new NotImplementedError("Method not implemented.");
   }
 }
+
 ```
 
 _Source: [typescript/examples/memory/custom.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/memory/custom.ts)_

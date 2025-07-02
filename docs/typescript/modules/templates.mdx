@@ -23,6 +23,11 @@ The Prompt Template concept is used anywhere - especially in our agents.
 {/* <!-- embedme typescript/examples/templates/primitives.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { PromptTemplate } from "beeai-framework/template";
 import { z } from "zod";
 
@@ -37,6 +42,7 @@ const output = greetTemplate.render({
   name: "Alex",
 });
 console.log(output); // Hello Alex!
+
 ```
 
 _Source: [typescript/examples/templates/primitives.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/templates/primitives.ts)_
@@ -46,6 +52,11 @@ _Source: [typescript/examples/templates/primitives.ts](https://github.com/i-am-b
 {/* <!-- embedme typescript/examples/templates/arrays.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { PromptTemplate } from "beeai-framework/template";
 import { z } from "zod";
 
@@ -60,6 +71,7 @@ const output = template.render({
   colors: ["Green", "Yellow"],
 });
 console.log(output); // Colors: Green,Yellow
+
 ```
 
 _Source: [typescript/examples/templates/arrays.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/templates/arrays.ts)_
@@ -69,6 +81,11 @@ _Source: [typescript/examples/templates/arrays.ts](https://github.com/i-am-bee/b
 {/* <!-- embedme typescript/examples/templates/objects.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { PromptTemplate } from "beeai-framework/template";
 import { z } from "zod";
 
@@ -88,6 +105,7 @@ const output = template.render({
   responses: [{ duration: 3 }, { duration: 5 }, { duration: 6 }],
 });
 console.log(output); // Expected Duration: 5ms; Retrieved: 3ms 5ms 6ms
+
 ```
 
 _Source: [typescript/examples/templates/objects.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/templates/objects.ts)_
@@ -97,6 +115,11 @@ _Source: [typescript/examples/templates/objects.ts](https://github.com/i-am-bee/
 {/* <!-- embedme typescript/examples/templates/forking.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { PromptTemplate } from "beeai-framework/template";
 import { z } from "zod";
 
@@ -121,6 +144,7 @@ const output = modified.render({
   objective: "fulfill the user needs",
 });
 console.log(output); // You are a helpful assistant called Bee. Your objective is to fulfill the user needs. Your answers must be concise.
+
 ```
 
 _Source: [typescript/examples/templates/forking.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/templates/forking.ts)_
@@ -130,6 +154,11 @@ _Source: [typescript/examples/templates/forking.ts](https://github.com/i-am-bee/
 {/* <!-- embedme typescript/examples/templates/functions.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { PromptTemplate } from "beeai-framework/template";
 import { z } from "zod";
 
@@ -172,6 +201,7 @@ console.log(
     text: "Hello from the present!",
   }),
 );
+
 ```
 
 _Source: [typescript/examples/templates/functions.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/templates/functions.ts)_

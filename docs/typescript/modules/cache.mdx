@@ -13,6 +13,11 @@ Caching is a process used to temporarily store copies of data or computations in
 {/* <!-- embedme typescript/examples/cache/unconstrainedCache.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { UnconstrainedCache } from "beeai-framework/cache/unconstrainedCache";
 
 const cache = new UnconstrainedCache();
@@ -39,6 +44,7 @@ console.log(await cache.has("a")); // false
 // Clear
 await cache.clear();
 console.log(await cache.size()); // 0
+
 ```
 
 _Source: [typescript/examples/cache/unconstrainedCache.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/unconstrainedCache.ts)_
@@ -48,6 +54,11 @@ _Source: [typescript/examples/cache/unconstrainedCache.ts](https://github.com/i-
 {/* <!-- embedme typescript/examples/cache/unconstrainedCacheFunction.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { UnconstrainedCache } from "beeai-framework/cache/unconstrainedCache";
 
 const cache = new UnconstrainedCache<number>();
@@ -67,6 +78,7 @@ async function fibonacci(n: number): Promise<number> {
 console.info(await fibonacci(10)); // 55
 console.info(await fibonacci(9)); // 34 (retrieved from cache)
 console.info(`Cache size ${await cache.size()}`); // 10
+
 ```
 
 _Source: [typescript/examples/cache/unconstrainedCacheFunction.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/unconstrainedCacheFunction.ts)_
@@ -76,6 +88,11 @@ _Source: [typescript/examples/cache/unconstrainedCacheFunction.ts](https://githu
 {/* <!-- embedme typescript/examples/cache/toolCache.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { SlidingCache } from "beeai-framework/cache/slidingCache";
 import { WikipediaTool } from "beeai-framework/tools/search/wikipedia";
 
@@ -90,6 +107,7 @@ const response = await ddg.run({
   query: "United States",
 });
 // upcoming requests with the EXACTLY same input will be retrieved from the cache
+
 ```
 
 _Source: [typescript/examples/cache/toolCache.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/toolCache.ts)_
@@ -103,6 +121,11 @@ Cache key is created by serializing function parameters (the order of keys in th
 {/* <!-- embedme typescript/examples/cache/llmCache.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { SlidingCache } from "beeai-framework/cache/slidingCache";
 import { OllamaChatModel } from "beeai-framework/adapters/ollama/backend/chat";
 import { UserMessage } from "beeai-framework/backend/message";
@@ -128,6 +151,7 @@ const second = await llm.create({
 });
 console.info(first.getTextContent() === second.getTextContent()); // true
 console.info(await llm.cache.size()); // 1
+
 ```
 
 _Source: [typescript/examples/cache/llmCache.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/llmCache.ts)_
@@ -156,6 +180,11 @@ Keeps last `k` entries in the memory. The oldest ones are deleted.
 {/* <!-- embedme typescript/examples/cache/slidingCache.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { SlidingCache } from "beeai-framework/cache/slidingCache";
 
 const cache = new SlidingCache<number>({
@@ -170,6 +199,7 @@ await cache.set("c", 3);
 await cache.set("d", 4); // overflow - cache internally removes the oldest entry (key "a")
 console.log(await cache.has("a")); // false
 console.log(await cache.size()); // 3
+
 ```
 
 _Source: [typescript/examples/cache/slidingCache.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/slidingCache.ts)_
@@ -182,6 +212,11 @@ You have to provide a location where the cache is persisted.
 {/* <!-- embedme typescript/examples/cache/fileCache.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { FileCache } from "beeai-framework/cache/fileCache";
 import * as os from "node:os";
 
@@ -190,6 +225,7 @@ const cache = new FileCache({
 });
 console.log(`Saving cache to "${cache.source}"`);
 await cache.set("abc", { firstName: "John", lastName: "Doe" });
+
 ```
 
 _Source: [typescript/examples/cache/fileCache.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/fileCache.ts)_
@@ -207,6 +243,11 @@ Every modification to the cache (adding, deleting, clearing) immediately updates
 {/* <!-- embedme typescript/examples/cache/fileCacheCustomProvider.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { FileCache } from "beeai-framework/cache/fileCache";
 import { UnconstrainedCache } from "beeai-framework/cache/unconstrainedCache";
 import os from "node:os";
@@ -219,6 +260,7 @@ const fileCache = await FileCache.fromProvider(memoryCache, {
 });
 console.log(`Saving cache to "${fileCache.source}"`);
 console.log(await fileCache.get("a")); // 1
+
 ```
 
 _Source: [typescript/examples/cache/fileCacheCustomProvider.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/fileCacheCustomProvider.ts)_
@@ -234,6 +276,11 @@ The reason for implementing is to enable [Null object pattern](https://en.wikipe
 {/* <!-- embedme typescript/examples/cache/decoratorCache.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Cache } from "beeai-framework/cache/decoratorCache";
 
 class Generator {
@@ -248,6 +295,7 @@ const a = generator.get(5);
 const b = generator.get(5);
 console.info(a === b); // true
 console.info(a === generator.get(6)); // false
+
 ```
 
 _Source: [typescript/examples/cache/decoratorCache.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/decoratorCache.ts)_
@@ -257,6 +305,11 @@ _Source: [typescript/examples/cache/decoratorCache.ts](https://github.com/i-am-b
 {/* <!-- embedme typescript/examples/cache/decoratorCacheComplex.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Cache, SingletonCacheKeyFn } from "beeai-framework/cache/decoratorCache";
 
 class MyService {
@@ -280,6 +333,7 @@ const a = service.id;
 console.info(a === service.id); // true
 service.reset();
 console.info(a === service.id); // false
+
 ```
 
 _Source: [typescript/examples/cache/decoratorCacheComplex.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/decoratorCacheComplex.ts)_
@@ -301,6 +355,11 @@ provides a way how to do caching on a function level.
 {/* <!-- embedme typescript/examples/cache/cacheFn.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { CacheFn } from "beeai-framework/cache/decoratorCache";
 import { setTimeout } from "node:timers/promises";
 
@@ -318,6 +377,7 @@ const token = await getSecret();
 console.info(token === (await getSecret())); // true
 await setTimeout(150);
 console.info(token === (await getSecret())); // false
+
 ```
 
 _Source: [typescript/examples/cache/cacheFn.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/cacheFn.ts)_
@@ -333,6 +393,11 @@ To create your cache implementation, you must implement the `BaseCache` class.
 {/* <!-- embedme typescript/examples/cache/custom.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { BaseCache } from "beeai-framework/cache/base";
 import { NotImplementedError } from "beeai-framework/errors";
 
@@ -369,6 +434,7 @@ export class CustomCache<T> extends BaseCache<T> {
     throw new NotImplementedError();
   }
 }
+
 ```
 
 _Source: [typescript/examples/cache/custom.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/custom.ts)_

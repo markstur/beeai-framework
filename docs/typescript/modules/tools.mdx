@@ -43,6 +43,11 @@ Would you like to use a tool from LangChain? See the [example](https://github.co
 {/* <!-- embedme typescript/examples/tools/base.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { OpenMeteoTool } from "beeai-framework/tools/weather/openMeteo";
 
 const tool = new OpenMeteoTool();
@@ -52,6 +57,7 @@ const result = await tool.run({
   end_date: "2024-10-10",
 });
 console.log(result.getTextContent());
+
 ```
 
 _Source: [typescript/examples/tools/base.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/base.ts)_
@@ -61,6 +67,11 @@ _Source: [typescript/examples/tools/base.ts](https://github.com/i-am-bee/beeai-f
 {/* <!-- embedme typescript/examples/tools/advanced.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { OpenMeteoTool } from "beeai-framework/tools/weather/openMeteo";
 import { UnconstrainedCache } from "beeai-framework/cache/unconstrainedCache";
 
@@ -85,6 +96,7 @@ const result = await tool.run({
 console.log(result.isEmpty()); // false
 console.log(result.result); // prints raw data
 console.log(result.getTextContent()); // prints data as text
+
 ```
 
 _Source: [typescript/examples/tools/advanced.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/advanced.ts)_
@@ -98,6 +110,11 @@ To learn more about caching, refer to the [Cache documentation page](./cache.md)
 {/* <!-- embedme typescript/examples/tools/agent.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { ArXivTool } from "beeai-framework/tools/arxiv";
 import { ReActAgent } from "beeai-framework/agents/react/agent";
 import { UnconstrainedMemory } from "beeai-framework/memory/unconstrainedMemory";
@@ -108,6 +125,7 @@ const agent = new ReActAgent({
   memory: new UnconstrainedMemory(),
   tools: [new ArXivTool()],
 });
+
 ```
 
 _Source: [typescript/examples/tools/agent.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/agent.ts)_
@@ -129,6 +147,11 @@ The recommended and most sustainable way to create a tool is by implementing the
 {/* <!-- embedme typescript/examples/tools/custom/base.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import {
   ToolEmitter,
   StringToolOutput,
@@ -184,6 +207,7 @@ export class RiddleTool extends Tool<StringToolOutput> {
     return new StringToolOutput(riddle);
   }
 }
+
 ```
 
 _Source: [typescript/examples/tools/custom/base.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/custom/base.ts)_
@@ -203,6 +227,11 @@ If your tool is more complex, you may want to use the full power of the tool abs
 {/* <!-- embedme typescript/examples/tools/custom/openLibrary.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import {
   BaseToolOptions,
   BaseToolRunOptions,
@@ -304,6 +333,7 @@ export class OpenLibraryTool extends Tool<OpenLibraryToolOutput, ToolOptions, To
     return new OpenLibraryToolOutput(json);
   }
 }
+
 ```
 
 _Source: [typescript/examples/tools/custom/openLibrary.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/custom/openLibrary.ts)_
@@ -387,6 +417,11 @@ The `DynamicTool` allows you to create a tool without extending the base tool cl
 {/* <!-- embedme typescript/examples/tools/custom/dynamic.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { DynamicTool, StringToolOutput } from "beeai-framework/tools/base";
 import { z } from "zod";
 
@@ -405,6 +440,7 @@ const tool = new DynamicTool({
     return new StringToolOutput(number.toString());
   },
 });
+
 ```
 
 _Source: [typescript/examples/tools/custom/dynamic.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/custom/dynamic.ts)_
@@ -420,6 +456,11 @@ If you want to use the Python function, use the [`CustomTool`](https://github.co
 {/* <!-- embedme typescript/examples/tools/custom/python.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import "dotenv/config";
 import { CustomTool } from "beeai-framework/tools/custom";
 
@@ -478,6 +519,11 @@ The `MCPTool` allows you to instantiate tools given a connection to [MCP server]
 {/* <!-- embedme typescript/examples/tools/mcp.ts --> */}
 
 ```ts
+/**
+ * Copyright 2025 © BeeAI a Series of LF Projects, LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { MCPTool } from "beeai-framework/tools/mcp";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
@@ -522,6 +568,7 @@ try {
   // Close the MCP connection
   await client.close();
 }
+
 ```
 
 _Source: [typescript/examples/tools/mcp.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/mcp.ts)_
