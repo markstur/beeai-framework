@@ -1,22 +1,11 @@
 # Copyright 2025 © BeeAI a Series of LF Projects, LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
+# SPDX-License-Identifier: Apache-2.0
 
 from typing_extensions import TypeVar, override
 
 from beeai_framework.adapters.a2a.agents._utils import convert_a2a_to_framework_message
 from beeai_framework.agents.errors import AgentError
+from beeai_framework.agents.experimental.events import RequirementAgentSuccessEvent
 from beeai_framework.utils.cancellation import AbortController
 
 try:
@@ -146,6 +135,14 @@ class TollCallingAgentExecutor(BaseA2AAgentExecutor):
                     updater.complete(
                         a2a_utils.new_agent_text_message(
                             data.state.result.text,
+                            context.context_id,
+                            context.task_id,
+                        )
+                    )
+                if isinstance(data, RequirementAgentSuccessEvent) and data.state.answer is not None:
+                    updater.complete(
+                        a2a_utils.new_agent_text_message(
+                            data.state.answer.text,
                             context.context_id,
                             context.task_id,
                         )
