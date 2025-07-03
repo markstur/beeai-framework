@@ -64,9 +64,6 @@ During execution, the agent emits partial updates as it generates each line, fol
 
 {/* <!-- embedme python/examples/agents/react.py --> */}
 ```py Python [expandable]
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import logging
 import os
@@ -192,11 +189,6 @@ if __name__ == "__main__":
 
 {/* <!-- embedme typescript/examples/agents/react.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import "dotenv/config.js";
 import { ReActAgent } from "beeai-framework/agents/react/agent";
 import { createConsoleReader } from "../helpers/io.js";
@@ -336,9 +328,6 @@ The ToolCallingAgent is optimized for scenarios where tool usage is the primary 
 
 {/* <!-- embedme python/examples/agents/tool_calling.py --> */}
 ```py Python [expandable]
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import logging
 import sys
@@ -404,11 +393,6 @@ if __name__ == "__main__":
 
 {/* <!-- embedme typescript/examples/agents/toolCalling/agent.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import "dotenv/config.js";
 import { createConsoleReader } from "../../helpers/io.js";
 import { FrameworkError } from "beeai-framework/errors";
@@ -495,9 +479,6 @@ For advanced use cases, you can create your own agent implementation by extendin
 
 {/* <!-- embedme python/examples/agents/custom_agent.py --> */}
 ```py Python [expandable]
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import sys
 import traceback
@@ -616,11 +597,6 @@ if __name__ == "__main__":
 
 {/* <!-- embedme typescript/examples/agents/custom_agent.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { BaseAgent, BaseAgentRunOptions } from "beeai-framework/agents/base";
 import {
   AssistantMessage,
@@ -795,9 +771,6 @@ The agent uses several templates that you can override:
 
 {/* <!-- embedme python/examples/templates/system_prompt.py --> */}
 ```py Python
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import sys
 import traceback
 
@@ -908,9 +881,6 @@ const agent = new ReActAgent({
 
 {/* <!-- embedme python/examples/memory/agent_memory.py --> */}
 ```py Python [expandable]
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import sys
 import traceback
@@ -984,11 +954,6 @@ if __name__ == "__main__":
 
 {/* <!-- embedme typescript/examples/memory/agentMemory.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { UnconstrainedMemory } from "beeai-framework/memory/unconstrainedMemory";
 import { ReActAgent } from "beeai-framework/agents/react/agent";
 import { OllamaChatModel } from "beeai-framework/adapters/ollama/backend/chat";
@@ -1048,9 +1013,6 @@ For complex applications, you can create multi-agent workflows where specialized
 
 {/* <!-- embedme python/examples/workflows/multi_agents.py --> */}
 ```py Python [expandable]
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import sys
 import traceback
@@ -1142,11 +1104,6 @@ if __name__ == "__main__":
 
 {/* <!-- embedme typescript/examples/workflows/multiAgents.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import "dotenv/config";
 import { createConsoleReader } from "examples/helpers/io.js";
 import { OpenMeteoTool } from "beeai-framework/tools/weather/openMeteo";

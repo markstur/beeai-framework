@@ -13,11 +13,6 @@ Caching is a process used to temporarily store copies of data or computations in
 {/* <!-- embedme typescript/examples/cache/unconstrainedCache.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { UnconstrainedCache } from "beeai-framework/cache/unconstrainedCache";
 
 const cache = new UnconstrainedCache();
@@ -54,11 +49,6 @@ _Source: [typescript/examples/cache/unconstrainedCache.ts](https://github.com/i-
 {/* <!-- embedme typescript/examples/cache/unconstrainedCacheFunction.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { UnconstrainedCache } from "beeai-framework/cache/unconstrainedCache";
 
 const cache = new UnconstrainedCache<number>();
@@ -88,11 +78,6 @@ _Source: [typescript/examples/cache/unconstrainedCacheFunction.ts](https://githu
 {/* <!-- embedme typescript/examples/cache/toolCache.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { SlidingCache } from "beeai-framework/cache/slidingCache";
 import { WikipediaTool } from "beeai-framework/tools/search/wikipedia";
 
@@ -121,11 +106,6 @@ Cache key is created by serializing function parameters (the order of keys in th
 {/* <!-- embedme typescript/examples/cache/llmCache.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { SlidingCache } from "beeai-framework/cache/slidingCache";
 import { OllamaChatModel } from "beeai-framework/adapters/ollama/backend/chat";
 import { UserMessage } from "beeai-framework/backend/message";
@@ -180,11 +160,6 @@ Keeps last `k` entries in the memory. The oldest ones are deleted.
 {/* <!-- embedme typescript/examples/cache/slidingCache.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { SlidingCache } from "beeai-framework/cache/slidingCache";
 
 const cache = new SlidingCache<number>({
@@ -212,11 +187,6 @@ You have to provide a location where the cache is persisted.
 {/* <!-- embedme typescript/examples/cache/fileCache.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { FileCache } from "beeai-framework/cache/fileCache";
 import * as os from "node:os";
 
@@ -243,11 +213,6 @@ Every modification to the cache (adding, deleting, clearing) immediately updates
 {/* <!-- embedme typescript/examples/cache/fileCacheCustomProvider.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { FileCache } from "beeai-framework/cache/fileCache";
 import { UnconstrainedCache } from "beeai-framework/cache/unconstrainedCache";
 import os from "node:os";
@@ -276,11 +241,6 @@ The reason for implementing is to enable [Null object pattern](https://en.wikipe
 {/* <!-- embedme typescript/examples/cache/decoratorCache.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { Cache } from "beeai-framework/cache/decoratorCache";
 
 class Generator {
@@ -305,11 +265,6 @@ _Source: [typescript/examples/cache/decoratorCache.ts](https://github.com/i-am-b
 {/* <!-- embedme typescript/examples/cache/decoratorCacheComplex.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { Cache, SingletonCacheKeyFn } from "beeai-framework/cache/decoratorCache";
 
 class MyService {
@@ -355,11 +310,6 @@ provides a way how to do caching on a function level.
 {/* <!-- embedme typescript/examples/cache/cacheFn.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { CacheFn } from "beeai-framework/cache/decoratorCache";
 import { setTimeout } from "node:timers/promises";
 
@@ -393,11 +343,6 @@ To create your cache implementation, you must implement the `BaseCache` class.
 {/* <!-- embedme typescript/examples/cache/custom.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { BaseCache } from "beeai-framework/cache/base";
 import { NotImplementedError } from "beeai-framework/errors";
 

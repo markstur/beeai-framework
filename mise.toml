@@ -20,7 +20,7 @@ depends = ["common:check:*"]
 
 [tasks."common:check:license"]
 dir = "{{config_root}}"
-run = "addlicense -check -l apache -s=only -c '© BeeAI a Series of LF Projects, LLC' $(fd '\\.(py|[jt]sx?|html|s?css)$' docs* python typescript)"
+run = "addlicense -check -l apache -s=only -c '© BeeAI a Series of LF Projects, LLC' $(fd --exclude examples '\\.(py|[jt]sx?|html|s?css)$' docs docs-deprecated python typescript)"
 
 ### fix
 
@@ -29,5 +29,4 @@ depends = ["common:fix:*"]
 
 [tasks."common:fix:license"]
 dir = "{{config_root}}"
-run = "addlicense -l apache -s=only -c '© BeeAI a Series of LF Projects, LLC' $(fd '\\.(py|[jt]sx?|html|s?css)$' docs* python typescript)"
-
+run = "addlicense -l apache -s=only -c '© BeeAI a Series of LF Projects, LLC' $(fd --exclude examples '\\.(py|[jt]sx?|html|s?css)$' docs docs-deprecated python typescript)"

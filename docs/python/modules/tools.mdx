@@ -64,9 +64,6 @@ The simplest way to use a tool is to instantiate it directly and call its `run()
 {/* <!-- embedme python/examples/tools/base.py --> */}
 
 ```py
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import sys
 from datetime import date
@@ -100,9 +97,6 @@ Tools often support additional configuration options to customize their behavior
 
 {/* <!-- embedme python/examples/tools/advanced.py --> */}
 ```py
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import sys
 import traceback
@@ -144,9 +138,6 @@ The true power of tools emerges when integrating them with agents. Tools extend 
 {/* <!-- embedme python/examples/tools/agent.py --> */}
 
 ```py
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 from beeai_framework.adapters.ollama import OllamaChatModel
 from beeai_framework.agents.react import ReActAgent
 from beeai_framework.memory import UnconstrainedMemory
@@ -165,9 +156,6 @@ For simpler tools, you can use the `tool` decorator to quickly create a tool fro
 {/* <!-- embedme python/examples/tools/decorator.py --> */}
 
 ```py
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import json
 import sys
@@ -248,9 +236,6 @@ Use the DuckDuckGo search tool to retrieve real-time search results from across 
 {/* <!-- embedme python/examples/tools/duckduckgo.py --> */}
 
 ```py
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import sys
 import traceback
@@ -292,9 +277,6 @@ Use the OpenMeteo tool to retrieve real-time weather forecasts including detaile
 {/* <!-- embedme python/examples/tools/openmeteo.py --> */}
 
 ```py
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import sys
 import traceback
@@ -336,9 +318,6 @@ Use the Wikipedia tool to retrieve detailed information from Wikipedia.org on a 
 {/* <!-- embedme python/examples/tools/wikipedia.py --> */}
 
 ```py
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import sys
 import traceback
@@ -382,9 +361,6 @@ Check out the [MCP Slack integration tutorial](/python/tutorials.mdx#slack-integ
 {/* <!-- embedme python/examples/tools/mcp_tool_creation.py --> */}
 
 ```py
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import os
 
@@ -456,9 +432,6 @@ Key components:
 {/* <!-- embedme python/examples/tools/python_tool.py --> */}
 
 ```py
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import os
 import sys
@@ -524,9 +497,6 @@ This tool requires [beeai-code-interpreter](https://github.com/i-am-bee/bee-code
 {/* <!-- embedme python/examples/tools/custom/sandbox.py --> */}
 
 ```py
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import os
 import sys
@@ -622,9 +592,6 @@ Here's an example of a simple custom tool that provides riddles:
 {/* <!-- embedme python/examples/tools/custom/base.py --> */}
 
 ```py
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import random
 import sys
@@ -708,9 +675,6 @@ For more complex scenarios, you can implement tools with robust input validation
 {/* <!-- embedme python/examples/tools/custom/openlibrary.py --> */}
 
 ```py
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import sys
 from typing import Any

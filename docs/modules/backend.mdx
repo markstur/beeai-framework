@@ -54,9 +54,6 @@ The `Backend` class serves as a central entry point to access models from your c
 
 {/* <!-- embedme python/examples/backend/providers/watsonx.py --> */}
 ```py Python [expandable]
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import json
 import sys
@@ -228,11 +225,6 @@ if __name__ == "__main__":
 
 {/* <!-- embedme typescript/examples/backend/providers/watsonx.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import "dotenv/config.js";
 import { CustomMessage, ToolMessage, UserMessage } from "beeai-framework/backend/message";
 import { WatsonxChatModel } from "beeai-framework/adapters/watsonx/backend/chat";
@@ -436,9 +428,6 @@ You can configure various parameters for your chat model:
 
 {/* <!-- embedme python/examples/backend/chat.py --> */}
 ```python Python
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import sys
 import traceback
@@ -483,11 +472,6 @@ if __name__ == "__main__":
 
 {/* <!-- embedme typescript/examples/backend/chat.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import "dotenv/config.js";
 import { createConsoleReader } from "examples/helpers/io.js";
 import { UserMessage } from "beeai-framework/backend/message";
@@ -586,11 +570,6 @@ print("Full response", response.get_text_content())
 
 {/* <!-- embedme typescript/examples/backend/chatStream.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import "dotenv/config.js";
 import { createConsoleReader } from "examples/helpers/io.js";
 import { UserMessage } from "beeai-framework/backend/message";
@@ -630,9 +609,6 @@ Generate structured data according to a schema:
 
 {/* <!-- embedme python/examples/backend/structured.py --> */}
 ```py Python [expandable]
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import json
 import sys
@@ -683,11 +659,6 @@ if __name__ == "__main__":
 
 {/* <!-- embedme typescript/examples/backend/structured.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { ChatModel, UserMessage } from "beeai-framework/backend/core";
 import { z } from "zod";
 
@@ -721,9 +692,6 @@ Integrate external tools with your AI model:
 
 {/* <!-- embedme python/examples/backend/tool_calling.py --> */}
 ```py Python [expandable]
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import json
 import re
@@ -801,11 +769,6 @@ if __name__ == "__main__":
 
 {/* <!-- embedme typescript/examples/backend/toolCalling.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import "dotenv/config";
 import {
   ChatModel,
@@ -965,11 +928,6 @@ Example coming soon
 
 {/* <!-- embedme typescript/examples/backend/providers/langchain.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 // NOTE: ensure you have installed following packages
 // - @langchain/core
 // - @langchain/cohere (or any other provider related package that you would like to use)

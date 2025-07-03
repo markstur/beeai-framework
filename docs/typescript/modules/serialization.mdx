@@ -10,11 +10,6 @@ Serialization is a difficult task, and JavaScript does not provide a magic tool 
 {/* <!-- embedme typescript/examples/serialization/base.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { Serializer } from "beeai-framework/serializer/serializer";
 
 const original = new Date("2024-01-01T00:00:00.000Z");
@@ -47,11 +42,6 @@ See the direct usage on the following memory example.
 {/* <!-- embedme typescript/examples/serialization/memory.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { TokenMemory } from "beeai-framework/memory/tokenMemory";
 import { AssistantMessage, UserMessage } from "beeai-framework/backend/message";
 
@@ -75,11 +65,6 @@ However, you can tell the `Serializer` how to work with your class by registerin
 {/* <!-- embedme typescript/examples/serialization/customExternal.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { Serializer } from "beeai-framework/serializer/serializer";
 
 class MyClass {
@@ -115,11 +100,6 @@ or you can extend the `Serializable` class.
 {/* <!-- embedme typescript/examples/serialization/customInternal.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { Serializable } from "beeai-framework/internals/serializable";
 
 class MyClass extends Serializable {
@@ -163,11 +143,6 @@ Most framework components are `Serializable`.
 {/* <!-- embedme typescript/examples/serialization/context.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { UnconstrainedMemory } from "beeai-framework/memory/unconstrainedMemory";
 import { UserMessage } from "beeai-framework/backend/message";
 
