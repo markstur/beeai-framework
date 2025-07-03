@@ -31,7 +31,6 @@ logger.info("Info!");
 logger.warn("Warning!");
 logger.error("Error!");
 logger.fatal("Fatal!");
-
 ```
 
 _Source: [typescript/examples/logger/base.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/logger/base.ts)_
@@ -72,7 +71,6 @@ const agent = new ReActAgent({
 
 const response = await agent.run({ prompt: "Hello!" });
 logger.info(response.result.text);
-
 ```
 
 _Source: [typescript/examples/logger/agent.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/logger/agent.ts)_
@@ -100,7 +98,6 @@ const frameworkLogger = new Logger(
   },
   customLogger, // Pass the custom pino instance
 );
-
 ```
 
 _Source: [typescript/examples/logger/pino.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/logger/pino.ts)_

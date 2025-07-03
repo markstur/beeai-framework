@@ -18,7 +18,6 @@ const deserialized = await Serializer.deserialize(serialized);
 
 console.info(deserialized instanceof Date); // true
 console.info(original.toISOString() === deserialized.toISOString()); // true
-
 ```
 
 _Source: [typescript/examples/serialization/base.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/tools/base.ts)_
@@ -52,7 +51,6 @@ const serialized = await memory.serialize();
 const deserialized = await TokenMemory.fromSerialized(serialized);
 
 await deserialized.add(new AssistantMessage("Bee"));
-
 ```
 
 _Source: [typescript/examples/serialization/memory.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/serialization/memory.ts)_
@@ -90,7 +88,6 @@ const deserialized = await Serializer.deserialize<MyClass>(serialized);
 
 console.info(instance);
 console.info(deserialized);
-
 ```
 
 _Source: [typescript/examples/serialization/customExternal.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/serialization/customExternal.ts)_
@@ -129,7 +126,6 @@ const deserialized = await MyClass.fromSerialized(serialized);
 
 console.info(instance);
 console.info(deserialized);
-
 ```
 
 _Source: [typescript/examples/serialization/customInternal.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/serialization/customInternal.ts)_
@@ -155,7 +151,6 @@ const memory = await UnconstrainedMemory.fromSerialized(serialized, {
   extraClasses: [UserMessage],
 });
 console.info(memory.messages);
-
 ```
 
 _Source: [typescript/examples/serialization/context.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/serialization/context.ts)_
