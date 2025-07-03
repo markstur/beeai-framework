@@ -44,9 +44,6 @@ The simplest way to use a tool is to instantiate it directly and call its `run()
 
 {/* <!-- embedme python/examples/tools/base.py --> */}
 ```py Python [expandable]
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import sys
 from datetime import date
@@ -74,11 +71,6 @@ if __name__ == "__main__":
 
 {/* <!-- embedme typescript/examples/tools/base.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { OpenMeteoTool } from "beeai-framework/tools/weather/openMeteo";
 
 const tool = new OpenMeteoTool();
@@ -101,9 +93,6 @@ Tools often support additional configuration options to customize their behavior
 
 {/* <!-- embedme python/examples/tools/advanced.py --> */}
 ```py Python [expandable]
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import sys
 import traceback
@@ -134,11 +123,6 @@ if __name__ == "__main__":
 
 {/* <!-- embedme typescript/examples/tools/advanced.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { OpenMeteoTool } from "beeai-framework/tools/weather/openMeteo";
 import { UnconstrainedCache } from "beeai-framework/cache/unconstrainedCache";
 
@@ -175,9 +159,6 @@ The true power of tools emerges when integrating them with agents. Tools extend 
 
 {/* <!-- embedme python/examples/tools/agent.py --> */}
 ```py Python [expandable]
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 from beeai_framework.adapters.ollama import OllamaChatModel
 from beeai_framework.agents.react import ReActAgent
 from beeai_framework.memory import UnconstrainedMemory
@@ -189,11 +170,6 @@ agent = ReActAgent(llm=OllamaChatModel("llama3.1"), tools=[OpenMeteoTool()], mem
 
 {/* <!-- embedme typescript/examples/tools/agent.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { ArXivTool } from "beeai-framework/tools/arxiv";
 import { ReActAgent } from "beeai-framework/agents/react/agent";
 import { UnconstrainedMemory } from "beeai-framework/memory/unconstrainedMemory";
@@ -215,9 +191,6 @@ For simpler tools, you can use the `tool` decorator to quickly create a tool fro
 
 {/* <!-- embedme python/examples/tools/decorator.py --> */}
 ```py Python [expandable]
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import json
 import sys
@@ -295,9 +268,6 @@ Use the DuckDuckGo search tool to retrieve real-time search results from across 
 
 {/* <!-- embedme python/examples/tools/duckduckgo.py --> */}
 ```py Python [expandable]
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import sys
 import traceback
@@ -329,11 +299,6 @@ if __name__ == "__main__":
 
 {/* <!-- embedme typescript/examples/tools/custom/extending.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { z } from "zod";
 import {
   DuckDuckGoSearchTool,
@@ -380,9 +345,6 @@ Use the OpenMeteo tool to retrieve real-time weather forecasts including detaile
 
 {/* <!-- embedme python/examples/tools/openmeteo.py --> */}
 ```py Python [expandable]
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import sys
 import traceback
@@ -413,11 +375,6 @@ if __name__ == "__main__":
 ```
 {/* <!-- embedme typescript/examples/tools/base.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { OpenMeteoTool } from "beeai-framework/tools/weather/openMeteo";
 
 const tool = new OpenMeteoTool();
@@ -438,9 +395,6 @@ Use the Wikipedia tool to retrieve detailed information from Wikipedia.org on a 
 <CodeGroup>
 {/* <!-- embedme python/examples/tools/wikipedia.py --> */}
 ```py Python [expandable]
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import sys
 import traceback
@@ -470,11 +424,6 @@ if __name__ == "__main__":
 
 {/* <!-- embedme typescript/examples/tools/custom/piping.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { WikipediaTool } from "beeai-framework/tools/search/wikipedia";
 import { SimilarityTool } from "beeai-framework/tools/similarity";
 import { splitString } from "beeai-framework/internals/helpers/string";
@@ -533,9 +482,6 @@ Check out the [MCP Slack integration tutorial](/guides/slack-integration)
 
 {/* <!-- embedme python/examples/tools/mcp_tool_creation.py --> */}
 ```py Python [expandable]
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import os
 
@@ -578,11 +524,6 @@ agent = ReActAgent(llm=OllamaChatModel("llama3.1"), tools=[asyncio.run(slack_too
 
 {/* <!-- embedme typescript/examples/tools/mcp.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { MCPTool } from "beeai-framework/tools/mcp";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
@@ -661,9 +602,6 @@ Key components:
 
 {/* <!-- embedme python/examples/tools/python_tool.py --> */}
 ```py Python [expandable]
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import os
 import sys
@@ -716,11 +654,6 @@ if __name__ == "__main__":
 
 {/* <!-- embedme typescript/examples/tools/custom/python.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import "dotenv/config";
 import { CustomTool } from "beeai-framework/tools/custom";
 
@@ -773,9 +706,6 @@ Get started quickly with [beeai-framework-py-starter](https://github.com/i-am-be
 
 {/* <!-- embedme python/examples/tools/custom/sandbox.py --> */}
 ```py Python [expandable]
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import os
 import sys
@@ -837,11 +767,6 @@ if __name__ == "__main__":
 
 {/* <!-- embedme typescript/examples/tools/custom/python.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import "dotenv/config";
 import { CustomTool } from "beeai-framework/tools/custom";
 
@@ -911,9 +836,6 @@ Here's an example of a simple custom tool that provides riddles:
 
 {/* <!-- embedme python/examples/tools/custom/base.py --> */}
 ```py Python [expandable]
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import random
 import sys
@@ -980,11 +902,6 @@ if __name__ == "__main__":
 
 {/* <!-- embedme typescript/examples/tools/custom/python.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import "dotenv/config";
 import { CustomTool } from "beeai-framework/tools/custom";
 
@@ -1039,9 +956,6 @@ For more complex scenarios, you can implement tools with robust input validation
 <CodeGroup>
 {/* <!-- embedme python/examples/tools/custom/openlibrary.py --> */}
 ```py Python [expandable]
-# Copyright 2025 © BeeAI a Series of LF Projects, LLC
-# SPDX-License-Identifier: Apache-2.0
-
 import asyncio
 import sys
 from typing import Any
@@ -1130,11 +1044,6 @@ if __name__ == "__main__":
 ```
 {/* <!-- embedme typescript/examples/tools/custom/openLibrary.ts --> */}
 ```ts TypeScript [expandable]
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import {
   BaseToolOptions,
   BaseToolRunOptions,

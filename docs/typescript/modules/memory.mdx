@@ -13,11 +13,6 @@ Memory in the context of an agent refers to the system's capability to store, re
 {/* <!-- embedme typescript/examples/memory/base.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { UnconstrainedMemory } from "beeai-framework/memory/unconstrainedMemory";
 import { AssistantMessage, SystemMessage, UserMessage } from "beeai-framework/backend/message";
 
@@ -43,11 +38,6 @@ _Source: [typescript/examples/memory/base.ts](https://github.com/i-am-bee/beeai-
 {/* <!-- embedme typescript/examples/memory/llmMemory.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { UnconstrainedMemory } from "beeai-framework/memory/unconstrainedMemory";
 import { Message } from "beeai-framework/backend/message";
 import { OllamaChatModel } from "beeai-framework/adapters/ollama/backend/chat";
@@ -84,11 +74,6 @@ Memory for non-chat LLMs works exactly the same way.
 {/* <!-- embedme typescript/examples/memory/agentMemory.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { UnconstrainedMemory } from "beeai-framework/memory/unconstrainedMemory";
 import { ReActAgent } from "beeai-framework/agents/react/agent";
 import { OllamaChatModel } from "beeai-framework/adapters/ollama/backend/chat";
@@ -135,11 +120,6 @@ Unlimited in size.
 {/* <!-- embedme typescript/examples/memory/unconstrainedMemory.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { UnconstrainedMemory } from "beeai-framework/memory/unconstrainedMemory";
 import { Message } from "beeai-framework/backend/message";
 
@@ -166,11 +146,6 @@ Keeps last `k` entries in the memory. The oldest ones are deleted (unless specif
 {/* <!-- embedme typescript/examples/memory/slidingMemory.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { SlidingMemory } from "beeai-framework/memory/slidingMemory";
 import { Message } from "beeai-framework/backend/message";
 
@@ -205,11 +180,6 @@ If overflow occurs, the oldest message will be removed.
 {/* <!-- embedme typescript/examples/memory/tokenMemory.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { TokenMemory } from "beeai-framework/memory/tokenMemory";
 import { Message } from "beeai-framework/backend/message";
 
@@ -245,11 +215,6 @@ Only a single summarization of the conversation is preserved. Summarization is u
 {/* <!-- embedme typescript/examples/memory/summarizeMemory.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { Message } from "beeai-framework/backend/message";
 import { SummarizeMemory } from "beeai-framework/memory/summarizeMemory";
 import { OllamaChatModel } from "beeai-framework/adapters/ollama/backend/chat";
@@ -280,11 +245,6 @@ To create your memory implementation, you must implement the `BaseMemory` class.
 {/* <!-- embedme typescript/examples/memory/custom.ts --> */}
 
 ```ts
-/**
- * Copyright 2025 © BeeAI a Series of LF Projects, LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { BaseMemory } from "beeai-framework/memory/base";
 import { Message } from "beeai-framework/backend/message";
 import { NotImplementedError } from "beeai-framework/errors";
