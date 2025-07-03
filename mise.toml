@@ -1,5 +1,4 @@
 [tools]
-python = "3.11"
 fd = "latest"
 "ubi:google/addlicense" = "latest"
 
