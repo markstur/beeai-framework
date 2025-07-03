@@ -39,7 +39,6 @@ console.log(await cache.has("a")); // false
 // Clear
 await cache.clear();
 console.log(await cache.size()); // 0
-
 ```
 
 _Source: [typescript/examples/cache/unconstrainedCache.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/unconstrainedCache.ts)_
@@ -68,7 +67,6 @@ async function fibonacci(n: number): Promise<number> {
 console.info(await fibonacci(10)); // 55
 console.info(await fibonacci(9)); // 34 (retrieved from cache)
 console.info(`Cache size ${await cache.size()}`); // 10
-
 ```
 
 _Source: [typescript/examples/cache/unconstrainedCacheFunction.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/unconstrainedCacheFunction.ts)_
@@ -92,7 +90,6 @@ const response = await ddg.run({
   query: "United States",
 });
 // upcoming requests with the EXACTLY same input will be retrieved from the cache
-
 ```
 
 _Source: [typescript/examples/cache/toolCache.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/toolCache.ts)_
@@ -131,7 +128,6 @@ const second = await llm.create({
 });
 console.info(first.getTextContent() === second.getTextContent()); // true
 console.info(await llm.cache.size()); // 1
-
 ```
 
 _Source: [typescript/examples/cache/llmCache.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/llmCache.ts)_
@@ -174,7 +170,6 @@ await cache.set("c", 3);
 await cache.set("d", 4); // overflow - cache internally removes the oldest entry (key "a")
 console.log(await cache.has("a")); // false
 console.log(await cache.size()); // 3
-
 ```
 
 _Source: [typescript/examples/cache/slidingCache.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/slidingCache.ts)_
@@ -195,7 +190,6 @@ const cache = new FileCache({
 });
 console.log(`Saving cache to "${cache.source}"`);
 await cache.set("abc", { firstName: "John", lastName: "Doe" });
-
 ```
 
 _Source: [typescript/examples/cache/fileCache.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/fileCache.ts)_
@@ -225,7 +219,6 @@ const fileCache = await FileCache.fromProvider(memoryCache, {
 });
 console.log(`Saving cache to "${fileCache.source}"`);
 console.log(await fileCache.get("a")); // 1
-
 ```
 
 _Source: [typescript/examples/cache/fileCacheCustomProvider.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/fileCacheCustomProvider.ts)_
@@ -255,7 +248,6 @@ const a = generator.get(5);
 const b = generator.get(5);
 console.info(a === b); // true
 console.info(a === generator.get(6)); // false
-
 ```
 
 _Source: [typescript/examples/cache/decoratorCache.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/decoratorCache.ts)_
@@ -288,7 +280,6 @@ const a = service.id;
 console.info(a === service.id); // true
 service.reset();
 console.info(a === service.id); // false
-
 ```
 
 _Source: [typescript/examples/cache/decoratorCacheComplex.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/decoratorCacheComplex.ts)_
@@ -327,7 +318,6 @@ const token = await getSecret();
 console.info(token === (await getSecret())); // true
 await setTimeout(150);
 console.info(token === (await getSecret())); // false
-
 ```
 
 _Source: [typescript/examples/cache/cacheFn.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/cacheFn.ts)_
@@ -379,7 +369,6 @@ export class CustomCache<T> extends BaseCache<T> {
     throw new NotImplementedError();
   }
 }
-
 ```
 
 _Source: [typescript/examples/cache/custom.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/cache/custom.ts)_

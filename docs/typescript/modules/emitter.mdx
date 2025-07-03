@@ -24,7 +24,6 @@ root.match("*.*", async (data: unknown, event: EventMeta) => {
 
 await root.emit("start", { id: 123 });
 await root.emit("end", { id: 123 });
-
 ```
 
 _Source: [typescript/examples/emitter/base.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/emitter/base.ts)_
@@ -67,7 +66,6 @@ emitter.on("update", async (data, event: EventMeta) => {
 
 await emitter.emit("start", { id: 123 });
 await emitter.emit("update", { id: 123, data: "Hello Bee!" });
-
 ```
 
 _Source: [typescript/examples/emitter/advanced.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/emitter/advanced.ts)_
@@ -110,7 +108,6 @@ emitter.match(
 
 // Match events by regex
 emitter.match(/watsonx/, async (data, event) => {});
-
 ```
 
 _Source: [typescript/examples/emitter/matchers.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/emitter/matchers.ts)_
@@ -152,7 +149,6 @@ unpipe();
 
 await first.emit("c", {});
 await second.emit("d", {});
-
 ```
 
 _Source: [typescript/examples/emitter/piping.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/emitter/piping.ts)_
@@ -189,7 +185,6 @@ await agent
       console.info(`RUN LOG: received event '${event.path}'`);
     });
   });
-
 ```
 
 _Source: [typescript/examples/emitter/agentMatchers.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/emitter/agentMatchers.ts)_

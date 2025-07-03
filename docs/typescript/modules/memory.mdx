@@ -28,7 +28,6 @@ console.info(memory.isEmpty()); // false
 console.info(memory.messages); // prints all saved messages
 console.info(memory.asReadOnly()); // returns a NEW read only instance
 memory.reset(); // removes all messages
-
 ```
 
 _Source: [typescript/examples/memory/base.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/memory/base.ts)_
@@ -60,7 +59,6 @@ console.log(`Conversation history`);
 for (const message of memory) {
   console.log(`${message.role}: ${message.text}`);
 }
-
 ```
 
 _Source: [typescript/examples/memory/llmMemory.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/memory/llmMemory.ts)_
@@ -92,7 +90,6 @@ console.info(`User: ${userMessage.text}`); // User: Hello world!
 
 const agentMessage = agent.memory.messages[1];
 console.info(`Agent: ${agentMessage.text}`); // Agent: Hello! It's nice to chat with you.
-
 ```
 
 _Source: [typescript/examples/memory/agentMemory.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/memory/agentMemory.ts)_
@@ -134,7 +131,6 @@ await memory.add(
 console.info(memory.isEmpty()); // false
 console.log(memory.messages.length); // 1
 console.log(memory.messages);
-
 ```
 
 _Source: [typescript/examples/memory/unconstrainedMemory.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/memory/unconstrainedMemory.ts)_
@@ -167,7 +163,6 @@ await memory.add(Message.of({ role: "assistant", text: "French" })); // removes 
 console.info(memory.isEmpty()); // false
 console.log(memory.messages.length); // 3
 console.log(memory.messages);
-
 ```
 
 _Source: [typescript/examples/memory/slidingMemory.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/memory/slidingMemory.ts)_
@@ -203,7 +198,6 @@ console.info(memory.isDirty); // is the consumed token count estimated or retrie
 console.log(memory.tokensUsed); // number of used tokens
 console.log(memory.stats()); // prints statistics
 await memory.sync(); // calculates real token usage for all messages marked as "dirty"
-
 ```
 
 _Source: [typescript/examples/memory/tokenMemory.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/memory/tokenMemory.ts)_
@@ -233,7 +227,6 @@ await memory.addMany([
 console.info(memory.isEmpty()); // false
 console.log(memory.messages.length); // 1
 console.log(memory.messages[0].text); // The capital city of France is Paris, ...
-
 ```
 
 _Source: [typescript/examples/memory/summarizeMemory.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/memory/summarizeMemory.ts)_
@@ -274,7 +267,6 @@ export class MyMemory extends BaseMemory {
     throw new NotImplementedError("Method not implemented.");
   }
 }
-
 ```
 
 _Source: [typescript/examples/memory/custom.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/memory/custom.ts)_

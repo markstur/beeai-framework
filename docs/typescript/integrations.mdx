@@ -66,7 +66,6 @@ for await (const { prompt } of reader) {
   reader.write(`-> solved by `, steps.at(-1)!.name);
   await memory.add(Message.of({ role: "assistant", text: result.answer }));
 }
-
 ```
 
 _Source: [typescript/examples/integrations/langgraph.ts](https://github.com/i-am-bee/beeai-framework/blob/main/typescript/examples/integrations/langgraph.ts)_
